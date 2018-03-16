@@ -1,0 +1,332 @@
+options {
+	MULTI = true;
+	DEBUG_PARSER = false;
+}
+
+PARSER_BEGIN(parser)
+
+	import java.io.*;
+	public class parser{
+
+		public static void main(String[] args) {
+			String everything;
+			
+            parser xparser;
+            
+			
+			if(args.length == 0){
+				System.out.println("Parser, reading the input...");
+				xparser = new parser(System.in);
+			}else if(args.length == 1){
+				System.out.println("Parser: Reading the file " + args[0]);
+				try{
+					xparser = new parser(new java.io.FileInputStream(args[0]));
+				}catch(java.io.FileNotFoundException e){
+					System.out.println("Parser, The file" + args[0] + "was not found");
+					return;
+
+				}
+			}else{
+				System.out.println ("Parser:  You must use one of the following:");
+        		System.out.println ("         java parser < file");
+        		System.out.println ("Or");
+        		System.out.println ("         java parser file");
+        		return ;
+			}try {
+                SimpleNode root = xparser.module();
+                root.dump("");
+				
+			}catch(ParseException e){
+				System.out.println ("Parser: There was an error during the parse.");
+				System.out.println (e.getMessage());
+			}
+			catch(TokenMgrError e){
+				System.out.println ("Parser: There was an error.");
+				System.out.println (e.getMessage());
+			}
+		}
+	}
+
+
+PARSER_END(parser)
+
+SKIP : {
+	" "
+	| "\t"
+	| "\n"
+	| "\r"
+	| <"//" (~["\n","\r"])* ("\n" | "\r" | "\r\n")>
+	| <"/*" (~["*"])* "*" ("*" | ~["*","/"] (~["*"])* "*")* "/">
+}
+
+/* reserved words */
+TOKEN : {
+<RELA_OP: ">" | "<" | "<=" | ">=" | "==" | "!=">
+| <ADDSUB_OP: "+" | "-">
+| <ARITH_OP: "*" | "/" | "<<" | ">>" | ">>>">
+| <BITWISE_OP: "&" | "|" | "^">
+| <NOT_OP: "!">
+| <WHILE: "while">
+| <IF: "if">
+| <ELSE: "else">
+| <ASSIGN: "=">
+| <ASPA: "\"">
+| <LPAR: "(">
+| <RPAR: ")">
+| <VIRG: ",">
+| <PVIRG: ";">
+| <LCHAVETA: "{">
+| <RCHAVETA: "}">
+| <FUNCTION: "function">
+| <MODULE: "module">
+| <SIZE: "size">
+}
+
+TOKEN : {
+<INTEGER: (<DIGIT>)+>
+| <ID: <LETTER> (<LETTER> | <DIGIT>)*>
+| <#LETTER: ["$","A"-"Z","_","a"-"z"]>
+| <#DIGIT: ["0"-"9"]>
+| <STRING: "\"" (["a"-"z","A"-"Z","0"-"9",":"," ","="])+ "\"">
+}
+
+//Function used to skip tokens until kind. This returns the last token that is kind
+JAVACODE
+Token error_skipto(int kind, ParseException e) {
+	
+	System.out.println(e.toString());
+	Token t;
+	do{
+		t=getNextToken();
+	}while(t.kind != kind);
+
+	return t;
+}
+
+//Function used to skip tokens until kind or kind2. This returns the last token that is kind or kind2
+JAVACODE 
+Token error_skipto2(int kind, int kind2, ParseException e) { 
+   
+  System.out.println(e.toString()); 
+  Token t; 
+  do{ 
+     
+    t=getNextToken(); 
+  }while(t.kind != kind && t.kind != kind2); 
+
+  return t;
+}
+
+SimpleNode module(): {Token t;}  
+{
+	try {
+		<MODULE> t=<ID> {jjtThis.moduleName = t.image;} <LCHAVETA> (Declaration())* (
+			Function())* <RCHAVETA> 
+	} catch (ParseException e) {
+		error_skipto(RCHAVETA, e);
+	} 
+	{return jjtThis;}
+}
+
+void Declaration() : {Token t,v;}
+{
+	Element() 
+	(( <ASSIGN> (("[" ArraySize() "]") | 
+	( (t=<ADDSUB_OP> {jjtThis.signal = t.image;})? (v=<INTEGER>){jjtThis.value=Integer.parseInt(v.image);})) ) #declarationValue)? <PVIRG>
+}
+
+void Function() : {Token t = null, v = null;}
+{
+	
+	try{
+	 <FUNCTION> (t=<ID>)
+	}catch(ParseException e){
+		t = error_skipto(ID, e);
+	}
+	try{
+	( ( (ArrayElement(){jjtThis.returnArray = true;})? <ASSIGN> (v=<ID>) <LPAR> (Varlist())? <RPAR> ) | (<LPAR> ( Varlist() )? <RPAR> ) )
+		
+	}catch(ParseException e){
+		
+		error_skipto(RPAR, e);
+	}
+	
+	try{
+		<LCHAVETA> Stmtlst() <RCHAVETA>
+	}catch(ParseException e){
+		
+		error_skipto(RCHAVETA, e);
+	}
+	
+ 	{
+		if(v == null) {
+			jjtThis.functionName = t.image;
+		} else {
+			jjtThis.returnValue = t.image;
+			jjtThis.functionName = v.image;
+		}
+	 }
+}
+
+void Element() :{Token t;}
+{
+	(t=<ID> {jjtThis.id = t.image;}) ((ArrayElement() {jjtThis.isArray = true;}) | {})
+}
+
+void Varlist() : {}
+{
+	Element() ( <VIRG> Element())*
+}
+
+void ArrayElement() #void : {}
+{
+	"[" "]"
+}
+
+
+void Stmtlst() : {}
+{
+	 ( Stmt() )*
+	 
+}
+
+void Stmt() #void : {}
+{
+	
+	While() 
+	| 
+	If() 
+	| 
+	try{	
+		(( (LOOKAHEAD(3) Call() | Assign() )) <PVIRG>)
+	}catch(ParseException e){
+		
+		Token bracket = error_skipto2(PVIRG, LCHAVETA, e);
+		if(bracket.kind == LCHAVETA)
+			Phantom();
+
+	}	
+}
+
+void Phantom() : {}
+{
+	
+	Stmtlst() <RCHAVETA>
+	
+}
+
+
+void Call() : {Token t,v;}
+{
+	t=<ID>{jjtThis.caller = t.image;} ( "." v=<ID>{jjtThis.isCaller = true; jjtThis.functionCalled = v.image;} )? 
+	<LPAR> ( ArgumentList() )? <RPAR>
+	
+}
+
+
+void Assign() : {}
+{
+	Lhs() <ASSIGN> Rhs()
+}
+
+void Lhs() : {}
+{
+	Access()
+
+}
+
+void Rhs() : {Token t;}
+{
+	( Term() ( ( (t=<ARITH_OP> {jjtThis.operator=t.image;}) | 
+	(t=<BITWISE_OP> {jjtThis.operator = t.image;}) | 
+	(t=<ADDSUB_OP> {jjtThis.operator = t.image;}) ) Term() )? )
+		| "[" ArraySize() "]"
+
+}
+
+void ArraySize() : {Token t;}
+{
+	((t=<ID> {jjtThis.nan = Boolean.valueOf(ScalarAccess()); jjtThis.sizeVar = t.image;}) | 
+	(t = <INTEGER> {jjtThis.size = Integer.parseInt(t.image);}))
+}
+
+void Term()  : {Token t,v;}
+{
+	( ( t=<ADDSUB_OP> {jjtThis.operation = t.image;} )? 
+	( (v=<INTEGER>{jjtThis.value = Integer.parseInt(v.image);}) | LOOKAHEAD(3) Call() | Access()) ) 
+}
+
+void Exprtest()  : {Token t;}
+{
+	
+	try{
+	<LPAR> Lhs() (t=<RELA_OP> {jjtThis.operator = t.image;})Rhs() <RPAR>
+	}catch(ParseException e){
+		
+		error_skipto(RPAR, e);
+	}
+}
+
+void While() : {}
+{
+	<WHILE>
+	try{
+	Exprtest() <LCHAVETA>
+	}catch(ParseException e){
+		error_skipto(LCHAVETA, e);
+	}
+	
+	try{
+	 Stmtlst() <RCHAVETA>
+	}catch(ParseException e){
+		error_skipto(RCHAVETA, e);
+	}
+}
+
+void If() : {}
+{
+	try{
+		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA> 
+	}catch(ParseException e){
+		error_skipto(RCHAVETA, e);
+	}
+	try{
+		( (<ELSE> <LCHAVETA> Stmtlst() <RCHAVETA>) #Else )?
+	}catch(ParseException e){
+		error_skipto(PVIRG, e);
+	}
+}
+
+void ArgumentList() #void : {}
+{
+	
+	Argument() ( <VIRG> Argument() )*
+	
+	
+}
+
+void Argument() : {Token t;}
+{
+	( (t=<ID>{jjtThis.argumentValue = t.image;}) | 
+	(t=<STRING>{jjtThis.argumentValue = t.image;}) | 
+	(t=<INTEGER>{jjtThis.argumentValue = t.image;}) )
+}
+
+void Access() : {Token t;}{
+	(t=<ID>{jjtThis.accessValue = t.image;}  (ArrayAccess()| {jjtThis.isSize = Boolean.valueOf(ScalarAccess());}))
+}
+
+void ArrayAccess() #void: {}
+{
+	"[" Index() "]"
+}
+
+boolean ScalarAccess() #void: {}
+{
+	(("." <SIZE> {return true;}) |({} {return false;}))
+}
+
+void Index() : {Token t;}
+{
+	((t=<ID> {jjtThis.value = t.image;}) | (t=<INTEGER> {jjtThis.isInt = true; jjtThis.value = t.image;}))
+}
