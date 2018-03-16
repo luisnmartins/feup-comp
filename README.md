@@ -9,7 +9,9 @@ COMP Group56
 Run the following commands on command line:
 
 jjtree parser.jjt
+
 javacc parser.jj
+
 javac *.java
 
 And then test a file:
