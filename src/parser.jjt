@@ -6,10 +6,11 @@ options {
 PARSER_BEGIN(parser)
 
 	import java.io.*;
-	public class parser{
 
+	
+	public class parser{
+		public static String filename;
 		public static void main(String[] args) {
-			String everything;
 			
             parser xparser;
             
@@ -19,6 +20,7 @@ PARSER_BEGIN(parser)
 				xparser = new parser(System.in);
 			}else if(args.length == 1){
 				System.out.println("Parser: Reading the file " + args[0]);
+				filename = args[0];
 				try{
 					xparser = new parser(new java.io.FileInputStream(args[0]));
 				}catch(java.io.FileNotFoundException e){
@@ -93,7 +95,6 @@ TOKEN : {
 //Function used to skip tokens until kind. This returns the last token that is kind
 JAVACODE
 Token error_skipto(int kind, ParseException e) {
-	
 	System.out.println(e.toString());
 	Token t;
 	do{

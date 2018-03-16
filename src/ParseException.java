@@ -9,8 +9,11 @@
  * You can modify this class to customize your error reporting
  * mechanisms so long as you retain the public fields.
  */
-public class ParseException extends Exception {
 
+import java.io.IOException;
+import java.nio.file.*;
+public class ParseException extends Exception {
+  
   /**
    * The version identifier for this Serializable class.
    * Increment only if the <i>serialized</i> form of the
@@ -27,7 +30,7 @@ public class ParseException extends Exception {
   public ParseException(Token currentTokenVal,
                         int[][] expectedTokenSequencesVal,
                         String[] tokenImageVal
-                       )
+                       ) 
   {
     super(initialise(currentTokenVal, expectedTokenSequencesVal, tokenImageVal));
     currentToken = currentTokenVal;
@@ -118,8 +121,24 @@ public class ParseException extends Exception {
 
       tok = tok.next;
     }
+    
     retval += "at line " + currentToken.next.beginLine + ", column " + currentToken.next.beginColumn;
     retval += "." + eol;
+    String newLine = "";
+    try {
+      newLine = Files.readAllLines(Paths.get(parser.filename)).get(currentToken.next.beginLine - 1);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    int lineLength = newLine.length();
+    int newLineLength = newLine.trim().length();
+    int diff = lineLength - newLineLength;
+    int sub = currentToken.next.beginColumn - diff + 6;
+    retval += "Line: " + newLine.trim() + eol;
+    for(int i = 1 ; i < sub ; i++){
+      retval += " ";
+    }
+    retval += "^" + eol;
     if (expectedTokenSequences.length == 1) {
       retval += "Was expecting:" + eol + "    ";
     } else {
