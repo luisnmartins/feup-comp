@@ -1,0 +1,17 @@
+CHECKPOINT 1 FEEDBACK
+=====================
+Class 5 - Group 56
+
+These notes are based on an analysis of commit bf4edd7680ce09338b1ba1a70b153f64a2d8753c.
+If you believe this is an error, contact your class teacher.
+=====================
+
+High-priority:
+	- Nothing.
+
+Low-priority:
+	- Use packages, instead of Java's default package
+	- Stop after the first 10 parser errors
+	- Consider outputting "prettier" (i.e., cleaner and more informative) error messages.
+	- By convention, Java class names should be specified in PascalCase, so "parser" should be "Parser".
+	- In Element(), "(...|{})" would be more clear as "(...)?".
