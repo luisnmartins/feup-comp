@@ -1,0 +1,15 @@
+
+*.class
+
+*.jj
+
+
+parser.java
+.DS_Store
+src/.DS_Store
+parserConstants.java
+parserTokenManager.java
+parserTreeConstants.java
+JJTparserState.java
+SimpleCharStream.java
+Token.java
