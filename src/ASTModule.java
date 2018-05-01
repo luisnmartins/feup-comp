@@ -78,9 +78,9 @@ class ASTModule extends SimpleNode {
       }
     }
 
-    if (allCorrect) {
+    /*if (allCorrect) {
       setYAL2JVM();
-    }
+    }*/
 
 
     return new SimpleEntry<>(allCorrect,null);

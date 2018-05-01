@@ -22,6 +22,7 @@ public class YAL{
             }
             ASTModule module = (ASTModule) root;
             module.print();
+            module.setYAL2JVM();
                 
 
         } catch (ParseException e) {
