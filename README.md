@@ -14,6 +14,16 @@ javacc parser.jj
 
 javac *.java
 
-And then test a file:
+And then gerate code for jasmin:
 
-java parser ../YalFiles/Working/array1.yal
+java YAL Files/file.yal
+
+cd Files
+
+java -jar jasmin.jar file.j
+
+java file
+
+### Some notes ###
+
+a[] creates an array that isn't initialized
