@@ -3,6 +3,9 @@
 /* All AST nodes must implement this interface.  It provides basic
    machinery for constructing the parent and child relationships
    between nodes. */
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public
 interface Node {
@@ -28,7 +31,30 @@ interface Node {
      from zero, left to right. */
   public Node jjtGetChild(int i);
 
+  public Node[] jjtGetChildren();
+
   /** Return the number of children the node has. */
   public int jjtGetNumChildren();
+
+  public int getId();
+
+  //if it worked and if it is an array
+  public SimpleEntry<Boolean, Boolean> createAndCheckSymbol(SymbolTable parent) throws ParseException;
+
+  public SimpleEntry<Boolean,Boolean> tableHandler(GlobalTable parent) throws ParseException;
+
+  public Boolean setParameter(FunctionTable parent);
+
+  public int setRegistry(FunctionTable parent, int registry);
+
+  public int setRegistry(SymbolTable parent, int registry);
+
+  public int setStackCounter(int max, int newC);
+
+  public ArrayList<LinkedHashMap<String, ArrayList>> getJVMCode(GlobalTable parent,
+      ArrayList<LinkedHashMap<String, ArrayList>> insts);
+
+  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList);
+
 }
-/* JavaCC - OriginalChecksum=44463b86a5a32f00f5e3ad9c8b8406be (do not edit this line) */
+/* JavaCC - OriginalChecksum=f321f02c1d43b87914acea48d856de05 (do not edit this line) */

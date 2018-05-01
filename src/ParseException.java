@@ -52,9 +52,23 @@ public class ParseException extends Exception {
     super();
   }
 
+  public static String semanticError(SimpleNode currentNode, String message) {
+    String eol = System.getProperty("line.separator", "\n");
+    String retval = message;
+    String newLine = "";
+    try {
+      newLine = Files.readAllLines(Paths.get(YAL.filename)).get(currentNode.line - 1);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    retval += eol + "Line "+ currentNode.line + ": "+newLine.trim() + eol;
+    return retval;
+  }
+
+
   /** Constructor with message. */
-  public ParseException(String message) {
-    super(message);
+  public ParseException(SimpleNode currentNode, String message) {
+    super(semanticError(currentNode, message));
   }
 
 
@@ -126,7 +140,7 @@ public class ParseException extends Exception {
     retval += "." + eol;
     String newLine = "";
     try {
-      newLine = Files.readAllLines(Paths.get(parser.filename)).get(currentToken.next.beginLine - 1);
+      newLine = Files.readAllLines(Paths.get(YAL.filename)).get(currentToken.next.beginLine - 1);
     } catch (IOException e) {
       e.printStackTrace();
     }

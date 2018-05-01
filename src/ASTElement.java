@@ -4,13 +4,13 @@ public
 class ASTElement extends SimpleNode {
 
   public Boolean isArray = false;
-  public String id;
+  public String name;
 
   public ASTElement(int id) {
     super(id);
   }
 
-  public ASTElement(parser p, int id) {
+  public ASTElement(Parser p, int id) {
     super(p, id);
   }
 
@@ -18,9 +18,9 @@ class ASTElement extends SimpleNode {
   @Override
   public String toString(String prefix) { 
     if(this.isArray)
-      return prefix + " " + toString() + " ( " +this.id + "[] )"; 
+      return prefix + " " + toString() + " ( " +this.name + "[] )"; 
     else
-      return prefix + " " + toString() + " ( " +this.id + " )";  
+      return prefix + " " + toString() + " ( " +this.name + " )";  
   }
 
 }

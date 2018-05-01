@@ -3,14 +3,13 @@
 public
 class ASTOperation extends SimpleNode {
 
-
   public String operator = null;
 
   public ASTOperation(int id) {
     super(id);
   }
 
-  public ASTOperation(parser p, int id) {
+  public ASTOperation(Parser p, int id) {
     super(p, id);
   }
 

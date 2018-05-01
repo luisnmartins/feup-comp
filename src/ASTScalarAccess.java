@@ -6,7 +6,7 @@ class ASTScalarAccess extends SimpleNode {
     super(id);
   }
 
-  public ASTScalarAccess(parser p, int id) {
+  public ASTScalarAccess(Parser p, int id) {
     super(p, id);
   }
 

@@ -6,7 +6,7 @@ class ASTPhantom extends SimpleNode {
     super(id);
   }
 
-  public ASTPhantom(parser p, int id) {
+  public ASTPhantom(Parser p, int id) {
     super(p, id);
   }
 

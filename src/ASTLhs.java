@@ -3,13 +3,11 @@
 public
 class ASTLhs extends SimpleNode {
 
-  public String access;
-
   public ASTLhs(int id) {
     super(id);
   }
 
-  public ASTLhs(parser p, int id) {
+  public ASTLhs(Parser p, int id) {
     super(p, id);
   }
 
