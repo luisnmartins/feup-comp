@@ -4,6 +4,10 @@ This README would normally document whatever steps are necessary to get your app
 
 COMP Group56
 
+### Pre-requirements ###
+
+jasmin.jar and io.class to be placed on the src folder
+
 ### How to run? ###
 
 Run the following commands on command line:
@@ -16,13 +20,11 @@ javac *.java
 
 And then gerate code for jasmin:
 
-java YAL Files/file.yal
+java YAL ../YalFiles/Working/aval1.yal
 
-cd Files
+java -jar jasmin.jar "Compiled Files"/aval1.j
 
-java -jar jasmin.jar file.j
-
-java file
+java aval1
 
 ### Some notes ###
 
