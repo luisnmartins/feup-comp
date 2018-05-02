@@ -2,8 +2,9 @@ module aval2
 {
 
 function c=f(a, b) {
+    c=3;
     if(a == b) {
-		 c = 2;
+		c = 2;
     }
 }
 

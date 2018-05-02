@@ -31,6 +31,7 @@ class ASTDeclaration extends SimpleNode {
         try {
           rhsDec = this.jjtGetChild(1).createAndCheckSymbol(parent);
         } catch(ParseException e) {
+          return new SimpleEntry<>(false,false);
         }
         if(!rhsDec.getKey())
           return new SimpleEntry<>(false,false);

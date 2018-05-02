@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.AbstractMap.SimpleEntry;
 
@@ -46,7 +47,13 @@ class ASTAssign extends SimpleNode {
 
     if(this.jjtGetChild(1) != null) {
 
-      SimpleEntry<Boolean,Boolean> rhs = this.jjtGetChild(1).createAndCheckSymbol(parent);
+      SimpleEntry<Boolean,Boolean> rhs = null;
+      try {
+        rhs = this.jjtGetChild(1).createAndCheckSymbol(parent);
+      }catch(ParseException e) {
+        System.out.println(e.getMessage());
+        return new SimpleEntry<>(false, null);
+      }
       if(rhs.getKey() == false) {
         return new SimpleEntry<>(false, null);
       }
@@ -58,13 +65,7 @@ class ASTAssign extends SimpleNode {
         if(newVar != null) {
 
           if(isLeftArray) {
-            //a = [100]; a = [20]; 
-           /* if(rhs.getValue() && newVar.isInitialized()) {
-              throw new ParseException(this, "Array " + leftSide.name + " has already a size specified");
-
-            } 
-            //a[]; a=2;
-            else*/ if(!rhs.getValue() && !newVar.isInitialized()) {
+            if(!rhs.getValue() && !newVar.isInitialized()) {
               throw new ParseException(this, "Array " + leftSide.name + " can't be filled since it has no size specified");
 
             }

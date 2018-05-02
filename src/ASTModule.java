@@ -1,5 +1,6 @@
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -27,20 +28,6 @@ class ASTModule extends SimpleNode {
   public String toString(String prefix) { return prefix + " "+ toString() + " " + this.name; }
 
 
-  /*public boolean createAndCheckSymbols(SymbolTable parent){
-    
-    Node[] children = this.children;
-    currentST = new SymbolTable(null);
-    //declarations and functions( params and returns )
-
-    for(int i=0; i<children.length; i++) {
-      
-      if(!children[i].createAndCheckSymbols(currentST))
-        return false;
-    }
-    return true;
-  }*/
-
   public SimpleEntry<Boolean,Boolean> tableHandler(GlobalTable parent) {
     global = new GlobalTable();
     global.setModuleName(name);
@@ -62,7 +49,8 @@ class ASTModule extends SimpleNode {
     for(int i=0; i<children.length; i++) {
       if(tocheck[i] != true){
         try {
-          children[i].createAndCheckSymbol(global);
+          if(children[i].createAndCheckSymbol(global).getKey() == false)
+            allCorrect = false;
         }catch(ParseException e) {
           System.out.println(e.getMessage());
           allCorrect = false;
@@ -77,11 +65,6 @@ class ASTModule extends SimpleNode {
         children[i].setRegistry(global, 0);
       }
     }
-
-    /*if (allCorrect) {
-      setYAL2JVM();
-    }*/
-
 
     return new SimpleEntry<>(allCorrect,null);
 
@@ -120,8 +103,11 @@ class ASTModule extends SimpleNode {
 
     ArrayList lines = new ArrayList<>();
 
-    Path file = Paths.get("Files\\" + global.getModuleName() + ".j");
-
+    Path file = Paths.get("Compiled Files/" + global.getModuleName() + ".j");
+    File directory = new File("Compiled Files");
+    if (! directory.exists()){
+      directory.mkdir();
+    }
     for (String key : insts.get(0).keySet()) {
       ArrayList lis = insts.get(0).get(key);
       for (int i = 0; i < lis.size(); i++) {

@@ -64,7 +64,9 @@ class ASTFunction extends SimpleNode {
     FunctionTable table = parent.getFunction(name);
     for(int k=0; k<this.jjtGetNumChildren(); k++) {
       try {
-        this.jjtGetChild(k).createAndCheckSymbol(table);
+        if(this.jjtGetChild(k).createAndCheckSymbol(table).getKey() == false) {
+          allCorrect = false;
+        }
       }catch(ParseException e) {
         allCorrect = false;
         System.out.println(e.getMessage());
@@ -85,7 +87,6 @@ class ASTFunction extends SimpleNode {
       }
     }
 
-    
     return new SimpleEntry<>(allCorrect,null);
   }
 
@@ -159,7 +160,6 @@ class ASTFunction extends SimpleNode {
       instList = children[i].getJVMCode(table, instList);
     }
 
-    // DEPENDE DO RETURNNNNNNNNNNNNNNNNNNN
     if (returnValue != null)
       if (returnArray) {
 

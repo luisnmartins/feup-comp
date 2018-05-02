@@ -25,10 +25,10 @@ class ASTStmtlst extends SimpleNode {
           allCorrect=false;
       }catch(ParseException e) {
         System.out.println(e.getMessage());
+        allCorrect = false;
       }
     
     }
-
     return new SimpleEntry<>(allCorrect, null);
   }
 

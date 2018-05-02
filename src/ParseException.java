@@ -54,7 +54,7 @@ public class ParseException extends Exception {
 
   public static String semanticError(SimpleNode currentNode, String message) {
     String eol = System.getProperty("line.separator", "\n");
-    String retval = message;
+    String retval = "PARSE EXCEPTION: "+message;
     String newLine = "";
     try {
       newLine = Files.readAllLines(Paths.get(YAL.filename)).get(currentNode.line - 1);
