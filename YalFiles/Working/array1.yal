@@ -2,10 +2,10 @@
 module array1
 {
 
-  function print_array(N, a, k)
+  function print_array(N, a[], k)
   {
 
-   a[3] = [j.size];
+   a[3] = 7;
 
    i=0;
    while(i < N)
@@ -24,7 +24,9 @@ module array1
 
 	function main()
 	{
-	 print_array(10); // the same as array1.print_array(10);
+		a = [10];
+		
+	 print_array(10, a, 4); // the same as array1.print_array(10);
 	}
 
 }

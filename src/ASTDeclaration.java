@@ -80,13 +80,11 @@ class ASTDeclaration extends SimpleNode {
   }
 
   public ArrayList<LinkedHashMap<String, ArrayList>> getJVMCode(GlobalTable parent,
-      ArrayList<LinkedHashMap<String, ArrayList>> insts) {
+      ArrayList<LinkedHashMap<String, ArrayList>> insts, LinkedHashMap<String, String> statics_array_sizes) {
     ASTElement element = (ASTElement) this.jjtGetChild(0);
     String elemName = element.name;
     ArrayList<LinkedHashMap<String, ArrayList>> instructions = insts;
-    // LinkedHashMap<String, ArrayList> decs = insts[0];
-    // LinkedHashMap<String, ArrayList> statics = insts[1];
-    // LinkedHashMap<String, ArrayList> countersMap = insts[3];
+
     Boolean setDec = false;
     if (instructions.get(1).get(elemName) == null)
       setDec = true;
@@ -94,7 +92,7 @@ class ASTDeclaration extends SimpleNode {
     String dec = "";
 
     if (this.jjtGetNumChildren() > 1) {
-      instructions = this.jjtGetChild(1).getJVMCode(parent, instructions);
+      instructions = this.jjtGetChild(1).getJVMCode(parent, instructions, statics_array_sizes);
       // if (symbol.isArray()) {
 
       // } else {

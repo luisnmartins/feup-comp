@@ -71,12 +71,15 @@ class ASTModule extends SimpleNode {
   }
 
   public void setYAL2JVM() {
-    ArrayList instructions = new ArrayList();
+    
     LinkedHashMap<String, String> statics_array_sizes = new LinkedHashMap<>();
-
+    ArrayList instructions = new ArrayList();
+    ArrayList staticInitials = new ArrayList();
     instructions.add(".class public " + name);
     instructions.add(".super java/lang/Object");
     instructions.add("");
+
+    staticInitials.add(".method static public <clinit>()V");
 
     int dec_locals_counter = 0;
     int dec_stack_counter = 0;
@@ -85,6 +88,7 @@ class ASTModule extends SimpleNode {
     LinkedHashMap<String, ArrayList> decs = new LinkedHashMap<>();
     decs.put("declarations", instructions);
     LinkedHashMap<String, ArrayList> statics = new LinkedHashMap<>();
+    statics.put("initial", staticInitials);
     LinkedHashMap<String, ArrayList> functionInsts = new LinkedHashMap<>();
     LinkedHashMap<String, ArrayList> countersMap = new LinkedHashMap<>();
     ArrayList counters = new ArrayList<>();
@@ -92,14 +96,28 @@ class ASTModule extends SimpleNode {
     counters.add(0);
     countersMap.put("counters", counters);
 
+    ArrayList staList = new ArrayList<>();
+
+    
+
     insts.add(decs);
     insts.add(statics);
     insts.add(functionInsts);
     insts.add(countersMap);
 
     for (int i = 0; i < children.length; i++) {
-      insts = children[i].getJVMCode(global, insts);
+      insts = children[i].getJVMCode(global, insts, statics_array_sizes);
     }
+
+    statics.get("initial").add(".limit stack " + 100);
+    statics.get("initial").add(".limit locals " + insts.get(3).get("counters").get(0));
+    statics.get("initial").add("");
+
+    staList.add("return");
+    staList.add(".end method");
+    staList.add("");
+
+    statics.put("finish", staList);
 
     ArrayList lines = new ArrayList<>();
 
@@ -116,8 +134,18 @@ class ASTModule extends SimpleNode {
       }
     }
 
+    
+
     for (String key : insts.get(2).keySet()) {
       ArrayList lis = insts.get(2).get(key);
+      for (int i = 0; i < lis.size(); i++) {
+        lines.add(lis.get(i).toString());
+        // System.out.println(lis.get(i));
+      }
+    }
+
+    for (String key : insts.get(1).keySet()) {
+      ArrayList lis = insts.get(1).get(key);
       for (int i = 0; i < lis.size(); i++) {
         lines.add(lis.get(i).toString());
         // System.out.println(lis.get(i));
@@ -134,6 +162,68 @@ class ASTModule extends SimpleNode {
   public void print() {
     System.out.println("\n\nSymbol Tables\n");
     global.showAll();
+  }
+
+  private int[] getLimits(LinkedHashMap<String, ArrayList> insts){
+    ArrayList incInsts = new ArrayList<>();
+    ArrayList subInsts = new ArrayList<>();
+    ArrayList sub2Insts = new ArrayList<>();
+    ArrayList nothingInsts = new ArrayList<>();
+
+    int[] counts = new int[2];
+
+    incInsts.add("aload");
+    incInsts.add("dload");
+    incInsts.add("iload");
+    incInsts.add("fload");
+    incInsts.add("lload");
+
+    incInsts.add("bipush");
+    incInsts.add("sipush");
+
+    incInsts.add("jsr");
+    incInsts.add("jsr_w");
+
+    incInsts.add("new");
+    incInsts.add("getstatic");
+
+    subInsts.add("ret");
+    subInsts.add("dstore");
+    subInsts.add("istore");
+    subInsts.add("fstore");
+    subInsts.add("lstore");
+    subInsts.add("astore");
+
+    subInsts.add("ifnonnull");
+    subInsts.add("ifnull");
+
+    subInsts.add("ifeq");
+    subInsts.add("ifge");
+    subInsts.add("ifgt");
+    subInsts.add("ifle");
+    subInsts.add("iflt");
+    subInsts.add("ifne");
+
+    subInsts.add("anewarray");
+    subInsts.add("instanceof");
+
+    subInsts.add("getfield");
+
+    sub2Insts.add("if_acmpeq");
+    sub2Insts.add("if_acmpne");
+    sub2Insts.add("if_icmpeq");
+    sub2Insts.add("if_icmpge");
+    sub2Insts.add("if_icmpgt");
+    sub2Insts.add("if_icmple");
+    sub2Insts.add("if_icmplt");
+    sub2Insts.add("if_icmpne");
+
+    nothingInsts.add("iinc");
+    nothingInsts.add("goto");
+    nothingInsts.add("goto_w");
+    nothingInsts.add("checkcast");
+
+    return counts;
   }
 
 }

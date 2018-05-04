@@ -50,7 +50,15 @@ class ASTTerm extends SimpleNode {
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
     ArrayList instructions = instList;
 
-    instructions = this.jjtGetChild(0).getJVMCode(parent, instList);
+    String value = getValueSigned();
+    if (value != "") {
+      instructions.add("ldc " + value);
+      // countStack = setStackCounter(countStack, 1);
+    } else {
+      instructions = this.jjtGetChild(0).getJVMCode(parent, instList);
+    }
+
+    
 
     return instructions;
 

@@ -1,0 +1,47 @@
+
+module test
+{
+k = [4];
+k = 9;
+
+l = [k.size];
+l = 123;
+
+function ret=f1(p)
+	{
+	v = [10];
+	v = p;
+	ret = p + 114;
+	io.println("p ", p);
+	}
+	
+	function main()
+	{
+	a = 1;
+	b = [10];
+	b = 1;
+	
+	k[2] = 87;
+	d = k.size;
+	c = k[2];
+	
+	b = [4];
+	b = 5;
+	
+	b[3] = 2;
+	
+	c = k.size * 2;
+	
+	g = [l.size];
+	
+	g = 1904;
+	
+	p = g[1];
+	
+	
+	c = f1(p) + f1(p);
+	io.println("d ", d);
+	io.println("c ", c);
+	}
+
+}

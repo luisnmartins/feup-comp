@@ -1,0 +1,13 @@
+
+module test
+{
+	function main()
+	{
+	a = 1;
+	b = [10];
+	b = 1;
+	c = b[4];
+	io.println(c);
+	}
+
+}

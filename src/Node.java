@@ -52,9 +52,11 @@ interface Node {
   public int setStackCounter(int max, int newC);
 
   public ArrayList<LinkedHashMap<String, ArrayList>> getJVMCode(GlobalTable parent,
-      ArrayList<LinkedHashMap<String, ArrayList>> insts);
+      ArrayList<LinkedHashMap<String, ArrayList>> insts, LinkedHashMap<String, String> statics_array_sizes);
 
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList);
+
+  public int getLoopCount(ArrayList insts);
 
 }
 /* JavaCC - OriginalChecksum=f321f02c1d43b87914acea48d856de05 (do not edit this line) */
