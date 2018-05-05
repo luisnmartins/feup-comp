@@ -58,5 +58,7 @@ interface Node {
 
   public int getLoopCount(ArrayList insts);
 
+  public int getIfCount(ArrayList insts);
+
 }
 /* JavaCC - OriginalChecksum=f321f02c1d43b87914acea48d856de05 (do not edit this line) */

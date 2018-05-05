@@ -150,6 +150,19 @@ public class SimpleNode implements Node {
 
     return loopCount;
   }
+
+  public int getIfCount(ArrayList insts) {
+    int ifCount = 0;
+    for (int i = 0; i < insts.size(); i++) {
+      if (insts.get(i).toString().contains("if_end")) {
+        ifCount++;
+      }
+    }
+
+    ifCount /= 2;
+
+    return ifCount;
+  }
 }
 
 /*

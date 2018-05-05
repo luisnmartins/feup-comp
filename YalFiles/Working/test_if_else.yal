@@ -1,0 +1,13 @@
+module test_if_else
+{
+	function main(){
+		i = 4;
+		N = 10;
+		if(i<N){
+			io.println(i);
+			i = i + 1;
+		}
+		
+		io.println(i);
+	}	
+}

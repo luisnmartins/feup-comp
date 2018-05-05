@@ -1,31 +1,33 @@
-.class public test_while
+.class public test_if_else
 .super java/lang/Object
 
 .method public static main([Ljava/lang/String;)V
 .limit stack 100
 .limit locals 3
 
-ldc 0
+ldc 4
 istore 0
 
 ldc 10
 istore 1
 
-loop0:
-
 iload 0
 iload 1
-if_icmpge loop_end0
+if_icmpge if_end0
+
 iload 0
-invokestatic io/print(I)V
+invokestatic io/println(I)V
 
 iload 0
 ldc 1
 iadd
 istore 0
 
-goto loop0
-loop_end0:
+if_end0:
+
+iload 0
+invokestatic io/println(I)V
+
 return
 .end method
 

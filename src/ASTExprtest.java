@@ -61,23 +61,17 @@ public class ASTExprtest extends SimpleNode {
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
     ArrayList instructions = instList;
 
-
     for (int i = 0; i < children.length; i++) {
       instructions = children[i].getJVMCode(parent, instructions);
     }
 
-    int loopCount = getLoopCount(instructions);
-
-    instructions.add(getOperation(operator) + " loop_end" + loopCount);
-
-    instructions.add("");
-
+    instructions.add(getOperationReverse(operator));
 
     return instructions;
 
   }
 
-  public String getOperation(String op) {
+  public String getOperationReverse(String op) {
     switch (op) {
     case ">":
       return "if_icmple";

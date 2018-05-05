@@ -9,6 +9,7 @@ public class FunctionTable extends SymbolTable {
     private SimpleEntry<String,Symbol> returnParameter = null;
     private GlobalTable parent;
     int maxRegistry = 0;
+    Boolean isClone = false;
 
     public FunctionTable(GlobalTable parent) {
         super();
@@ -129,6 +130,14 @@ public class FunctionTable extends SymbolTable {
 
     public int getMaxRegistry() {
         return maxRegistry;
+    }
+
+    public void setisClone(Boolean isClone) {
+        this.isClone = isClone;
+    }
+
+    public Boolean getisClone() {
+        return isClone;
     }
 
 

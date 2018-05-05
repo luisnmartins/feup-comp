@@ -106,6 +106,10 @@ public class ASTFunction extends SimpleNode {
     if (name.compareTo("main") != 0)
       reg--;
 
+    System.out.println("This " + name + " has " + reg);
+    System.out.println("This " + name + " has " + table.variables.size());
+
+
     table.setMaxRegistry(reg);
 
     return reg;

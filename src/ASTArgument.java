@@ -28,19 +28,27 @@ public class ASTArgument extends SimpleNode {
 
     Symbol symbol = parent.getFromAll(value);
 
+    System.out.println("ARG " + value);
+
     if (symbol != null) {
       Boolean argGlobal = false;
       if (parent.getFromScope(value) == null)
         argGlobal = true;
-      if (!symbol.isArray())
+      if (!symbol.isArray()) {
         if (argGlobal)
           instructions.add("getstatic " + module_name + "/" + value + " I");
         else
           instructions.add("iload " + symbol.getRegistry());
+      } else {
+        if (argGlobal)
+          instructions.add("getstatic " + module_name + "/" + value + " [I");
+        else
+          instructions.add("aload " + symbol.getRegistry());
+      }
     } else {
       try {
         int valueInt = Integer.parseInt(value);
-          instructions.add("ldc " + valueInt);
+        instructions.add("ldc " + valueInt);
       } catch (Exception e) {
         instructions.add("ldc " + value);
       }

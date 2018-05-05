@@ -66,16 +66,19 @@ public class ASTAccess extends SimpleNode {
   public int setRegistry(FunctionTable parent, int registry) {
     int reg = registry;
     Symbol symbol = parent.hasRegistry(name);
+    System.out.println("HERE " + name);
     if (symbol != null) {
+      System.out.println("NOT NULL");
       symbol.setRegistry(reg);
       reg++;
     } else {
       SimpleEntry<String, Symbol> symbolEntry = parent.getReturnParameter();
-      if (symbolEntry != null) {
+      if (symbolEntry != null && !parent.getisClone()) {
         symbol = symbolEntry.getValue();
         if (!symbol.isRegistered()) {
           symbol.setRegistry(reg);
           reg++;
+          System.out.println("RET " + reg);
         }
       }
     }
@@ -125,7 +128,6 @@ public class ASTAccess extends SimpleNode {
         } else {
 
           // a = [10]; b = a;
-
 
         }
 

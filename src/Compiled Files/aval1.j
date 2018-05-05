@@ -5,8 +5,8 @@
 .limit stack 100
 .limit locals 2
 
-bipush 2
-bipush 3
+ldc 2
+ldc 3
 invokestatic aval1/f(II)I
 
 istore 0

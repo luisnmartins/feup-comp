@@ -5,6 +5,7 @@ import java.util.AbstractMap.SimpleEntry;
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTWhile extends SimpleNode {
+  FunctionTable variablesWhile;
   public ASTWhile(int id) {
     super(id);
   }
@@ -24,6 +25,9 @@ class ASTWhile extends SimpleNode {
       e.getMessage();
     }
 
+    variablesWhile = (FunctionTable) newParent;
+    variablesWhile.setisClone(true);
+
 
     for (int i = 0; i < this.jjtGetNumChildren(); i++){
       if(this.jjtGetChild(i).createAndCheckSymbol(newParent).getKey() == false){
@@ -31,6 +35,18 @@ class ASTWhile extends SimpleNode {
       }
     }
     return new SimpleEntry<>(allCorrect,null);
+  }
+
+  @Override
+  public int setRegistry(FunctionTable parent, int registry) {
+    int reg = registry;
+
+    for (int i = 0; i < children.length; i++) {
+      reg = children[i].setRegistry(variablesWhile, reg);
+    }
+
+    return reg;
+
   }
 
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
@@ -44,7 +60,18 @@ class ASTWhile extends SimpleNode {
 
     instructions = this.jjtGetChild(0).getJVMCode(parent, instructions);
 
-    instructions = this.jjtGetChild(1).getJVMCode(parent, instructions);
+    String op = instructions.get(instructions.size() - 1).toString();
+    instructions.set(instructions.size() - 1, op + " loop_end" + loopCount);
+
+    variablesWhile.setMaxRegistry(parent.getMaxRegistry());
+
+    if(variablesWhile.getReturnParameter() != null){
+      variablesWhile.getReturnParameter().getValue().setRegistry(parent.getReturnParameter().getValue().getRegistry());
+    }
+
+    instructions = this.jjtGetChild(1).getJVMCode(variablesWhile, instructions);
+
+    parent.setMaxRegistry(variablesWhile.getMaxRegistry());
 
     instructions.add("goto loop" + loopCount);
 

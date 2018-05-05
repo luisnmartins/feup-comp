@@ -8,6 +8,10 @@ module array2
 	sum=0;
 	while(i < A.size) {
 		sum=sum+A[i];
+		if(i == 10){
+			z = 1904;
+			sum = sum + z;
+		}
 		i=i+1;
 	}
   }
@@ -21,7 +25,7 @@ module array2
    i=0;
    while(i < N)
    {
-   	a[i] = 1;
+   	a[i] = i;
 	i=i+1;
 	}
 
