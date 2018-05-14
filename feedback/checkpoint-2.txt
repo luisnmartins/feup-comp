@@ -1,0 +1,22 @@
+CHECKPOINT 2 FEEDBACK
+=====================
+Class 5 - Group 56
+
+These notes are based on an analysis of commit b662aaec07395a5256f0184a6c6e8ad32ea58166.
+If you believe this is an error, contact your class teacher.
+=====================
+
+High-priority:
+	- Attempting to compile an empty module results in a NullPointerException.
+	- Attempting to compile a module with at least one empty function results in a
+NullPointerException.
+	- Incorrect function signature for external functions. Functions should only
+end in ")V" when they do not return anything. If they have an output variable, they
+must either be ")I" (for integers) or ")[I" (for arrays).
+	- The compiler correctly generates a String[] argument for the main function, but
+doesn't take that into account when assigning numbers to variables. Since main has an
+(unused) argument, the IDs of the local variables of main start at 1, not 0.
+	- Missing code generation to calls in the same module.
+
+Low-priority:
+	- Use packages, instead of Java's default package
