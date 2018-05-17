@@ -28,8 +28,6 @@ public class ASTArgument extends SimpleNode {
 
     Symbol symbol = parent.getFromAll(value);
 
-    System.out.println("ARG " + value);
-
     if (symbol != null) {
       Boolean argGlobal = false;
       if (parent.getFromScope(value) == null)

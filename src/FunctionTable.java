@@ -10,6 +10,7 @@ public class FunctionTable extends SymbolTable {
     private GlobalTable parent;
     int maxRegistry = 0;
     Boolean isClone = false;
+    Boolean retHasReg = false;
 
     public FunctionTable(GlobalTable parent) {
         super();
@@ -140,6 +141,12 @@ public class FunctionTable extends SymbolTable {
         return isClone;
     }
 
+    public void setRetHasReg(Boolean retHasReg) {
+        this.retHasReg = retHasReg;
+    }
 
+    public Boolean getRetHasReg() {
+        return retHasReg;
+    }
 
 }

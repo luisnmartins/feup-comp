@@ -66,19 +66,23 @@ public class ASTAccess extends SimpleNode {
   public int setRegistry(FunctionTable parent, int registry) {
     int reg = registry;
     Symbol symbol = parent.hasRegistry(name);
-    System.out.println("HERE " + name);
+    System.out.println("Access name " + name);
     if (symbol != null) {
-      System.out.println("NOT NULL");
       symbol.setRegistry(reg);
       reg++;
     } else {
       SimpleEntry<String, Symbol> symbolEntry = parent.getReturnParameter();
-      if (symbolEntry != null && !parent.getisClone()) {
+      if (symbolEntry != null && !parent.getRetHasReg()) {
+        if(parent.isClone){
+          System.out.println("I'm CLONE");
+        }else{
+          System.out.println("I'm NOT CLONE");
+        }
         symbol = symbolEntry.getValue();
         if (!symbol.isRegistered()) {
           symbol.setRegistry(reg);
           reg++;
-          System.out.println("RET " + reg);
+
         }
       }
     }

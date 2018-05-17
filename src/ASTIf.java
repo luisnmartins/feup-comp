@@ -84,12 +84,36 @@ public class ASTIf extends SimpleNode {
   @Override
   public int setRegistry(FunctionTable parent, int registry) {
     int reg = registry;
+    Boolean retHasReg = false;
+    if (parent.getReturnParameter() != null)
+      if (parent.getReturnParameter().getValue().getRegistry() != null || parent.getRetHasReg())
+        retHasReg = true;
+
+    if (parent.getRetHasReg())
+      System.out.println("BENFICAAAAAAAAAAAA");
 
     for (int i = 0; i < children.length; i++) {
-      if (children[i] instanceof ASTElse)
+      if (children[i] instanceof ASTElse) {
+        if (variablesIf.getReturnParameter() != null)
+          if (variablesIf.getReturnParameter().getValue().getRegistry() != null) {
+            retHasReg = true;
+            variablesElse.getReturnParameter().getValue()
+                .setRegistry(variablesIf.getReturnParameter().getValue().getRegistry());
+          }
+
+        variablesElse.setRetHasReg(retHasReg);
         reg = children[i].setRegistry(variablesElse, reg);
-      else
+      } else {
+        if (this.jjtGetNumChildren() > 2)
+          if (variablesElse.getReturnParameter() != null)
+            if (variablesElse.getReturnParameter().getValue().getRegistry() != null) {
+              retHasReg = true;
+              variablesIf.getReturnParameter().getValue()
+                  .setRegistry(variablesElse.getReturnParameter().getValue().getRegistry());
+            }
+        variablesIf.setRetHasReg(retHasReg);
         reg = children[i].setRegistry(variablesIf, reg);
+      }
     }
 
     return reg;
@@ -116,8 +140,11 @@ public class ASTIf extends SimpleNode {
 
     variablesIf.setMaxRegistry(parent.getMaxRegistry());
 
+    // System.out.println(variablesIf.getReturnParameter().getValue().getRegistry());
+
     if (variablesIf.getReturnParameter() != null) {
-      variablesIf.getReturnParameter().getValue().setRegistry(parent.getReturnParameter().getValue().getRegistry());
+      if (variablesIf.getReturnParameter().getValue().getRegistry() == null)
+        variablesIf.getReturnParameter().getValue().setRegistry(parent.getReturnParameter().getValue().getRegistry());
     }
 
     instructions = this.jjtGetChild(1).getJVMCode(variablesIf, instructions);
@@ -132,7 +159,9 @@ public class ASTIf extends SimpleNode {
       variablesElse.setMaxRegistry(parent.getMaxRegistry());
 
       if (variablesElse.getReturnParameter() != null) {
-        variablesElse.getReturnParameter().getValue().setRegistry(parent.getReturnParameter().getValue().getRegistry());
+        if (variablesElse.getReturnParameter().getValue().getRegistry() == null)
+          variablesElse.getReturnParameter().getValue()
+              .setRegistry(parent.getReturnParameter().getValue().getRegistry());
       }
 
       instructions = this.jjtGetChild(2).getJVMCode(variablesElse, instructions);

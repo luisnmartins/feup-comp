@@ -125,7 +125,6 @@ public class ASTAssign extends SimpleNode {
 
     Boolean accessGlobal = false;
 
-    System.out.println("Access name: " + access.name);
 
     if (symbol == null) {
       accessGlobal = true;
@@ -169,7 +168,6 @@ public class ASTAssign extends SimpleNode {
 
           instructions.add("");
 
-          System.out.println("Access ArraySize: " + access.name + " " + symbol.getRegistry());
 
         } else {
           int maxReg = parent.getMaxRegistry();
@@ -198,7 +196,6 @@ public class ASTAssign extends SimpleNode {
 
           int loopCount = getLoopCount(instructions);
 
-          System.out.println("loops: " + loopCount);
 
           instructions.add("istore " + size);
           instructions.add("iconst_0");

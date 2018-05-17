@@ -50,21 +50,6 @@ public class ASTRhs extends SimpleNode {
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
     ArrayList instructions = instList;
 
-    String module_name = parent.getParent().getModuleName();
-
-    ASTAccess access = (ASTAccess) this.parent.jjtGetChild(0);
-
-    Symbol symbol = parent.getFromScope(access.name);
-
-    Boolean accessGlobal = false;
-
-    System.out.println("RHS");
-
-    if (symbol == null) {
-      accessGlobal = true;
-      symbol = parent.getFromAll(access.name);
-    }
-
     if (children.length == 1) {
 
       instructions = this.jjtGetChild(0).getJVMCode(parent, instructions);

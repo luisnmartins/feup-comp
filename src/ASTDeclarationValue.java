@@ -103,7 +103,6 @@ public class ASTDeclarationValue extends SimpleNode {
       String arr_size = statics_array_sizes.get(elemName);
       if (arr_size != null) {
         if (value != null) {
-          System.out.println("ESTOU AKIK");
 
           ArrayList staticInsts = new ArrayList<>();
 

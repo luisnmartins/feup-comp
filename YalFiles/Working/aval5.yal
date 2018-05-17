@@ -19,7 +19,7 @@ function main()
  io.println(c); // result= 9
 
  c=f(2, 2);
- io.println(c); // result= 20
+ io.println(c); // result= 40
 }
 
 }

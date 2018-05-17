@@ -94,7 +94,6 @@ public class ASTArraySize extends SimpleNode {
 
     instructions.add("newarray int");
 
-    System.out.println("Array Sizeeeeeeee");
 
     return instructions;
   }
