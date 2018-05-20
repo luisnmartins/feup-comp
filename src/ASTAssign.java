@@ -134,8 +134,8 @@ public class ASTAssign extends SimpleNode {
     instructions = this.jjtGetChild(1).getJVMCode(parent, instructions);
 
     if (symbol.isArray()) {
-
       if (access.jjtGetNumChildren() > 0) {
+        
         int maxReg = parent.getMaxRegistry();
         maxReg++;
         instructions.add("istore " + maxReg);
@@ -171,13 +171,65 @@ public class ASTAssign extends SimpleNode {
 
         } else {
           int maxReg = parent.getMaxRegistry();
+          int value = 0;
+
+          Boolean rhs_access_is_array = false;
+          Boolean accessRhsGlobal = false;
+          Symbol rhs_access_symbol = null;
+          ASTAccess rhs_access = null;
+
+          if(this.jjtGetChild(1).jjtGetChild(0).jjtGetNumChildren() > 0){
+            // array = algo sem ser integer
+
+            if(this.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0) instanceof ASTAccess){
+              rhs_access = (ASTAccess) this.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0);
+              rhs_access_symbol = parent.getFromScope(rhs_access.name);
+              
+              
+              if (rhs_access_symbol == null) {
+                accessRhsGlobal = true;
+                rhs_access_symbol = parent.getFromAll(rhs_access.name);
+              }
+
+              if(rhs_access_symbol.isArray()){
+                rhs_access_is_array = true;
+              }
+            }
+          }
+          int iterator_rhs_access = 0;
+
           maxReg++;
-          instructions.add("istore " + maxReg);
           // a = value, logo fill the array
 
-          int value = maxReg;
+          value = maxReg;
 
-          maxReg++;
+          if(rhs_access_is_array){
+            maxReg++;
+
+            iterator_rhs_access = maxReg;
+
+            if (accessRhsGlobal) {
+            instructions.add("getstatic " + module_name + "/" + rhs_access.name + " [I");
+          } else {
+            instructions.add("aload " + rhs_access_symbol.getRegistry());
+          }
+          instructions.add("arraylength");
+
+            instructions.add("newarray int");
+
+            if (accessGlobal)
+              instructions.add("putstatic " + module_name + "/" + access.name + " [I");
+            else
+              instructions.add("astore " + symbol.getRegistry());
+
+
+          }else{
+            instructions.add("istore " + value);
+            // a = value, logo fill the array
+
+          }
+
+                    
 
           if (accessGlobal) {
             instructions.add("getstatic " + module_name + "/" + access.name + " [I");
@@ -185,6 +237,8 @@ public class ASTAssign extends SimpleNode {
             instructions.add("aload " + symbol.getRegistry());
           }
           instructions.add("arraylength");
+
+          maxReg++;
 
           int size = maxReg;
 
@@ -201,6 +255,11 @@ public class ASTAssign extends SimpleNode {
           instructions.add("iconst_0");
           instructions.add("istore " + iterator); // cria variavel para o iterador do loop de inicializacao
 
+          if(rhs_access_is_array){
+            instructions.add("iconst_0");
+            instructions.add("istore " + iterator_rhs_access); // cria variavel para o iterador do loop de inicializacao
+          }
+
           instructions.add("loop" + loopCount + ":");
 
           instructions.add("iload " + iterator);
@@ -208,16 +267,37 @@ public class ASTAssign extends SimpleNode {
 
           instructions.add("if_icmpge loop_end" + loopCount);
 
+          if (rhs_access_is_array) {
+            if (accessRhsGlobal) {
+              instructions.add("getstatic " + module_name + "/" + rhs_access.name + " [I");
+            } else {
+              instructions.add("aload " + rhs_access_symbol.getRegistry());
+            }
+            instructions.add("iload " + iterator_rhs_access);
+
+            instructions.add("iaload"); 
+
+            instructions.add("istore " + value);
+
+          }
+
           if (accessGlobal) {
             instructions.add("getstatic " + module_name + "/" + access.name + " [I");
           } else {
             instructions.add("aload " + symbol.getRegistry());
           }
           instructions.add("iload " + iterator);
+
+          
           instructions.add("iload " + value);
+          
+          
           instructions.add("iastore");
 
           instructions.add("iinc " + iterator + " 1");
+
+          if(rhs_access_is_array)
+            instructions.add("iinc " + iterator_rhs_access + " 1");
 
           instructions.add("goto loop" + loopCount);
 

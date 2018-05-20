@@ -60,5 +60,8 @@ interface Node {
 
   public int getIfCount(ArrayList insts);
 
+  public int getMaxStack();
+
+  public void setMaxStack(int stack);
 }
 /* JavaCC - OriginalChecksum=f321f02c1d43b87914acea48d856de05 (do not edit this line) */

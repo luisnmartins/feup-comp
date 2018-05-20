@@ -110,13 +110,17 @@ public class ASTDeclarationValue extends SimpleNode {
             ArrayList lis = instructions.get(1).get(key);
             for (int i = 0; i < lis.size(); i++) {
               staticInsts.add(lis.get(i).toString());
-              // System.out.println(lis.get(i));
             }
           }
 
           ArrayList staList = instructions.get(1).get(elemName);
           staList.addAll(initializeArray(dec_locals_counter, arr_size, value, module_name, elemName, staticInsts));
-          // dec_stack_counter = setStackCounter(dec_stack_counter, 3);
+          
+          int maxStack = ((ArrayList<Integer>) instructions.get(3).get("counters")).get(1);
+
+          maxStack = setStackCounter(maxStack, 3);
+
+          instructions.get(3).get("counters").set(1, maxStack);
 
           dec_locals_counter += 2;
 

@@ -1,0 +1,27 @@
+module t3
+{
+			
+	function main()
+	{
+		a = [10];
+		i = 0;
+		while(i < 4 + 4){
+			a[i] = i;
+			i= i + 1;
+		}
+		
+		n = [10];
+	
+		n = a;
+		
+		i = 0;
+		while(i < n.size){
+			k = n[i];
+			io.print(k);
+			i= i + 1;
+		}
+		
+	
+	}
+
+}

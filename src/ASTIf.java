@@ -85,12 +85,15 @@ public class ASTIf extends SimpleNode {
   public int setRegistry(FunctionTable parent, int registry) {
     int reg = registry;
     Boolean retHasReg = false;
+
+    
+
     if (parent.getReturnParameter() != null)
       if (parent.getReturnParameter().getValue().getRegistry() != null || parent.getRetHasReg())
         retHasReg = true;
 
-    if (parent.getRetHasReg())
-      System.out.println("BENFICAAAAAAAAAAAA");
+    if (jjtGetNumChildren() == 0)
+      return reg;
 
     for (int i = 0; i < children.length; i++) {
       if (children[i] instanceof ASTElse) {
@@ -139,8 +142,6 @@ public class ASTIf extends SimpleNode {
     instructions.add("");
 
     variablesIf.setMaxRegistry(parent.getMaxRegistry());
-
-    // System.out.println(variablesIf.getReturnParameter().getValue().getRegistry());
 
     if (variablesIf.getReturnParameter() != null) {
       if (variablesIf.getReturnParameter().getValue().getRegistry() == null)

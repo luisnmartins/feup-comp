@@ -54,11 +54,19 @@ public class ASTRhs extends SimpleNode {
 
       instructions = this.jjtGetChild(0).getJVMCode(parent, instructions);
 
+      setMaxStack(this.jjtGetChild(0).getMaxStack());
+
     } else {
+
+      int maxStack = 0;
 
       for (int m = 0; m < 2; m++) {
         instructions = this.jjtGetChild(m).getJVMCode(parent, instructions);
+        maxStack += this.jjtGetChild(m).getMaxStack();
       }
+
+      setMaxStack(maxStack);
+
       instList.add(getOperation(operator));
 
     }

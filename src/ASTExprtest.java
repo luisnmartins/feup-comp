@@ -61,9 +61,18 @@ public class ASTExprtest extends SimpleNode {
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
     ArrayList instructions = instList;
 
+    if (jjtGetNumChildren() == 0)
+      return instructions;
+
+    int maxStack = 0;
+
     for (int i = 0; i < children.length; i++) {
       instructions = children[i].getJVMCode(parent, instructions);
+
+      maxStack += children[i].getMaxStack();
     }
+
+    setMaxStack(maxStack);
 
     instructions.add(getOperationReverse(operator));
 

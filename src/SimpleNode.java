@@ -12,6 +12,7 @@ public class SimpleNode implements Node {
   protected Object value;
   protected Parser parser;
   protected int line;
+  protected int maxStack;
 
   public SimpleNode(int i) {
     id = i;
@@ -34,6 +35,14 @@ public class SimpleNode implements Node {
 
   public Node jjtGetParent() {
     return parent;
+  }
+
+  public int getMaxStack(){
+    return maxStack;
+  }
+
+  public void setMaxStack(int stack){
+    maxStack = stack;
   }
 
   public void jjtAddChild(Node n, int i) {

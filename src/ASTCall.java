@@ -128,15 +128,32 @@ public class ASTCall extends SimpleNode {
       }
     }
 
-    String returnT;
+    String returnT = "V";
 
     if (ret != null)
       if (ret.isArray())
         returnT = "[I";
       else
         returnT = "I";
-    else
-      returnT = "V";
+    else {
+      if (this.parent instanceof ASTStmtlst) {
+        returnT = "V";
+      } else {
+        String access_name = ((ASTAccess) this.parent.jjtGetParent().jjtGetParent().jjtGetChild(0)).name;
+        Symbol symbol = parent.getFromScope(access_name);
+
+        if(symbol.isArray())
+          returnT = "[I";
+        else
+          returnT = "I";
+
+
+      }
+    }
+
+    if (isCaller && name.compareTo("io") == 0)
+      if (!functionCalled.contains("print"))
+        returnT = "I";
 
     instructions.add("invokestatic " + caller + "(" + newFuncParams + ")" + returnT);
     if (this.parent instanceof ASTStmtlst)

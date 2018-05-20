@@ -136,6 +136,14 @@ public class ASTArraySize extends SimpleNode {
 
     instructions.get(3).get("counters").set(0, dec_locals_counter);
 
+    int maxStack = ((ArrayList<Integer>) instructions.get(3).get("counters")).get(1);
+
+    maxStack = setStackCounter(maxStack, 1);
+
+    instructions.get(3).get("counters").set(1, maxStack);
+
+
+
     // dec_stack_counter = setStackCounter(dec_stack_counter, 2);
 
     dec += " [I ";

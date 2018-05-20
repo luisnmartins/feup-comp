@@ -47,8 +47,8 @@ public class ASTWhile extends SimpleNode {
 
     variablesWhile.setRetHasReg(retHasReg);
 
-    System.out.println("WHILE");
-    System.out.println(parent.getReturnParameter().getValue().getRegistry());
+    if (jjtGetNumChildren() == 0)
+      return reg;
     
 
     for (int i = 0; i < children.length; i++) {
@@ -75,6 +75,8 @@ public class ASTWhile extends SimpleNode {
 
     variablesWhile.setMaxRegistry(parent.getMaxRegistry());
 
+    int maxStack = this.jjtGetChild(0).getMaxStack();
+
     if (variablesWhile.getReturnParameter() != null) {
       if (variablesWhile.getReturnParameter().getValue().getRegistry() == null)
         variablesWhile.getReturnParameter().getValue()
@@ -83,7 +85,15 @@ public class ASTWhile extends SimpleNode {
 
     instructions = this.jjtGetChild(1).getJVMCode(variablesWhile, instructions);
 
+
+    maxStack = setStackCounter(maxStack, this.jjtGetChild(1).getMaxStack());
+
+    setMaxStack(maxStack);
+
     parent.setMaxRegistry(variablesWhile.getMaxRegistry());
+
+    
+
 
     instructions.add("goto loop" + loopCount);
 

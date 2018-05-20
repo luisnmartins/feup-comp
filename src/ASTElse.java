@@ -28,6 +28,9 @@ class ASTElse extends SimpleNode {
   public int setRegistry(FunctionTable parent, int registry) {
     int reg = registry;
 
+    if (jjtGetNumChildren() == 0)
+      return reg;
+      
     for (int i = 0; i < children.length; i++) {
       reg = children[i].setRegistry(parent, reg);
     }

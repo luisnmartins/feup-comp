@@ -1,0 +1,13 @@
+module t1
+{
+	function a()
+	{
+
+	}
+	
+	function main()
+	{
+		x = 5;
+		z = io.read();
+	}
+}

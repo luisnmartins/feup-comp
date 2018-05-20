@@ -92,6 +92,9 @@ public class ASTFunction extends SimpleNode {
     FunctionTable table = parent.getFunction(name);
     int reg = registry;
 
+    // if (name.compareTo("main") == 0)
+    //   reg = 1;
+
     LinkedHashMap<String, Symbol> parameters = table.getParameters();
 
     for (Symbol symbol : parameters.values()) {
@@ -142,8 +145,12 @@ public class ASTFunction extends SimpleNode {
 
     ArrayList instList = new ArrayList<>();
 
+    int maxStack = 0;
+
     for (int i = 0; i < children.length; i++) {
       instList = children[i].getJVMCode(table, instList);
+
+      maxStack = setStackCounter(maxStack, children[i].getMaxStack());
     }
 
     if (returnValue != null)

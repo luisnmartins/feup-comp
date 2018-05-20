@@ -66,18 +66,12 @@ public class ASTAccess extends SimpleNode {
   public int setRegistry(FunctionTable parent, int registry) {
     int reg = registry;
     Symbol symbol = parent.hasRegistry(name);
-    System.out.println("Access name " + name);
     if (symbol != null) {
       symbol.setRegistry(reg);
       reg++;
     } else {
       SimpleEntry<String, Symbol> symbolEntry = parent.getReturnParameter();
       if (symbolEntry != null && !parent.getRetHasReg()) {
-        if(parent.isClone){
-          System.out.println("I'm CLONE");
-        }else{
-          System.out.println("I'm NOT CLONE");
-        }
         symbol = symbolEntry.getValue();
         if (!symbol.isRegistered()) {
           symbol.setRegistry(reg);
@@ -112,6 +106,8 @@ public class ASTAccess extends SimpleNode {
 
       instructions = jjtGetChild(0).getJVMCode(parent, instructions);
 
+      setMaxStack(jjtGetChild(0).getMaxStack() + 1);
+
       instructions.add("iaload");
 
     } else {
@@ -131,6 +127,8 @@ public class ASTAccess extends SimpleNode {
 
         } else {
 
+          
+
           // a = [10]; b = a;
 
         }
@@ -145,6 +143,8 @@ public class ASTAccess extends SimpleNode {
         // countStack = setStackCounter(countStack, 1);
 
       }
+
+      setMaxStack(1);
 
     }
 

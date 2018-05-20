@@ -109,7 +109,7 @@ class ASTModule extends SimpleNode {
       insts = children[i].getJVMCode(global, insts, statics_array_sizes);
     }
 
-    statics.get("initial").add(".limit stack " + 100);
+    statics.get("initial").add(".limit stack " + insts.get(3).get("counters").get(1));
     statics.get("initial").add(".limit locals " + insts.get(3).get("counters").get(0));
     statics.get("initial").add("");
 
@@ -130,8 +130,7 @@ class ASTModule extends SimpleNode {
       ArrayList lis = insts.get(0).get(key);
       for (int i = 0; i < lis.size(); i++) {
         lines.add(lis.get(i).toString());
-        // System.out.println(lis.get(i));
-      }
+        }
     }
 
     
@@ -140,16 +139,14 @@ class ASTModule extends SimpleNode {
       ArrayList lis = insts.get(2).get(key);
       for (int i = 0; i < lis.size(); i++) {
         lines.add(lis.get(i).toString());
-        // System.out.println(lis.get(i));
-      }
+        }
     }
 
     for (String key : insts.get(1).keySet()) {
       ArrayList lis = insts.get(1).get(key);
       for (int i = 0; i < lis.size(); i++) {
         lines.add(lis.get(i).toString());
-        // System.out.println(lis.get(i));
-      }
+        }
     }
 
     try {

@@ -36,6 +36,9 @@ class ASTStmtlst extends SimpleNode {
   public int setRegistry(FunctionTable parent, int registry) {
     int reg = registry;
 
+    if(jjtGetNumChildren() == 0)
+      return reg;
+
     for (int i = 0; i < children.length; i++) {
       reg = children[i].setRegistry(parent, reg);
     }
@@ -47,9 +50,17 @@ class ASTStmtlst extends SimpleNode {
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
     ArrayList instructions = instList;
 
+    if (jjtGetNumChildren() == 0)
+      return instructions;
+
+      int maxStack = 0;
+
     for (int i = 0; i < children.length; i++) {
       instructions = children[i].getJVMCode(parent, instructions);
+      maxStack = setStackCounter(maxStack, children[i].getMaxStack());
     }
+
+    setMaxStack(maxStack);
 
     return instructions;
 

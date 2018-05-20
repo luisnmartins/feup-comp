@@ -63,6 +63,8 @@ public class ASTIndex extends SimpleNode {
 
     }
 
+    setMaxStack(1);
+
     return instructions;
   }
 

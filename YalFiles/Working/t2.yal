@@ -1,0 +1,61 @@
+module aval6
+{
+
+t1 = 8;
+l = [10];
+
+function a=sqrt(vsqn) {
+	vsq=vsqn;
+     	asq=0; 
+     	a=0; 
+     	tvsq=0;
+     	i=0;
+     	while(i < 6) {
+        	nasq1 = asq + a;
+        	nasq2 = nasq1 << 2;
+	    	nasq = nasq2 | 1;
+	    	sa = a << 1;
+         	tvsq1 = tvsq << 2;
+         	vsq1 =  vsq >> 10;
+         	vsq2 = vsq1 & 3;
+	     	tvsq = tvsq1 | vsq2;
+	     	vsq = vsq << 2;
+		if(nasq <= tvsq) {
+			a = sa | 1;
+			asq = nasq;
+		} else {
+			a = sa ;
+			asq = asq << 2 ;
+		}
+		i=i+1;
+	}
+}
+
+function ka(){
+
+}
+
+function main() {
+		 a=sqrt(17);
+		 io.println(a); // result = 4;
+		 z = io.read();
+		 ka();
+		 x = [10];
+		 k = [10];
+		 
+		 i = 0;
+		 while(i < x.size){
+			x[i] = i;	
+			i=i+1;
+		 }
+		 
+		 k = x;
+		 i = 0;
+		 while(i < k.size){
+			b = k[i];
+			io.print(b);		 
+			i=i+1;
+		 }
+}
+
+}
