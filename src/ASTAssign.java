@@ -125,6 +125,8 @@ public class ASTAssign extends SimpleNode {
 
     Boolean accessGlobal = false;
 
+    int maxStack = 0;
+
 
     if (symbol == null) {
       accessGlobal = true;
@@ -132,6 +134,8 @@ public class ASTAssign extends SimpleNode {
     }
 
     instructions = this.jjtGetChild(1).getJVMCode(parent, instructions);
+
+    maxStack = setStackCounter(maxStack, this.jjtGetChild(1).getMaxStack());
 
     if (symbol.isArray()) {
       if (access.jjtGetNumChildren() > 0) {
@@ -155,6 +159,8 @@ public class ASTAssign extends SimpleNode {
         instructions.add("iload " + maxReg);
         instructions.add("iastore");
         instructions.add("");
+
+        maxStack = setStackCounter(maxStack, 3);
 
       } else {
 

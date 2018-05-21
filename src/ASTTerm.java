@@ -53,9 +53,11 @@ class ASTTerm extends SimpleNode {
     String value = getValueSigned();
     if (value != "") {
       instructions.add("ldc " + value);
+      setMaxStack(1);
       // countStack = setStackCounter(countStack, 1);
     } else {
       instructions = this.jjtGetChild(0).getJVMCode(parent, instList);
+      setMaxStack(this.jjtGetChild(0).getMaxStack());
     }
 
     

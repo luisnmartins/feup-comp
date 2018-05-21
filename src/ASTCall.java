@@ -104,7 +104,10 @@ public class ASTCall extends SimpleNode {
         newFuncParams += arg.getFuncParams(parent);
         instructions = children[i].getJVMCode(parent, instructions);
       }
+      setMaxStack(this.jjtGetNumChildren());
     }
+
+    
 
     // countStack = setStackCounter(countStack, children.length);
 

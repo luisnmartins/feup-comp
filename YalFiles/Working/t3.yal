@@ -1,5 +1,6 @@
 module t3
 {
+
 			
 	function main()
 	{
@@ -10,7 +11,7 @@ module t3
 			i= i + 1;
 		}
 		
-		n = [10];
+		n = [40];
 	
 		n = a;
 		

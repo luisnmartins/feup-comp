@@ -69,8 +69,14 @@ public class ASTExprtest extends SimpleNode {
     for (int i = 0; i < children.length; i++) {
       instructions = children[i].getJVMCode(parent, instructions);
 
-      maxStack += children[i].getMaxStack();
-    }
+      maxStack = setStackCounter(maxStack, children[i].getMaxStack() + 1);
+
+      System.out.println("MAX: " + children[i].getMaxStack());
+    }    
+
+    maxStack = setStackCounter(maxStack, 2); //No minimo sao 2!
+
+    System.out.println("MAX EXPRTEST: " + maxStack);
 
     setMaxStack(maxStack);
 

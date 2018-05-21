@@ -1,0 +1,25 @@
+module t4
+{
+function res=f1(a,b,c,d){
+	res = a+b;
+	res = res +c;
+	res = res+d;
+}
+
+			
+	function main()
+	{
+	z = [10];
+	
+		x = z[1] + f1(1,2,3,4);
+		
+		io.print(x);
+		
+		if(x < z[2]){
+		
+		}
+		
+	
+	}
+
+}

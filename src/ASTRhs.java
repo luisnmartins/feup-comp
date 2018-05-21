@@ -56,16 +56,18 @@ public class ASTRhs extends SimpleNode {
 
       setMaxStack(this.jjtGetChild(0).getMaxStack());
 
+      //se foi call entao no pai verifica e se foi entao é + 1, senao é o maximo deste 
+
     } else {
 
       int maxStack = 0;
 
       for (int m = 0; m < 2; m++) {
         instructions = this.jjtGetChild(m).getJVMCode(parent, instructions);
-        maxStack += this.jjtGetChild(m).getMaxStack();
+        maxStack = setStackCounter(maxStack, this.jjtGetChild(m).getMaxStack());
       }
 
-      setMaxStack(maxStack);
+      setMaxStack(maxStack + 1); // como é uma soma tem sempre o maximo dos dois mais um
 
       instList.add(getOperation(operator));
 

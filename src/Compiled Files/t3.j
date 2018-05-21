@@ -33,7 +33,7 @@ istore 1
 
 goto loop0
 loop_end0:
-ldc 10
+ldc 40
 newarray int
 astore 2
 
