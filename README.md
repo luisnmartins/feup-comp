@@ -12,9 +12,9 @@ jasmin.jar and io.class to be placed on the src folder
 
 Run the following commands on command line:
 
-jjtree parser.jjt
+jjtree Parser.jjt
 
-javacc parser.jj
+javacc Parser.jj
 
 javac *.java
 
