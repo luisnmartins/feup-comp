@@ -1,49 +1,37 @@
-.class public aval7
+.class public nestedBranch
 .super java/lang/Object
 
-.method public static Count(I)I
+.method public static sign(I)I
 .limit stack 2
-.limit locals 4
+.limit locals 2
+
+iload_0
+iconst_0
+if_icmpge if_else0
+
+bipush -1
+istore_1
+
+goto if_end0
+
+if_else0:
+iload_0
+iconst_0
+if_icmpne if_else0
 
 iconst_0
 istore_1
 
-bipush -1
-istore_2
+goto if_end0
 
-loop0:
-
-iload_2
-bipush 32
-if_icmpge loop_end0
-iload_0
+if_else0:
 iconst_1
-iand
-istore_3
-
-iload_3
-iconst_1
-if_icmpne if_end0
-
-iload_1
-iconst_1
-iadd
 istore_1
 
 if_end0:
 
-iload_0
-iconst_1
-ishr
-istore_0
+if_end0:
 
-iload_2
-iconst_1
-iadd
-istore_2
-
-goto loop0
-loop_end0:
 iload_1
 ireturn
 .end method
@@ -52,8 +40,8 @@ ireturn
 .limit stack 1
 .limit locals 2
 
-iconst_3
-invokestatic aval7/Count(I)I
+bipush 4
+invokestatic nestedBranch/sign(I)I
 
 istore_0
 

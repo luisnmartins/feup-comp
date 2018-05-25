@@ -7,25 +7,25 @@
 
 loop0:
 
-iload 0
-iload 1
+iload_0
+iload_1
 if_icmpge loop_end0
 invokestatic io/read()I
 
-istore 2
+istore_2
 
 invokestatic io/read()I
 
-istore 0
+istore_0
 
-iload 0
-iload 2
+iload_0
+iload_2
 iadd
-istore 0
+istore_0
 
 goto loop0
 loop_end0:
-iload 0
+iload_0
 ireturn
 .end method
 
@@ -33,13 +33,13 @@ ireturn
 .limit stack 2
 .limit locals 2
 
-ldc 5
-ldc 6
+bipush 5
+bipush 6
 invokestatic aval4/f(II)I
 
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
 return

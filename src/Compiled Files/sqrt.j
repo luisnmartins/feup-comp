@@ -7,64 +7,64 @@
 
 invokestatic io/read()I
 
-istore 0
+istore_0
 
 ldc "vsqn: "
-iload 0
+iload_0
 invokestatic io/println(Ljava/lang/String;I)V
 
-iload 0
-istore 1
+iload_0
+istore_1
 
-ldc 0
-istore 2
+iconst_0
+istore_2
 
-ldc 0
-istore 3
+iconst_0
+istore_3
 
-ldc 0
+iconst_0
 istore 4
 
-ldc 0
+iconst_0
 istore 5
 
 loop0:
 
 iload 5
-ldc 6
+bipush 6
 if_icmpge loop_end0
-iload 2
-iload 3
+iload_2
+iload_3
 iadd
 istore 6
 
 iload 6
-ldc 2
+iconst_2
 ishl
 istore 7
 
 iload 7
-ldc 1
+iconst_1
 ior
 istore 8
 
-iload 3
-ldc 1
+iload_3
+iconst_1
 ishl
 istore 9
 
 iload 4
-ldc 2
+iconst_2
 ishl
 istore 10
 
-iload 1
-ldc 10
+iload_1
+bipush 10
 ishr
 istore 11
 
 iload 11
-ldc 3
+iconst_3
 iand
 istore 12
 
@@ -73,48 +73,48 @@ iload 12
 ior
 istore 4
 
-iload 1
-ldc 2
+iload_1
+iconst_2
 ishl
-istore 1
+istore_1
 
 iload 8
 iload 4
 if_icmpgt if_else0
 
 iload 9
-ldc 1
+iconst_1
 ior
-istore 3
+istore_3
 
 iload 8
-istore 2
+istore_2
 
 goto if_end0
 
 if_else0:
 iload 9
-istore 3
+istore_3
 
-iload 2
-ldc 2
+iload_2
+iconst_2
 ishl
-istore 2
+istore_2
 
 if_end0:
 
 iload 5
-ldc 1
+iconst_1
 iadd
 istore 5
 
 goto loop0
 loop_end0:
 ldc "sqrt: "
-iload 3
+iload_3
 invokestatic io/println(Ljava/lang/String;I)V
 
-iload 3
+iload_3
 ireturn
 .end method
 
@@ -124,7 +124,7 @@ ireturn
 
 invokestatic sqrt/sqrt()I
 
-istore 0
+istore_0
 
 return
 .end method

@@ -34,23 +34,23 @@ public class ASTArgument extends SimpleNode {
         argGlobal = true;
       if (!symbol.isArray()) {
         if (argGlobal)
-          instructions.add("getstatic " + module_name + "/" + value + " I");
+          writeToFile("getstatic " + module_name + "/" + value + " I", module_name);
         else
-          instructions.add(getInstWihUnderscore("iload", symbol.getRegistry()));
+          writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
       } else {
         if (argGlobal)
-          instructions.add("getstatic " + module_name + "/" + value + " [I");
+          writeToFile("getstatic " + module_name + "/" + value + " [I", module_name);
         else
-          instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
+          writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
       }
     } else {
       try {
         int valueInt = Integer.parseInt(value);
 
-        instructions.add(getConstInst(valueInt));
+        writeToFile(getConstInst(valueInt), module_name);
 
       } catch (Exception e) {
-        instructions.add("ldc " + value);
+        writeToFile("ldc " + value, module_name);
       }
     }
 

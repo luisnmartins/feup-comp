@@ -76,22 +76,22 @@ public class ASTArraySize extends SimpleNode {
 
     if (isSize) {
       if (accessGlobal) {
-        instructions.add("getstatic " + module_name + "/" + sizeVar + " [I");
+        writeToFile("getstatic " + module_name + "/" + sizeVar + " [I", module_name);
       } else {
-        instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
+        writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
       }
-      instructions.add("arraylength");
+      writeToFile("arraylength", module_name);
     } else if (sizeVar != null) {
       if (accessGlobal) {
-        instructions.add("getstatic " + module_name + "/" + sizeVar + " I");
+        writeToFile("getstatic " + module_name + "/" + sizeVar + " I", module_name);
       } else {
-        instructions.add(getInstWihUnderscore("iload", symbol.getRegistry()));
+        writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
       }
     } else {
-      instructions.add(getConstInst(size));
+      writeToFile(getConstInst(size), module_name);
     }
 
-    instructions.add("newarray int");
+    writeToFile("newarray int", module_name);
 
     setMaxStack(1);
 

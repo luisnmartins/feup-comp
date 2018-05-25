@@ -50,9 +50,11 @@ public class ASTRhs extends SimpleNode {
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
     ArrayList instructions = instList;
 
+    String module_name = parent.getParent().getModuleName();
+
     if (children.length == 1) {
 
-      instructions = this.jjtGetChild(0).getJVMCode(parent, instructions);
+      this.jjtGetChild(0).getJVMCode(parent, instructions);
 
       setMaxStack(this.jjtGetChild(0).getMaxStack());
 
@@ -93,21 +95,21 @@ public class ASTRhs extends SimpleNode {
           Symbol symbol = parent.getFromScope(rhs_access.name);
 
           if (symbol != null) {
-            instructions.add("iinc " + symbol.getRegistry() + " " + second_term.value);
+            writeToFile("iinc " + symbol.getRegistry() + " " + second_term.value, module_name);
             maxStack = setStackCounter(maxStack, 1);
           }
 
         }
       } else {
         for (int m = 0; m < 2; m++) {
-          instructions = this.jjtGetChild(m).getJVMCode(parent, instructions);
+          this.jjtGetChild(m).getJVMCode(parent, instructions);
           maxStack = setStackCounter(maxStack, this.jjtGetChild(m).getMaxStack());
         }
       }
 
       setMaxStack(maxStack + 1); // como é uma soma tem sempre o maximo dos dois mais um
 
-      instList.add(getOperation(operator));
+      writeToFile(getOperation(operator), module_name);
 
     }
 

@@ -87,7 +87,7 @@ public class ASTAccess extends SimpleNode {
 
   @Override
   public int setRegistry(FunctionTable parent, FunctionTable parent2, int registry) {
-    System.out.println("BENFICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    
     int reg = registry;
     Symbol symbol = parent.hasRegistry(name);
     if (symbol != null) {
@@ -124,15 +124,15 @@ public class ASTAccess extends SimpleNode {
     if (this.jjtGetNumChildren() > 0) {
       // x = a[2];
       if (accessGlobal)
-        instructions.add("getstatic " + module_name + "/" + name + " [I");
+        writeToFile("getstatic " + module_name + "/" + name + " [I", module_name);
       else
-        instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
+        writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
 
-      instructions = jjtGetChild(0).getJVMCode(parent, instructions);
+      jjtGetChild(0).getJVMCode(parent, instructions);
 
       setMaxStack(jjtGetChild(0).getMaxStack() + 1);
 
-      instructions.add("iaload");
+      writeToFile("iaload", module_name);
 
     } else {
 
@@ -143,11 +143,11 @@ public class ASTAccess extends SimpleNode {
           // x = a.size;
 
           if (accessGlobal) {
-            instructions.add("getstatic " + module_name + "/" + name + " [I");
+            writeToFile("getstatic " + module_name + "/" + name + " [I", module_name);
           } else {
-            instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
+            writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
           }
-          instructions.add("arraylength");
+          writeToFile("arraylength", module_name);
 
         } else {
 
@@ -161,9 +161,9 @@ public class ASTAccess extends SimpleNode {
         // x = a;
 
         if (accessGlobal)
-          instructions.add("getstatic " + module_name + "/" + name + " I");
+          writeToFile("getstatic " + module_name + "/" + name + " I", module_name);
         else{
-          instructions.add(getInstWihUnderscore("iload", symbol.getRegistry()));
+          writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
           
         }
           

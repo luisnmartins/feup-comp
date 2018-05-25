@@ -5,16 +5,16 @@
 .limit stack 3
 .limit locals 7
 
-ldc 1
-istore 0
+iconst_1
+istore_0
 
-ldc 10
+bipush 10
 newarray int
-astore 1
+astore_1
 
-ldc 1
+iconst_1
 istore 4
-aload 1
+aload_1
 arraylength
 istore 5
 iconst_0
@@ -23,7 +23,7 @@ loop0:
 iload 6
 iload 5
 if_icmpge loop_end0
-aload 1
+aload_1
 iload 6
 iload 4
 iastore
@@ -31,12 +31,12 @@ iinc 6 1
 goto loop0
 loop_end0:
 
-aload 1
-ldc 4
+aload_1
+bipush 4
 iaload
-istore 2
+istore_2
 
-iload 2
+iload_2
 invokestatic io/println(I)V
 
 return

@@ -12,12 +12,12 @@ return
 .limit stack 1
 .limit locals 3
 
-ldc 5
-istore 0
+bipush 5
+istore_0
 
 invokestatic io/read()I
 
-istore 1
+istore_1
 
 return
 .end method

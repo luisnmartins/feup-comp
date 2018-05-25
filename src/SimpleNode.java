@@ -1,3 +1,11 @@
+import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.AbstractMap.SimpleEntry;
@@ -13,6 +21,7 @@ public class SimpleNode implements Node {
   protected Parser parser;
   protected int line;
   protected int maxStack;
+  public Writer output;
 
   public SimpleNode(int i) {
     id = i;
@@ -37,11 +46,11 @@ public class SimpleNode implements Node {
     return parent;
   }
 
-  public int getMaxStack(){
+  public int getMaxStack() {
     return maxStack;
   }
 
-  public void setMaxStack(int stack){
+  public void setMaxStack(int stack) {
     maxStack = stack;
   }
 
@@ -131,7 +140,6 @@ public class SimpleNode implements Node {
   };
 
   public int setRegistry(FunctionTable parent, FunctionTable parent2, int registry) {
-    System.out.println("BENFICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     return registry;
   };
 
@@ -152,33 +160,33 @@ public class SimpleNode implements Node {
     return (newC > max ? newC : max);
   }
 
-  public int getLoopCount(ArrayList insts) {
-    int loopCount = 0;
-    for (int i = 0; i < insts.size(); i++) {
-      if (insts.get(i).toString().contains("loop_end")) {
-        loopCount++;
-      }
-    }
+  // public int getLoopCount(ArrayList insts) {
+  // int loopCount = 0;
+  // for (int i = 0; i < insts.size(); i++) {
+  // if (insts.get(i).toString().contains("loop_end")) {
+  // loopCount++;
+  // }
+  // }
 
-    loopCount /= 2;
+  // loopCount /= 2;
 
-    return loopCount;
-  }
+  // return loopCount;
+  // }
 
-  public int getIfCount(ArrayList insts) {
-    int ifCount = 0;
-    for (int i = 0; i < insts.size(); i++) {
-      if (insts.get(i).toString().contains("if_end")) {
-        ifCount++;
-      }
-    }
+  // public int getIfCount(ArrayList insts) {
+  // int ifCount = 0;
+  // for (int i = 0; i < insts.size(); i++) {
+  // if (insts.get(i).toString().contains("if_end")) {
+  // ifCount++;
+  // }
+  // }
 
-    ifCount /= 2;
+  // ifCount /= 2;
 
-    return ifCount;
-  }
+  // return ifCount;
+  // }
 
-  public String getConstInst(int value){
+  public String getConstInst(int value) {
     String res = "ldc " + value;
     if (value >= 0 && value < 4) {
       res = "iconst_" + value;
@@ -186,16 +194,87 @@ public class SimpleNode implements Node {
       res = "bipush " + value;
     } else if (value >= -32768 && value < 32767) {
       res = "sipush " + value;
-    } 
+    }
 
     return res;
   }
 
-  public String getInstWihUnderscore(String inst, int reg){
-    if(reg <= 3)
+  public String getInstWihUnderscore(String inst, int reg) {
+    if (reg <= 3)
       return inst + "_" + reg;
     else
       return inst + " " + reg;
+  }
+
+  public void writeToFile(String str, String module_name) {
+    try {
+      output = new BufferedWriter(new FileWriter("Compiled Files/" + module_name + ".j", true)); // clears file every time
+      output.append(str);
+      output.append('\n');
+      output.close();
+    } catch (IOException e) {
+      // TODO: handle exception
+    }
+
+  }
+
+  public void editLastLine(String str, String module_name) {
+    try {
+      List<String> fileContent = new ArrayList<>(
+          Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));
+      fileContent.set(fileContent.size() - 1, str);
+
+      Files.write(Paths.get("Compiled Files/" + module_name + ".j"), fileContent, StandardCharsets.UTF_8);
+    } catch (IOException e) {
+      // TODO: handle exception
+    }
+  }
+
+  public void editStack(String str, String oldLine, String module_name) {
+    try {
+      List<String> fileContent = new ArrayList<>(
+          Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));
+
+      for (int i = 0; i < fileContent.size(); i++) {
+        if (fileContent.get(i).contains(oldLine)) {
+          fileContent.set(i+1, str);
+          break;
+        }
+      }
+
+      Files.write(Paths.get("Compiled Files/" + module_name + ".j"), fileContent, StandardCharsets.UTF_8);
+    } catch (IOException e) {
+      // TODO: handle exception
+    }
+  }
+
+  public void editLocals(String str, String oldLine, String module_name) {
+    try {
+      List<String> fileContent = new ArrayList<>(
+          Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));
+
+      for (int i = 0; i < fileContent.size(); i++) {
+        if (fileContent.get(i).contains(oldLine)) {
+          fileContent.set(i + 2, str);
+          break;
+        }
+      }
+
+      Files.write(Paths.get("Compiled Files/" + module_name + ".j"), fileContent, StandardCharsets.UTF_8);
+    } catch (IOException e) {
+      // TODO: handle exception
+    }
+  }
+
+  public String getLastLine(String module_name) {
+    List<String> fileContent = null;
+    try {
+      fileContent = new ArrayList<>(
+          Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));
+    } catch (IOException e) {
+      // TODO: handle exception
+    }
+    return fileContent.get(fileContent.size() - 1).toString();
   }
 }
 

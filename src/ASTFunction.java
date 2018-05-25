@@ -122,6 +122,8 @@ public class ASTFunction extends SimpleNode {
 
     LinkedHashMap<String, Symbol> parameters = table.getParameters();
 
+    String module_name = parent.getModuleName();
+
     String funcParams = "";
 
     for (Symbol symbol : parameters.values()) {
@@ -147,8 +149,23 @@ public class ASTFunction extends SimpleNode {
 
     int maxStack = 0;
 
+    System.out.println();
+    System.out.println("FUNCTION " + name + " MAX: " + getMaxStack());
+    System.out.println();
+
+    if (name.compareTo("main") == 0)
+      writeToFile(".method public static " + name + "([Ljava/lang/String;" + funcParams + ")V", module_name);
+    else {
+      writeToFile(".method public static " + name + "(" + funcParams + ")" + returnType, module_name);
+    }
+
+    writeToFile(".limit stack " + getMaxStack(), module_name);
+    writeToFile(".limit locals " + (table.getMaxRegistry() + 1), module_name);
+
+    writeToFile("", module_name);
+
     for (int i = 0; i < children.length; i++) {
-      instList = children[i].getJVMCode(table, instList);
+      children[i].getJVMCode(table, instList);
 
       maxStack = setStackCounter(maxStack, children[i].getMaxStack());
     }
@@ -163,45 +180,31 @@ public class ASTFunction extends SimpleNode {
         String retKey = table.getReturnParameter().getKey();
         Symbol ret = table.getFromAll(retKey);
 
-        instList.add(getInstWihUnderscore("aload", ret.getRegistry()));
-        instList.add("areturn");
+        writeToFile(getInstWihUnderscore("aload", ret.getRegistry()), module_name);
+        writeToFile("areturn", module_name);
 
       } else {
         String retKey = table.getReturnParameter().getKey();
         Symbol ret = table.getFromAll(retKey);
 
-        instList.add(getInstWihUnderscore("iload", ret.getRegistry()));
-        instList.add("ireturn");
+        writeToFile(getInstWihUnderscore("iload", ret.getRegistry()), module_name);
+        writeToFile("ireturn", module_name);
 
       }
       maxStack =  setStackCounter(maxStack, 1);
     }else
-      instList.add("return");
+      writeToFile("return", module_name);
 
     setMaxStack(maxStack);
 
-    System.out.println();
-    System.out.println("FUNCTION " + name + " MAX: " + getMaxStack());
-    System.out.println();
+    
 
-    if (name.compareTo("main") == 0)
-      funcList.add(".method public static " + name + "([Ljava/lang/String;" + funcParams + ")V");
-    else {
-      funcList.add(".method public static " + name + "(" + funcParams + ")" + returnType);
-    }
+    writeToFile(".end method", module_name);
 
-    funcList.add(".limit stack " + getMaxStack());
-    funcList.add(".limit locals " + (table.getMaxRegistry() + 1));
+    writeToFile("", module_name);
 
-    funcList.add("");
-
-    instList.add(".end method");
-
-    instList.add("");
-
-    funcList.addAll(instList);
-
-    instructions.get(2).put(name, funcList);
+    editStack(".limit stack " + getMaxStack(), ".method public static " + name, module_name);
+    editLocals(".limit locals " + (table.getMaxRegistry() + 1), ".method public static " + name, module_name);
 
     return instructions;
   }

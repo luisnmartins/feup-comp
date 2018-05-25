@@ -7,76 +7,76 @@
 .limit stack 3
 .limit locals 13
 
-ldc 10
+bipush 10
 newarray int
-astore 0
+astore_0
 
-ldc 30
+bipush 30
 newarray int
 putstatic t3/v [I
 
-ldc 0
-istore 1
+iconst_0
+istore_1
 
 loop0:
 
-iload 1
-ldc 4
-ldc 4
+iload_1
+bipush 4
+bipush 4
 iadd
 if_icmpge loop_end0
-iload 1
+iload_1
 istore 8
 getstatic t3/v [I
-iload 1
+iload_1
 iload 8
 iastore
 
-iload 1
-ldc 1
+iload_1
+iconst_1
 iadd
-istore 1
+istore_1
 
 goto loop0
 loop_end0:
-ldc 40
+bipush 40
 newarray int
-astore 2
+astore_2
 
 getstatic t3/v [I
-astore 2
-ldc 20
+astore_2
+bipush 20
 newarray int
-astore 0
+astore_0
 
-ldc 1
+iconst_1
 istore 9
-aload 0
-ldc 4
+aload_0
+bipush 4
 iload 9
 iastore
 
-aload 2
-ldc 4
+aload_2
+bipush 4
 iaload
-istore 3
+istore_3
 
-aload 0
-ldc 4
+aload_0
+bipush 4
 iaload
 istore 4
 
-iload 3
+iload_3
 invokestatic io/println(I)V
 
 iload 4
 invokestatic io/println(I)V
 
-ldc 10
+bipush 10
 newarray int
 astore 5
 
-ldc 3
+iconst_3
 istore 10
 aload 5
 arraylength
@@ -95,27 +95,27 @@ iinc 12 1
 goto loop1
 loop_end1:
 
-ldc 0
-istore 1
+iconst_0
+istore_1
 
 loop2:
 
-iload 1
-aload 2
+iload_1
+aload_2
 arraylength
 if_icmpge loop_end2
-aload 2
-iload 1
+aload_2
+iload_1
 iaload
 istore 6
 
 iload 6
 invokestatic io/print(I)V
 
-iload 1
-ldc 1
+iload_1
+iconst_1
 iadd
-istore 1
+istore_1
 
 goto loop2
 loop_end2:
@@ -129,11 +129,11 @@ return
 .limit locals 1
 
 getstatic t3/v [I
-ldc 20
+bipush 20
 iaload
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
 return
@@ -143,20 +143,20 @@ return
 .limit stack 3
 .limit locals 3
 
-ldc 10
+bipush 10
 newarray int
 putstatic t3/v [I
 
-ldc 10
-istore 1
+bipush 10
+istore_1
 iconst_0
-istore 2
+istore_2
 loop0:
-iload 2
-iload 1
+iload_2
+iload_1
 if_icmpge loop_end0
 getstatic t3/v [I
-iload 2
+iload_2
 ldc 99999
 iastore
 iinc 2 1

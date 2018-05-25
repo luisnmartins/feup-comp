@@ -5,27 +5,27 @@
 .limit stack 2
 .limit locals 3
 
-ldc 4
-istore 0
+bipush 4
+istore_0
 
-ldc 10
-istore 1
+bipush 10
+istore_1
 
-iload 0
-iload 1
+iload_0
+iload_1
 if_icmpge if_end0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
-iload 0
-ldc 1
+iload_0
+iconst_1
 iadd
-istore 0
+istore_0
 
 if_end0:
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
 return

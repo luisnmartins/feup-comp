@@ -10,4 +10,10 @@ module nestedBranch {
 			}
 		}
 	}
+	
+	function main() {
+		x = sign(4);
+		io.println(x);
+		
+	}
 }

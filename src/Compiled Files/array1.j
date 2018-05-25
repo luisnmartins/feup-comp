@@ -5,45 +5,45 @@
 .limit stack 3
 .limit locals 7
 
-ldc 7
+bipush 7
 istore 5
-aload 1
-ldc 3
+aload_1
+iconst_3
 iload 5
 iastore
 
-ldc 0
-istore 3
+iconst_0
+istore_3
 
 loop0:
 
-iload 3
-iload 0
+iload_3
+iload_0
 if_icmpge loop_end0
-iload 3
+iload_3
 istore 6
-aload 1
-iload 3
+aload_1
+iload_3
 iload 6
 iastore
 
-iload 3
-ldc 1
+iload_3
+iconst_1
 iadd
-istore 3
+istore_3
 
 goto loop0
 loop_end0:
-ldc 0
-istore 3
+iconst_0
+istore_3
 
 loop1:
 
-iload 3
-iload 0
+iload_3
+iload_0
 if_icmpge loop_end1
-aload 1
-iload 3
+aload_1
+iload_3
 iaload
 istore 4
 
@@ -51,10 +51,10 @@ ldc "a: "
 iload 4
 invokestatic io/print(Ljava/lang/String;I)V
 
-iload 3
-ldc 1
+iload_3
+iconst_1
 iadd
-istore 3
+istore_3
 
 goto loop1
 loop_end1:
@@ -65,13 +65,13 @@ return
 .limit stack 3
 .limit locals 2
 
-ldc 10
+bipush 10
 newarray int
-astore 0
+astore_0
 
-ldc 10
-aload 0
-ldc 4
+bipush 10
+aload_0
+bipush 4
 invokestatic array1/print_array(I[II)V
 
 return

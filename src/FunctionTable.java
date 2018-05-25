@@ -11,6 +11,7 @@ public class FunctionTable extends SymbolTable {
     int maxRegistry = 0;
     Boolean isClone = false;
     Boolean retHasReg = false;
+    
 
     public FunctionTable(GlobalTable parent) {
         super();

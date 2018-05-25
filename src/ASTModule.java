@@ -107,50 +107,66 @@ public class ASTModule extends SimpleNode {
     insts.add(functionInsts);
     insts.add(countersMap);
 
+    Boolean initFunc = false;
+
     for (int i = 0; i < children.length; i++) {
+      if(children[i] instanceof ASTFunction && !initFunc){
+        initFunc = true;
+        statics.get("initial").add(".limit stack " + insts.get(3).get("counters").get(1));
+        statics.get("initial").add(".limit locals " + insts.get(3).get("counters").get(0));
+        statics.get("initial").add("");
+
+        staList.add("return");
+        staList.add(".end method");
+        staList.add("");
+
+        statics.put("finish", staList);
+
+        Path file = Paths.get("Compiled Files/" + global.getModuleName() + ".j");
+        ArrayList lines = new ArrayList<>();
+        File directory = new File("Compiled Files");
+        if (!directory.exists()) {
+          directory.mkdir();
+        }
+        for (String key : insts.get(0).keySet()) {
+          ArrayList lis = insts.get(0).get(key);
+          for (int j = 0; j < lis.size(); j++) {
+            lines.add(lis.get(j).toString());
+          }
+        }
+
+        try {
+          Files.write(file, lines, Charset.forName("UTF-8"));
+        } catch (Exception e) {
+          // TODO: handle exception
+        }
+
+      }
       insts = children[i].getJVMCode(global, insts, statics_array_sizes);
     }
+   
+    
 
-    statics.get("initial").add(".limit stack " + insts.get(3).get("counters").get(1));
-    statics.get("initial").add(".limit locals " + insts.get(3).get("counters").get(0));
-    statics.get("initial").add("");
+    // ArrayList lines = new ArrayList<>();
 
-    staList.add("return");
-    staList.add(".end method");
-    staList.add("");
-
-    statics.put("finish", staList);
-
-    ArrayList lines = new ArrayList<>();
-
-    Path file = Paths.get("Compiled Files/" + global.getModuleName() + ".j");
-    File directory = new File("Compiled Files");
-    if (!directory.exists()) {
-      directory.mkdir();
-    }
-    for (String key : insts.get(0).keySet()) {
-      ArrayList lis = insts.get(0).get(key);
-      for (int i = 0; i < lis.size(); i++) {
-        lines.add(lis.get(i).toString());
-      }
-    }
-
-    for (String key : insts.get(2).keySet()) {
-      ArrayList lis = insts.get(2).get(key);
-      for (int i = 0; i < lis.size(); i++) {
-        lines.add(lis.get(i).toString());
-      }
-    }
+    // Path file = Paths.get("Compiled Files/" + global.getModuleName() + ".j");
+    
+    // for (String key : insts.get(2).keySet()) {
+    //   ArrayList lis = insts.get(2).get(key);
+    //   for (int i = 0; i < lis.size(); i++) {
+    //     lines.add(lis.get(i).toString());
+    //   }
+    // }
 
     for (String key : insts.get(1).keySet()) {
       ArrayList lis = insts.get(1).get(key);
       for (int i = 0; i < lis.size(); i++) {
-        lines.add(lis.get(i).toString());
+        writeToFile(lis.get(i).toString(), name);
       }
     }
 
     try {
-      Files.write(file, lines, Charset.forName("UTF-8"));
+      //Files.write(file, lines, Charset.forName("UTF-8"));
     } catch (Exception e) {
       // TODO: handle exception
     }

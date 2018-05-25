@@ -114,8 +114,8 @@ public class ASTDeclarationValue extends SimpleNode {
           }
 
           ArrayList staList = instructions.get(1).get(elemName);
-          staList.addAll(initializeArray(dec_locals_counter, arr_size, value, module_name, elemName, staticInsts));
-          
+          staList.addAll(initializeArray(dec_locals_counter, arr_size, value, module_name, elemName, staticInsts, parent.getLoopCount()));
+          parent.incLoopCount();
           int maxStack = ((ArrayList<Integer>) instructions.get(3).get("counters")).get(1);
 
           maxStack = setStackCounter(maxStack, 3);
@@ -154,7 +154,7 @@ public class ASTDeclarationValue extends SimpleNode {
   }
 
   public ArrayList initializeArray(int reg, String arr_size, String value, String module_name, String name,
-      ArrayList insts) {
+      ArrayList insts, int loopCount) {
     int size = reg;
     reg++;
     int iterator = reg;
@@ -174,8 +174,6 @@ public class ASTDeclarationValue extends SimpleNode {
     }
 
     int valueInt = Integer.parseInt(value);
-
-    int loopCount = getLoopCount(insts);
 
     ret.add(getInstWihUnderscore("istore", size)); // cria variavel para o size do ArrayList
     ret.add("iconst_0");
@@ -200,6 +198,8 @@ public class ASTDeclarationValue extends SimpleNode {
     ret.add("loop_end" + loopCount + ":");
 
     ret.add("");
+
+    
 
     return ret;
   }

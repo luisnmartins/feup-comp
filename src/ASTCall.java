@@ -102,7 +102,7 @@ public class ASTCall extends SimpleNode {
       for (int i = 0; i < children.length; i++) {
         ASTArgument arg = (ASTArgument) children[i];
         newFuncParams += arg.getFuncParams(parent);
-        instructions = children[i].getJVMCode(parent, instructions);
+        children[i].getJVMCode(parent, instructions);
       }
       setMaxStack(this.jjtGetNumChildren());
     }
@@ -163,11 +163,11 @@ public class ASTCall extends SimpleNode {
       }
     }
 
-    instructions.add("invokestatic " + caller + "(" + newFuncParams + ")" + returnT);
+    writeToFile("invokestatic " + caller + "(" + newFuncParams + ")" + returnT, module_name);
     if (this.parent instanceof ASTStmtlst)
       if (returnT != "V")
-        instructions.add("pop");
-    instructions.add("");
+        writeToFile("pop", module_name);
+    writeToFile("", module_name);
 
     return instructions;
 

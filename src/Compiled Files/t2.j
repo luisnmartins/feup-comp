@@ -9,58 +9,58 @@
 .limit stack 2
 .limit locals 13
 
-iload 0
-istore 1
+iload_0
+istore_1
 
-ldc 0
-istore 2
+iconst_0
+istore_2
 
-ldc 0
-istore 3
+iconst_0
+istore_3
 
-ldc 0
+iconst_0
 istore 4
 
-ldc 0
+iconst_0
 istore 5
 
 loop0:
 
 iload 5
-ldc 6
+bipush 6
 if_icmpge loop_end0
-iload 2
-iload 3
+iload_2
+iload_3
 iadd
 istore 6
 
 iload 6
-ldc 2
+iconst_2
 ishl
 istore 7
 
 iload 7
-ldc 1
+iconst_1
 ior
 istore 8
 
-iload 3
-ldc 1
+iload_3
+iconst_1
 ishl
 istore 9
 
 iload 4
-ldc 2
+iconst_2
 ishl
 istore 10
 
-iload 1
-ldc 10
+iload_1
+bipush 10
 ishr
 istore 11
 
 iload 11
-ldc 3
+iconst_3
 iand
 istore 12
 
@@ -69,44 +69,44 @@ iload 12
 ior
 istore 4
 
-iload 1
-ldc 2
+iload_1
+iconst_2
 ishl
-istore 1
+istore_1
 
 iload 8
 iload 4
 if_icmpgt if_else0
 
 iload 9
-ldc 1
+iconst_1
 ior
-istore 3
+istore_3
 
 iload 8
-istore 2
+istore_2
 
 goto if_end0
 
 if_else0:
 iload 9
-istore 3
+istore_3
 
-iload 2
-ldc 2
+iload_2
+iconst_2
 ishl
-istore 2
+istore_2
 
 if_end0:
 
 iload 5
-ldc 1
+iconst_1
 iadd
 istore 5
 
 goto loop0
 loop_end0:
-iload 3
+iload_3
 ireturn
 .end method
 
@@ -121,63 +121,63 @@ return
 .limit stack 3
 .limit locals 8
 
-ldc 17
+bipush 17
 invokestatic t2/sqrt(I)I
 
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
 invokestatic io/read()I
 
-istore 1
+istore_1
 
 invokestatic t2/ka()V
 
-ldc 10
+bipush 10
 newarray int
-astore 2
+astore_2
 
-ldc 10
+bipush 10
 newarray int
-astore 3
+astore_3
 
-ldc 0
+iconst_0
 istore 4
 
 loop0:
 
 iload 4
-aload 2
+aload_2
 arraylength
 if_icmpge loop_end0
 iload 4
 istore 7
-aload 2
+aload_2
 iload 4
 iload 7
 iastore
 
 iload 4
-ldc 1
+iconst_1
 iadd
 istore 4
 
 goto loop0
 loop_end0:
-aload 2
-astore 3
-ldc 0
+aload_3
+astore_3
+iconst_0
 istore 4
 
 loop1:
 
 iload 4
-aload 3
+aload_3
 arraylength
 if_icmpge loop_end1
-aload 3
+aload_3
 iload 4
 iaload
 istore 5
@@ -186,7 +186,7 @@ iload 5
 invokestatic io/print(I)V
 
 iload 4
-ldc 1
+iconst_1
 iadd
 istore 4
 
@@ -199,7 +199,7 @@ return
 .limit stack 1
 .limit locals 1
 
-ldc 10
+bipush 10
 newarray int
 putstatic t2/l [I
 

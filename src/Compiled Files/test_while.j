@@ -5,24 +5,24 @@
 .limit stack 2
 .limit locals 3
 
-ldc 0
-istore 0
+iconst_0
+istore_0
 
-ldc 10
-istore 1
+bipush 10
+istore_1
 
 loop0:
 
-iload 0
-iload 1
+iload_0
+iload_1
 if_icmpge loop_end0
-iload 0
+iload_0
 invokestatic io/print(I)V
 
-iload 0
-ldc 1
+iload_0
+iconst_1
 iadd
-istore 0
+istore_0
 
 goto loop0
 loop_end0:

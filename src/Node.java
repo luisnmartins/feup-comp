@@ -58,10 +58,6 @@ interface Node {
 
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList);
 
-  public int getLoopCount(ArrayList insts);
-
-  public int getIfCount(ArrayList insts);
-
   public int getMaxStack();
 
   public void setMaxStack(int stack);
@@ -69,5 +65,15 @@ interface Node {
   public String getConstInst(int value);
 
   public String getInstWihUnderscore(String inst, int reg);
+
+  public void writeToFile(String str, String module_name);
+
+  public void editLastLine(String str, String module_name);
+
+  public void editLocals(String str, String oldLine, String module_name);
+
+  public void editStack(String str, String oldLine, String module_name);
+
+  public String getLastLine(String module_name);
 }
 /* JavaCC - OriginalChecksum=f321f02c1d43b87914acea48d856de05 (do not edit this line) */

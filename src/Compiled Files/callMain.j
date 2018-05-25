@@ -8,15 +8,13 @@
 .limit locals 0
 
 getstatic callMain/x I
-ldc 0
+iconst_0
 if_icmple if_end0
 
 getstatic callMain/x I
-ldc 1
+iconst_1
 isub
 putstatic callMain/x I
-
-invokestatic callMain/main()V
 
 if_end0:
 
@@ -35,7 +33,7 @@ invokestatic callMain/f()V
 return
 .end method
 
-.method static public <clinit>()V
+.method static public <clinit>()V	
 .limit stack 0
 .limit locals 0
 

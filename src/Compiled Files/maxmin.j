@@ -7,46 +7,46 @@
 
 invokestatic io/read()I
 
-istore 0
+istore_0
 
-iload 0
-ldc 0
+iload_0
+iconst_0
 if_icmpge if_else0
 
 loop0:
 
-iload 0
-ldc 0
+iload_0
+iconst_0
 if_icmpge loop_end0
-iload 0
-ldc 1
+iload_0
+iconst_1
 iadd
-istore 0
+istore_0
 
 goto loop0
 loop_end0:
 goto if_end0
 
 if_else0:
-loop1:
+loop0:
 
-iload 0
-ldc 0
-if_icmple loop_end1
-iload 0
-ldc 1
+iload_0
+iconst_0
+if_icmple loop_end0
+iload_0
+iconst_1
 isub
-istore 0
+istore_0
 
-goto loop1
-loop_end1:
+goto loop0
+loop_end0:
 if_end0:
 
 ldc "a"
-iload 0
+iload_0
 invokestatic io/println(Ljava/lang/String;I)V
 
-iload 0
+iload_0
 ireturn
 .end method
 
@@ -56,10 +56,10 @@ ireturn
 
 invokestatic maxmin/maxmin()I
 
-istore 0
+istore_0
 
 ldc "a="
-iload 0
+iload_0
 invokestatic io/println(Ljava/lang/String;I)V
 
 return

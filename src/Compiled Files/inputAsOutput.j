@@ -5,7 +5,7 @@
 .limit stack 1
 .limit locals 1
 
-iload 0
+iload_0
 ireturn
 .end method
 

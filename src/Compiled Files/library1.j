@@ -5,22 +5,22 @@
 .limit stack 2
 .limit locals 3
 
-iload 0
-iload 1
+iload_0
+iload_1
 if_icmple if_else0
 
-iload 0
-istore 2
+iload_0
+istore_2
 
 goto if_end0
 
 if_else0:
-iload 1
-istore 2
+iload_1
+istore_2
 
 if_end0:
 
-iload 2
+iload_2
 ireturn
 .end method
 
@@ -28,22 +28,22 @@ ireturn
 .limit stack 2
 .limit locals 3
 
-iload 0
-iload 1
+iload_0
+iload_1
 if_icmple if_else0
 
-iload 1
-istore 2
+iload_1
+istore_2
 
 goto if_end0
 
 if_else0:
-iload 0
-istore 2
+iload_0
+istore_2
 
 if_end0:
 
-iload 2
+iload_2
 ireturn
 .end method
 

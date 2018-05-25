@@ -5,18 +5,18 @@
 .limit stack 2
 .limit locals 5
 
-iload 0
-iload 1
+iload_0
+iload_1
 iadd
 istore 4
 
 iload 4
-iload 2
+iload_2
 iadd
 istore 4
 
 iload 4
-iload 3
+iload_3
 iadd
 istore 4
 
@@ -28,28 +28,28 @@ ireturn
 .limit stack 5
 .limit locals 3
 
-ldc 10
+bipush 10
 newarray int
-astore 0
+astore_0
 
-aload 0
-ldc 1
+aload_0
+iconst_1
 iaload
-ldc 1
-ldc 2
-ldc 3
-ldc 4
+iconst_1
+iconst_2
+iconst_3
+bipush 4
 invokestatic t4/f1(IIII)I
 
 iadd
-istore 1
+istore_1
 
-iload 1
+iload_1
 invokestatic io/print(I)V
 
-iload 1
-aload 0
-ldc 2
+iload_1
+aload_0
+iconst_2
 iaload
 if_icmpge if_end0
 

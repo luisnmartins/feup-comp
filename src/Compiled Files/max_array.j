@@ -5,45 +5,45 @@
 .limit stack 3
 .limit locals 3
 
-aload 0
-ldc 0
+aload_0
+iconst_0
 iaload
-istore 1
+istore_1
 
-ldc 1
-istore 2
+iconst_1
+istore_2
 
 loop0:
 
-iload 2
-aload 0
+iload_2
+aload_0
 arraylength
 if_icmpge loop_end0
-iload 1
-aload 0
-iload 2
+iload_1
+aload_0
+iload_2
 iaload
 if_icmpge if_end0
 
-aload 0
-iload 2
+aload_0
+iload_2
 iaload
-istore 1
+istore_1
 
 if_end0:
 
-iload 2
-ldc 1
+iload_2
+iconst_1
 iadd
-istore 2
+istore_2
 
 goto loop0
 loop_end0:
 ldc "max: "
-iload 1
+iload_1
 invokestatic io/print(Ljava/lang/String;I)V
 
-iload 1
+iload_1
 ireturn
 .end method
 
@@ -51,36 +51,36 @@ ireturn
 .limit stack 3
 .limit locals 5
 
-ldc 10
+bipush 10
 newarray int
-astore 0
+astore_0
 
-ldc 0
-istore 1
+iconst_0
+istore_1
 
 loop0:
 
-iload 1
-ldc 10
+iload_1
+bipush 10
 if_icmpge loop_end0
-iload 1
+iload_1
 istore 4
-aload 0
-iload 1
+aload_0
+iload_1
 iload 4
 iastore
 
-iload 1
-ldc 1
+iload_1
+iconst_1
 iadd
-istore 1
+istore_1
 
 goto loop0
 loop_end0:
-aload 0
+aload_0
 invokestatic max_array/maxarray([I)I
 
-istore 2
+istore_2
 
 return
 .end method

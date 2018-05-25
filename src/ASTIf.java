@@ -124,20 +124,22 @@ public class ASTIf extends SimpleNode {
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
     ArrayList instructions = instList;
 
-    int ifCount = getIfCount(instructions);
+    String module_name = parent.getParent().getModuleName();
+
+    int ifCount = parent.getIfCount();
     Boolean hasElse = false;
     if (this.jjtGetNumChildren() == 3)
       hasElse = true;
 
-    instructions = this.jjtGetChild(0).getJVMCode(parent, instructions);
+    this.jjtGetChild(0).getJVMCode(parent, instructions);
 
-    String op = instructions.get(instructions.size() - 1).toString();
+    String op = getLastLine(module_name);
     if (hasElse)
-      instructions.set(instructions.size() - 1, op + " if_else" + ifCount);
+      editLastLine(op + " if_else" + ifCount, module_name);
     else
-      instructions.set(instructions.size() - 1, op + " if_end" + ifCount);
+      editLastLine(op + " if_end" + ifCount, module_name);
 
-    instructions.add("");
+    writeToFile("", module_name);
 
     variablesIf.setMaxRegistry(parent.getMaxRegistry());
 
@@ -148,7 +150,7 @@ public class ASTIf extends SimpleNode {
 
     int maxStack = this.jjtGetChild(0).getMaxStack();
 
-    instructions = this.jjtGetChild(1).getJVMCode(variablesIf, instructions);
+    this.jjtGetChild(1).getJVMCode(variablesIf, instructions);
 
     maxStack = setStackCounter(maxStack, this.jjtGetChild(1).getMaxStack());
 
@@ -156,9 +158,9 @@ public class ASTIf extends SimpleNode {
     parent.setMaxRegistry(variablesIf.getMaxRegistry());
 
     if (hasElse) {
-      instructions.add("goto if_end" + ifCount);
-      instructions.add("");
-      instructions.add("if_else" + ifCount + ":");
+      writeToFile("goto if_end" + ifCount, module_name);
+      writeToFile("", module_name);
+      writeToFile("if_else" + ifCount + ":", module_name);
 
       variablesElse.setMaxRegistry(parent.getMaxRegistry());
 
@@ -168,7 +170,7 @@ public class ASTIf extends SimpleNode {
               .setRegistry(parent.getReturnParameter().getValue().getRegistry());
       }
 
-      instructions = this.jjtGetChild(2).getJVMCode(variablesElse, instructions);
+      this.jjtGetChild(2).getJVMCode(variablesElse, instructions);
 
       maxStack = setStackCounter(maxStack, this.jjtGetChild(2).getMaxStack());
 
@@ -182,9 +184,11 @@ public class ASTIf extends SimpleNode {
 
     System.out.println("IF MAX: " + getMaxStack());
 
-    instructions.add("if_end" + ifCount + ":");
+    writeToFile("if_end" + ifCount + ":", module_name);
 
-    instructions.add("");
+    writeToFile("", module_name);
+
+    parent.incIfCount();
 
     return instructions;
 

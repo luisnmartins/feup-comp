@@ -7,50 +7,50 @@
 
 invokestatic io/read()I
 
-istore 0
+istore_0
 
 invokestatic io/read()I
 
-istore 1
+istore_1
 
 invokestatic io/read()I
 
-istore 2
+istore_2
 
 invokestatic io/read()I
 
-istore 3
+istore_3
 
 invokestatic io/read()I
 
 istore 4
 
-iload 0
+iload_0
 istore 5
 
 iload 5
-iload 1
+iload_1
 if_icmpge if_end0
 
-iload 1
+iload_1
 istore 5
 
 if_end0:
 
 iload 5
-iload 2
+iload_2
 if_icmpge if_end1
 
-iload 2
+iload_2
 istore 5
 
 if_end1:
 
 iload 5
-iload 3
+iload_3
 if_icmpge if_end2
 
-iload 3
+iload_3
 istore 5
 
 if_end2:
@@ -78,7 +78,7 @@ ireturn
 
 invokestatic max1/max()I
 
-istore 0
+istore_0
 
 return
 .end method

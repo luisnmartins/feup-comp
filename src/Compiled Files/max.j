@@ -5,32 +5,32 @@
 .limit stack 2
 .limit locals 6
 
-iload 0
+iload_0
 istore 5
 
 iload 5
-iload 1
+iload_1
 if_icmpge if_end0
 
-iload 1
+iload_1
 istore 5
 
 if_end0:
 
 iload 5
-iload 2
+iload_2
 if_icmpge if_end1
 
-iload 2
+iload_2
 istore 5
 
 if_end1:
 
 iload 5
-iload 3
+iload_3
 if_icmpge if_end2
 
-iload 3
+iload_3
 istore 5
 
 if_end2:
@@ -52,28 +52,28 @@ ireturn
 .limit stack 5
 .limit locals 2
 
-ldc 1
-ldc 2
-ldc 3
-ldc 4
-ldc 3
+iconst_1
+iconst_2
+iconst_3
+bipush 4
+iconst_3
 invokestatic max/max(IIIII)I
 
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
-ldc 1
-ldc 6
-ldc 3
-ldc 4
-ldc 5
+iconst_1
+bipush 6
+iconst_3
+bipush 4
+bipush 5
 invokestatic max/max(IIIII)I
 
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
 return

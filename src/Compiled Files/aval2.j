@@ -5,19 +5,19 @@
 .limit stack 2
 .limit locals 3
 
-ldc 3
-istore 2
+iconst_3
+istore_2
 
-iload 0
-iload 1
+iload_0
+iload_1
 if_icmpne if_end0
 
-ldc 2
-istore 2
+iconst_2
+istore_2
 
 if_end0:
 
-iload 2
+iload_2
 ireturn
 .end method
 
@@ -25,34 +25,34 @@ ireturn
 .limit stack 2
 .limit locals 2
 
-ldc 2
-ldc 12
+iconst_2
+bipush 12
 invokestatic aval2/f(II)I
 
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
-ldc 4
-ldc 2
+bipush 4
+iconst_2
 invokestatic aval2/f(II)I
 
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
-ldc 3
-istore 0
+iconst_3
+istore_0
 
-ldc 4
-ldc 2
+bipush 4
+iconst_2
 invokestatic aval2/f(II)I
 
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
 return

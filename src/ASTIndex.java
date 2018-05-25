@@ -47,7 +47,7 @@ public class ASTIndex extends SimpleNode {
 
     if (isInt) {
       int valueInt = Integer.parseInt(value);
-      instructions.add(getConstInst(valueInt));
+      writeToFile(getConstInst(valueInt), module_name);
     } else {
       Symbol symbol = parent.getFromScope(value);
 
@@ -59,9 +59,9 @@ public class ASTIndex extends SimpleNode {
       }
 
       if (accessGlobal) {
-        instructions.add("getstatic " + module_name + "/" + value + " I");
+        writeToFile("getstatic " + module_name + "/" + value + " I", module_name);
       } else {
-        instructions.add(getInstWihUnderscore("iload", symbol.getRegistry()));
+        writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
       }
 
     }

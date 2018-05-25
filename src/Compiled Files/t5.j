@@ -5,21 +5,21 @@
 .limit stack 2
 .limit locals 4
 
-ldc 0
-istore 0
+iconst_0
+istore_0
 
-iload 0
-ldc 7
+iload_0
+bipush 7
 if_icmpge if_else0
 
-ldc 4
-istore 1
+bipush 4
+istore_1
 
 goto if_end0
 
 if_else0:
-ldc 7
-istore 2
+bipush 7
+istore_2
 
 if_end0:
 
