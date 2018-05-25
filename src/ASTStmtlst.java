@@ -62,6 +62,8 @@ class ASTStmtlst extends SimpleNode {
 
     setMaxStack(maxStack);
 
+    System.out.println("STMTLIST MAX: " + getMaxStack());
+
     return instructions;
 
   }

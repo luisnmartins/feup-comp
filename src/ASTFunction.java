@@ -153,19 +153,36 @@ public class ASTFunction extends SimpleNode {
       maxStack = setStackCounter(maxStack, children[i].getMaxStack());
     }
 
-    if (returnValue != null)
+    
+
+
+
+    if (returnValue != null){
       if (returnArray) {
+
+        String retKey = table.getReturnParameter().getKey();
+        Symbol ret = table.getFromAll(retKey);
+
+        instList.add(getInstWihUnderscore("aload", ret.getRegistry()));
+        instList.add("areturn");
 
       } else {
         String retKey = table.getReturnParameter().getKey();
         Symbol ret = table.getFromAll(retKey);
 
-        instList.add("iload " + ret.getRegistry());
+        instList.add(getInstWihUnderscore("iload", ret.getRegistry()));
         instList.add("ireturn");
 
       }
-    else
+      maxStack =  setStackCounter(maxStack, 1);
+    }else
       instList.add("return");
+
+    setMaxStack(maxStack);
+
+    System.out.println();
+    System.out.println("FUNCTION " + name + " MAX: " + getMaxStack());
+    System.out.println();
 
     if (name.compareTo("main") == 0)
       funcList.add(".method public static " + name + "([Ljava/lang/String;" + funcParams + ")V");
@@ -173,7 +190,7 @@ public class ASTFunction extends SimpleNode {
       funcList.add(".method public static " + name + "(" + funcParams + ")" + returnType);
     }
 
-    funcList.add(".limit stack " + 100);
+    funcList.add(".limit stack " + getMaxStack());
     funcList.add(".limit locals " + (table.getMaxRegistry() + 1));
 
     funcList.add("");

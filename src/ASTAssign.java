@@ -127,7 +127,6 @@ public class ASTAssign extends SimpleNode {
 
     int maxStack = 0;
 
-
     if (symbol == null) {
       accessGlobal = true;
       symbol = parent.getFromAll(access.name);
@@ -135,14 +134,15 @@ public class ASTAssign extends SimpleNode {
 
     instructions = this.jjtGetChild(1).getJVMCode(parent, instructions);
 
-    maxStack = setStackCounter(maxStack, this.jjtGetChild(1).getMaxStack());
+    maxStack = this.jjtGetChild(1).getMaxStack();
 
     if (symbol.isArray()) {
       if (access.jjtGetNumChildren() > 0) {
-        
+
         int maxReg = parent.getMaxRegistry();
         maxReg++;
-        instructions.add("istore " + maxReg);
+        
+        instructions.add(getInstWihUnderscore("istore", maxReg));
 
         parent.setMaxRegistry(maxReg);
 
@@ -151,12 +151,12 @@ public class ASTAssign extends SimpleNode {
         if (accessGlobal)
           instructions.add("getstatic " + module_name + "/" + access.name + " [I");
         else
-          instructions.add("aload " + symbol.getRegistry());
+          instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
 
         // METER AKI O INDEX
         instructions = access.jjtGetChild(0).getJVMCode(parent, instructions);
 
-        instructions.add("iload " + maxReg);
+        instructions.add(getInstWihUnderscore("iload", maxReg));
         instructions.add("iastore");
         instructions.add("");
 
@@ -164,16 +164,17 @@ public class ASTAssign extends SimpleNode {
 
       } else {
 
-        if ((this.jjtGetChild(1).jjtGetNumChildren() == 1
-            && this.jjtGetChild(1).jjtGetChild(0) instanceof ASTArraySize) || access.isSize) {
+        if ((this.jjtGetChild(1).jjtGetNumChildren() == 1 && this.jjtGetChild(1).jjtGetChild(0) instanceof ASTArraySize)
+            || access.isSize) {
           // a = [2]; ou a.size = [2]
           if (accessGlobal)
             instructions.add("putstatic " + module_name + "/" + access.name + " [I");
           else
-            instructions.add("astore " + symbol.getRegistry());
+            instList.add(getInstWihUnderscore("astore", symbol.getRegistry()));
 
           instructions.add("");
 
+          maxStack = setStackCounter(maxStack, 1);
 
         } else {
           int maxReg = parent.getMaxRegistry();
@@ -184,132 +185,115 @@ public class ASTAssign extends SimpleNode {
           Symbol rhs_access_symbol = null;
           ASTAccess rhs_access = null;
 
-          if(this.jjtGetChild(1).jjtGetChild(0).jjtGetNumChildren() > 0){
+          Boolean toGo = false;
+
+          if (this.jjtGetChild(1).jjtGetChild(0).jjtGetNumChildren() > 0) {
             // array = algo sem ser integer
 
-            if(this.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0) instanceof ASTAccess){
+            if (this.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0) instanceof ASTAccess) {
               rhs_access = (ASTAccess) this.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0);
               rhs_access_symbol = parent.getFromScope(rhs_access.name);
-              
-              
+
               if (rhs_access_symbol == null) {
                 accessRhsGlobal = true;
                 rhs_access_symbol = parent.getFromAll(rhs_access.name);
               }
 
-              if(rhs_access_symbol.isArray()){
+              if (rhs_access_symbol.isArray()) {
                 rhs_access_is_array = true;
               }
+            }else if(this.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0) instanceof ASTCall){
+              if (accessGlobal)
+                instructions.add("putstatic " + module_name + "/" + access.name + " [I");
+              else
+                instList.add(getInstWihUnderscore("astore", symbol.getRegistry()));
+
+                toGo = true;
+
             }
           }
-          int iterator_rhs_access = 0;
 
-          maxReg++;
-          // a = value, logo fill the array
+          if(!toGo){
+            if (rhs_access_is_array) {
 
-          value = maxReg;
+              if (accessRhsGlobal) {
+                instructions.add("getstatic " + module_name + "/" + rhs_access.name + " [I");
+              } else {
+                instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
+              }
 
-          if(rhs_access_is_array){
-            maxReg++;
+              if (accessGlobal)
+                instructions.add("putstatic " + module_name + "/" + access.name + " [I");
+              else
+                instList.add(getInstWihUnderscore("astore", symbol.getRegistry()));
 
-            iterator_rhs_access = maxReg;
+              maxStack = setStackCounter(maxStack, 1);
 
-            if (accessRhsGlobal) {
-            instructions.add("getstatic " + module_name + "/" + rhs_access.name + " [I");
-          } else {
-            instructions.add("aload " + rhs_access_symbol.getRegistry());
-          }
-          instructions.add("arraylength");
-
-            instructions.add("newarray int");
-
-            if (accessGlobal)
-              instructions.add("putstatic " + module_name + "/" + access.name + " [I");
-            else
-              instructions.add("astore " + symbol.getRegistry());
-
-
-          }else{
-            instructions.add("istore " + value);
-            // a = value, logo fill the array
-
-          }
-
-                    
-
-          if (accessGlobal) {
-            instructions.add("getstatic " + module_name + "/" + access.name + " [I");
-          } else {
-            instructions.add("aload " + symbol.getRegistry());
-          }
-          instructions.add("arraylength");
-
-          maxReg++;
-
-          int size = maxReg;
-
-          maxReg++;
-
-          int iterator = maxReg;
-
-          parent.setMaxRegistry(maxReg);
-
-          int loopCount = getLoopCount(instructions);
-
-
-          instructions.add("istore " + size);
-          instructions.add("iconst_0");
-          instructions.add("istore " + iterator); // cria variavel para o iterador do loop de inicializacao
-
-          if(rhs_access_is_array){
-            instructions.add("iconst_0");
-            instructions.add("istore " + iterator_rhs_access); // cria variavel para o iterador do loop de inicializacao
-          }
-
-          instructions.add("loop" + loopCount + ":");
-
-          instructions.add("iload " + iterator);
-          instructions.add("iload " + size);
-
-          instructions.add("if_icmpge loop_end" + loopCount);
-
-          if (rhs_access_is_array) {
-            if (accessRhsGlobal) {
-              instructions.add("getstatic " + module_name + "/" + rhs_access.name + " [I");
             } else {
-              instructions.add("aload " + rhs_access_symbol.getRegistry());
+
+              maxReg++;
+              // a = value, logo fill the array
+
+              value = maxReg;
+              instructions.add(getInstWihUnderscore("istore", value));
+
+              if (accessGlobal) {
+                instructions.add("getstatic " + module_name + "/" + access.name + " [I");
+              } else {
+                instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
+              }
+              instructions.add("arraylength");
+
+              maxReg++;
+
+              int size = maxReg;
+
+              maxReg++;
+
+              int iterator = maxReg;
+
+              parent.setMaxRegistry(maxReg);
+
+              int loopCount = getLoopCount(instructions);
+
+              instructions.add(getInstWihUnderscore("istore", size));
+              instructions.add("iconst_0");
+              instructions.add(getInstWihUnderscore("istore", iterator)); // cria variavel para o iterador do loop de
+                                                                          // inicializacao
+              
+
+              instructions.add("loop" + loopCount + ":");
+
+              instructions.add(getInstWihUnderscore("iload", iterator));
+              instructions.add(getInstWihUnderscore("iload", size));
+
+              instructions.add("if_icmpge loop_end" + loopCount);
+
+              if (accessGlobal) {
+                instructions.add("getstatic " + module_name + "/" + access.name + " [I");
+              } else {
+                instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
+              }
+              instructions.add(getInstWihUnderscore("iload", iterator));
+
+              instructions.add(getInstWihUnderscore("iload", value));
+
+              instructions.add("iastore");
+
+              instructions.add("iinc " + iterator + " 1");
+
+              instructions.add("goto loop" + loopCount);
+
+              instructions.add("loop_end" + loopCount + ":");
+
+              instructions.add("");
+
+              maxStack = setStackCounter(maxStack, 3);
+
             }
-            instructions.add("iload " + iterator_rhs_access);
-
-            instructions.add("iaload"); 
-
-            instructions.add("istore " + value);
-
           }
 
-          if (accessGlobal) {
-            instructions.add("getstatic " + module_name + "/" + access.name + " [I");
-          } else {
-            instructions.add("aload " + symbol.getRegistry());
-          }
-          instructions.add("iload " + iterator);
-
           
-          instructions.add("iload " + value);
-          
-          
-          instructions.add("iastore");
-
-          instructions.add("iinc " + iterator + " 1");
-
-          if(rhs_access_is_array)
-            instructions.add("iinc " + iterator_rhs_access + " 1");
-
-          instructions.add("goto loop" + loopCount);
-
-          instructions.add("loop_end" + loopCount + ":");
-
-          instructions.add("");
 
         }
 
@@ -319,11 +303,17 @@ public class ASTAssign extends SimpleNode {
       if (accessGlobal)
         instructions.add("putstatic " + module_name + "/" + access.name + " I");
       else
-        instructions.add("istore " + symbol.getRegistry());
+        instructions.add(getInstWihUnderscore("istore", symbol.getRegistry()));
 
       instructions.add("");
     }
 
+    maxStack = setStackCounter(maxStack, 1);
+
+    setMaxStack(maxStack);
+
+    System.out.println("ASSIGN MAX: " + getMaxStack());
+    
     return instructions;
   }
 

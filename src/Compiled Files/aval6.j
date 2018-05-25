@@ -1,12 +1,8 @@
 .class public aval6
 .super java/lang/Object
 
-.field static t1 I = 8
-
-.field static l [I 
-
 .method public static sqrt(I)I
-.limit stack 100
+.limit stack 2
 .limit locals 13
 
 iload 0
@@ -110,16 +106,9 @@ iload 3
 ireturn
 .end method
 
-.method public static ka()V
-.limit stack 100
-.limit locals 0
-
-return
-.end method
-
 .method public static main([Ljava/lang/String;)V
-.limit stack 100
-.limit locals 11
+.limit stack 1
+.limit locals 2
 
 ldc 17
 invokestatic aval6/sqrt(I)I
@@ -129,95 +118,12 @@ istore 0
 iload 0
 invokestatic io/println(I)V
 
-invokestatic io/read()I
-
-istore 1
-
-invokestatic aval6/ka()V
-
-ldc 10
-newarray int
-astore 2
-
-ldc 10
-newarray int
-astore 3
-
-ldc 0
-istore 4
-
-loop0:
-
-iload 4
-aload 2
-arraylength
-if_icmpge loop_end0
-iload 4
-istore 7
-aload 2
-iload 4
-iload 7
-iastore
-
-iload 4
-ldc 1
-iadd
-istore 4
-
-goto loop0
-loop_end0:
-istore 8
-aload 3
-arraylength
-istore 9
-iconst_0
-istore 10
-loop1:
-iload 10
-iload 9
-if_icmpge loop_end1
-aload 3
-iload 10
-iload 8
-iastore
-iinc 10 1
-goto loop1
-loop_end1:
-
-ldc 0
-istore 4
-
-loop2:
-
-iload 4
-aload 3
-arraylength
-if_icmpge loop_end2
-aload 3
-iload 4
-iaload
-istore 5
-
-iload 5
-invokestatic io/print(I)V
-
-iload 4
-ldc 1
-iadd
-istore 4
-
-goto loop2
-loop_end2:
 return
 .end method
 
 .method static public <clinit>()V
-.limit stack 100
-.limit locals 1
-
-ldc 10
-newarray int
-putstatic aval6/l [I
+.limit stack 0
+.limit locals 0
 
 return
 .end method

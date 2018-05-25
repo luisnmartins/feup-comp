@@ -162,8 +162,8 @@ public class ASTDeclarationValue extends SimpleNode {
 
     ArrayList ret = new ArrayList<>();
     try {
-      Integer.parseInt(arr_size);
-      ret.add("ldc " + arr_size);
+      int arr_size_int = Integer.parseInt(arr_size);
+      ret.add(getConstInst(arr_size_int));
     } catch (Exception e) {
       if (arr_size.contains("arraylength")) {
         String sizeVar = arr_size.substring(11, arr_size.length());
@@ -173,22 +173,24 @@ public class ASTDeclarationValue extends SimpleNode {
         ret.add("getstatic " + module_name + "/" + arr_size + " I");
     }
 
+    int valueInt = Integer.parseInt(value);
+
     int loopCount = getLoopCount(insts);
 
-    ret.add("istore " + size); // cria variavel para o size do ArrayList
+    ret.add(getInstWihUnderscore("istore", size)); // cria variavel para o size do ArrayList
     ret.add("iconst_0");
-    ret.add("istore " + iterator); // cria variavel para o iterador do loop de inicializacao
+    ret.add(getInstWihUnderscore("istore", iterator)); // cria variavel para o iterador do loop de inicializacao
 
     ret.add("loop" + loopCount + ":");
 
-    ret.add("iload " + iterator);
-    ret.add("iload " + size);
+    ret.add(getInstWihUnderscore("iload", iterator));
+    ret.add(getInstWihUnderscore("iload", size));
 
     ret.add("if_icmpge loop_end" + loopCount);
 
     ret.add("getstatic " + module_name + "/" + name + " [I");
-    ret.add("iload " + iterator);
-    ret.add("ldc " + value);
+    ret.add(getInstWihUnderscore("iload", iterator));
+    ret.add(getConstInst(valueInt));
     ret.add("iastore");
 
     ret.add("iinc " + iterator + " 1");

@@ -43,8 +43,11 @@ public class ASTIndex extends SimpleNode {
 
     String module_name = parent.getParent().getModuleName();
 
+    
+
     if (isInt) {
-      instructions.add("ldc " + value);
+      int valueInt = Integer.parseInt(value);
+      instructions.add(getConstInst(valueInt));
     } else {
       Symbol symbol = parent.getFromScope(value);
 
@@ -58,12 +61,14 @@ public class ASTIndex extends SimpleNode {
       if (accessGlobal) {
         instructions.add("getstatic " + module_name + "/" + value + " I");
       } else {
-        instructions.add("iload " + symbol.getRegistry());
+        instructions.add(getInstWihUnderscore("iload", symbol.getRegistry()));
       }
 
     }
 
     setMaxStack(1);
+
+    System.out.println("INDEX MAX: " + getMaxStack());
 
     return instructions;
   }

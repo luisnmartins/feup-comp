@@ -2,7 +2,7 @@
 .super java/lang/Object
 
 .method public static f(II)I
-.limit stack 100
+.limit stack 2
 .limit locals 5
 
 ldc 10
@@ -25,7 +25,7 @@ istore 0
 goto loop0
 loop_end0:
 iload 0
-ldc 1
+ldc 2
 ishl
 istore 1
 
@@ -44,7 +44,7 @@ ireturn
 .end method
 
 .method public static main([Ljava/lang/String;)V
-.limit stack 100
+.limit stack 2
 .limit locals 2
 
 ldc 4
@@ -69,7 +69,7 @@ return
 .end method
 
 .method static public <clinit>()V
-.limit stack 100
+.limit stack 0
 .limit locals 0
 
 return

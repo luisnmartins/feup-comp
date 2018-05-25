@@ -2,7 +2,7 @@
 .super java/lang/Object
 
 .method public static main([Ljava/lang/String;)V
-.limit stack 100
+.limit stack 2
 .limit locals 3
 
 ldc 0
@@ -30,7 +30,7 @@ return
 .end method
 
 .method static public <clinit>()V
-.limit stack 100
+.limit stack 0
 .limit locals 0
 
 return

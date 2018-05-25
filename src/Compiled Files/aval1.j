@@ -2,36 +2,36 @@
 .super java/lang/Object
 
 .method public static main([Ljava/lang/String;)V
-.limit stack 100
+.limit stack 2
 .limit locals 2
 
-ldc 2
-ldc 3
+iconst_2
+iconst_3
 invokestatic aval1/f(II)I
 
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
 return
 .end method
 
 .method public static f(II)I
-.limit stack 100
+.limit stack 2
 .limit locals 3
 
-iload 0
-iload 1
+iload_0
+iload_1
 imul
-istore 2
+istore_2
 
-iload 2
+iload_2
 ireturn
 .end method
 
 .method static public <clinit>()V
-.limit stack 100
+.limit stack 0
 .limit locals 0
 
 return

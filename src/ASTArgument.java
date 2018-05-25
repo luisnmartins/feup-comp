@@ -36,17 +36,19 @@ public class ASTArgument extends SimpleNode {
         if (argGlobal)
           instructions.add("getstatic " + module_name + "/" + value + " I");
         else
-          instructions.add("iload " + symbol.getRegistry());
+          instructions.add(getInstWihUnderscore("iload", symbol.getRegistry()));
       } else {
         if (argGlobal)
           instructions.add("getstatic " + module_name + "/" + value + " [I");
         else
-          instructions.add("aload " + symbol.getRegistry());
+          instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
       }
     } else {
       try {
         int valueInt = Integer.parseInt(value);
-        instructions.add("ldc " + valueInt);
+
+        instructions.add(getConstInst(valueInt));
+
       } catch (Exception e) {
         instructions.add("ldc " + value);
       }

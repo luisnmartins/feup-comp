@@ -78,21 +78,24 @@ public class ASTArraySize extends SimpleNode {
       if (accessGlobal) {
         instructions.add("getstatic " + module_name + "/" + sizeVar + " [I");
       } else {
-        instructions.add("aload " + symbol.getRegistry());
+        instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
       }
       instructions.add("arraylength");
     } else if (sizeVar != null) {
       if (accessGlobal) {
         instructions.add("getstatic " + module_name + "/" + sizeVar + " I");
       } else {
-        instructions.add("iload " + symbol.getRegistry());
+        instructions.add(getInstWihUnderscore("iload", symbol.getRegistry()));
       }
     } else {
-
-        instructions.add("ldc " + size);
+      instructions.add(getConstInst(size));
     }
 
     instructions.add("newarray int");
+
+    setMaxStack(1);
+
+    System.out.println("ARRAYSIZE MAX: " + getMaxStack());
 
 
     return instructions;
@@ -122,7 +125,7 @@ public class ASTArraySize extends SimpleNode {
       array_sizes.put(elemName, sizeVar);
     } else {
 
-        staList.add("ldc " + size);
+        staList.add(getConstInst(size));
       array_sizes.put(elemName, "" + size);
 
     }

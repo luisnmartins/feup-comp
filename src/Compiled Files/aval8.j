@@ -2,78 +2,78 @@
 .super java/lang/Object
 
 .method public static max1()I
-.limit stack 100
+.limit stack 2
 .limit locals 6
 
-invokestatic io/read()V
+invokestatic io/read()I
 
-istore 0
+istore_0
 
-invokestatic io/read()V
+invokestatic io/read()I
 
-istore 1
+istore_1
 
-iload 1
-istore 2
+iload_1
+istore_2
 
-iload 0
-iload 1
+iload_0
+iload_1
 if_icmple if_end0
 
-iload 0
-istore 2
+iload_0
+istore_2
 
 if_end0:
 
-ldc 2
-ldc 4
+iconst_2
+bipush 4
 imul
-istore 3
+istore_3
 
 ldc "a"
-iload 0
+iload_0
 invokestatic io/print(Ljava/lang/String;I)V
 
-iload 0
-ldc -23
+iload_0
+bipush -23
 if_icmpge if_else1
 
-ldc 0
+iconst_0
 istore 4
 
 goto if_end1
 
 if_else1:
-ldc -2
-ldc 4
+bipush -2
+bipush 4
 imul
 istore 5
 
 if_end1:
 
 iload 4
-istore 2
+istore_2
 
-iload 2
+iload_2
 ireturn
 .end method
 
 .method public static main([Ljava/lang/String;)V
-.limit stack 100
+.limit stack 1
 .limit locals 2
 
 invokestatic aval8/max1()I
 
-istore 0
+istore_0
 
-iload 0
+iload_0
 invokestatic io/println(I)V
 
 return
 .end method
 
 .method static public <clinit>()V
-.limit stack 100
+.limit stack 0
 .limit locals 0
 
 return

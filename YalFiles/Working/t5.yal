@@ -1,0 +1,12 @@
+module t5{
+
+function main(){
+		i = 0;
+		if ( i < 7 ){
+			x = 4;
+		}else{
+			x = 7;
+		}
+}
+
+}

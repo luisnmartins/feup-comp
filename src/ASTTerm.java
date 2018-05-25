@@ -50,17 +50,18 @@ class ASTTerm extends SimpleNode {
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
     ArrayList instructions = instList;
 
-    String value = getValueSigned();
-    if (value != "") {
-      instructions.add("ldc " + value);
+    String value_str = getValueSigned();
+    
+    if (value_str != "") {
+      int valueInt = Integer.parseInt(value_str);
+      instructions.add(getConstInst(valueInt));
       setMaxStack(1);
-      // countStack = setStackCounter(countStack, 1);
     } else {
       instructions = this.jjtGetChild(0).getJVMCode(parent, instList);
       setMaxStack(this.jjtGetChild(0).getMaxStack());
     }
 
-    
+    System.out.println("TERM MAX: " + getMaxStack());    
 
     return instructions;
 

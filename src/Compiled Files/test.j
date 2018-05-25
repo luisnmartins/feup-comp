@@ -6,7 +6,7 @@
 .field static l [I 
 
 .method public static f1(I)I
-.limit stack 100
+.limit stack 3
 .limit locals 6
 
 ldc 10
@@ -46,7 +46,7 @@ ireturn
 .end method
 
 .method public static main([Ljava/lang/String;)V
-.limit stack 100
+.limit stack 3
 .limit locals 18
 
 ldc 1
@@ -177,7 +177,7 @@ return
 .end method
 
 .method static public <clinit>()V
-.limit stack 100
+.limit stack 3
 .limit locals 6
 
 ldc 4

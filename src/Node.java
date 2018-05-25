@@ -47,6 +47,8 @@ interface Node {
 
   public int setRegistry(FunctionTable parent, int registry);
 
+  public int setRegistry(FunctionTable parent, FunctionTable parent2, int registry);
+
   public int setRegistry(SymbolTable parent, int registry);
 
   public int setStackCounter(int max, int newC);
@@ -63,5 +65,9 @@ interface Node {
   public int getMaxStack();
 
   public void setMaxStack(int stack);
+
+  public String getConstInst(int value);
+
+  public String getInstWihUnderscore(String inst, int reg);
 }
 /* JavaCC - OriginalChecksum=f321f02c1d43b87914acea48d856de05 (do not edit this line) */

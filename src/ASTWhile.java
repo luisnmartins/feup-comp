@@ -90,6 +90,8 @@ public class ASTWhile extends SimpleNode {
 
     setMaxStack(maxStack);
 
+    System.out.println("WHILE MAX: " + getMaxStack());
+
     parent.setMaxRegistry(variablesWhile.getMaxRegistry());
 
     

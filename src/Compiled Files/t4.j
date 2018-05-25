@@ -2,7 +2,7 @@
 .super java/lang/Object
 
 .method public static f1(IIII)I
-.limit stack 100
+.limit stack 2
 .limit locals 5
 
 iload 0
@@ -25,7 +25,7 @@ ireturn
 .end method
 
 .method public static main([Ljava/lang/String;)V
-.limit stack 100
+.limit stack 5
 .limit locals 3
 
 ldc 10

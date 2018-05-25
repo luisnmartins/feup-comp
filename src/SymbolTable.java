@@ -95,6 +95,7 @@ public abstract class SymbolTable implements Cloneable{
         for(String st: variables.keySet()){
             Symbol s = variables.get(st);
             System.out.println("        Symbol name: " + st+ " is Array? " + s.isArray() + " isInitialized? "  + s.isInitialized());
+            System.out.println(s.getRegistry());
         }
     }
 

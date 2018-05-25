@@ -130,6 +130,11 @@ public class SimpleNode implements Node {
     return registry;
   };
 
+  public int setRegistry(FunctionTable parent, FunctionTable parent2, int registry) {
+    System.out.println("BENFICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    return registry;
+  };
+
   public int setRegistry(SymbolTable parent, int registry) {
     return registry;
   };
@@ -171,6 +176,26 @@ public class SimpleNode implements Node {
     ifCount /= 2;
 
     return ifCount;
+  }
+
+  public String getConstInst(int value){
+    String res = "ldc " + value;
+    if (value >= 0 && value < 4) {
+      res = "iconst_" + value;
+    } else if (value >= -128 && value < 127) {
+      res = "bipush " + value;
+    } else if (value >= -32768 && value < 32767) {
+      res = "sipush " + value;
+    } 
+
+    return res;
+  }
+
+  public String getInstWihUnderscore(String inst, int reg){
+    if(reg <= 3)
+      return inst + "_" + reg;
+    else
+      return inst + " " + reg;
   }
 }
 

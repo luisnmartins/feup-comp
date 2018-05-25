@@ -85,6 +85,30 @@ public class ASTAccess extends SimpleNode {
 
   }
 
+  @Override
+  public int setRegistry(FunctionTable parent, FunctionTable parent2, int registry) {
+    System.out.println("BENFICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    int reg = registry;
+    Symbol symbol = parent.hasRegistry(name);
+    if (symbol != null) {
+      symbol.setRegistry(reg);
+      reg++;
+    } else {
+      SimpleEntry<String, Symbol> symbolEntry = parent.getReturnParameter();
+      if (symbolEntry != null && !parent.getRetHasReg()) {
+        symbol = symbolEntry.getValue();
+        if (!symbol.isRegistered()) {
+          symbol.setRegistry(reg);
+          reg++;
+
+        }
+      }
+    }
+
+    return reg;
+
+  }
+
   public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
     ArrayList instructions = instList;
 
@@ -102,7 +126,7 @@ public class ASTAccess extends SimpleNode {
       if (accessGlobal)
         instructions.add("getstatic " + module_name + "/" + name + " [I");
       else
-        instructions.add("aload " + symbol.getRegistry());
+        instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
 
       instructions = jjtGetChild(0).getJVMCode(parent, instructions);
 
@@ -121,7 +145,7 @@ public class ASTAccess extends SimpleNode {
           if (accessGlobal) {
             instructions.add("getstatic " + module_name + "/" + name + " [I");
           } else {
-            instructions.add("aload " + symbol.getRegistry());
+            instructions.add(getInstWihUnderscore("aload", symbol.getRegistry()));
           }
           instructions.add("arraylength");
 
@@ -138,15 +162,24 @@ public class ASTAccess extends SimpleNode {
 
         if (accessGlobal)
           instructions.add("getstatic " + module_name + "/" + name + " I");
-        else
-          instructions.add("iload " + symbol.getRegistry());
+        else{
+          instructions.add(getInstWihUnderscore("iload", symbol.getRegistry()));
+          
+        }
+          
         // countStack = setStackCounter(countStack, 1);
 
       }
 
       setMaxStack(1);
 
+      
+
     }
+
+    System.out.println("ACCESS MAX: " + getMaxStack());
+
+
 
     return instructions;
 

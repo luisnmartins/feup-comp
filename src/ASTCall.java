@@ -107,6 +107,8 @@ public class ASTCall extends SimpleNode {
       setMaxStack(this.jjtGetNumChildren());
     }
 
+    System.out.println("CALL MAX: " + getMaxStack());
+
     
 
     // countStack = setStackCounter(countStack, children.length);
@@ -131,19 +133,26 @@ public class ASTCall extends SimpleNode {
       }
     }
 
+    
+
     String returnT = "V";
 
-    if (ret != null)
+    if (ret != null){
+      System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + funcName);
       if (ret.isArray())
         returnT = "[I";
       else
         returnT = "I";
-    else {
+    }else {
       if (this.parent instanceof ASTStmtlst) {
         returnT = "V";
       } else {
         String access_name = ((ASTAccess) this.parent.jjtGetParent().jjtGetParent().jjtGetChild(0)).name;
         Symbol symbol = parent.getFromScope(access_name);
+
+        if(symbol == null){
+          symbol = parent.getFromAll(access_name);
+        }
 
         if(symbol.isArray())
           returnT = "[I";
@@ -153,10 +162,6 @@ public class ASTCall extends SimpleNode {
 
       }
     }
-
-    if (isCaller && name.compareTo("io") == 0)
-      if (!functionCalled.contains("print"))
-        returnT = "I";
 
     instructions.add("invokestatic " + caller + "(" + newFuncParams + ")" + returnT);
     if (this.parent instanceof ASTStmtlst)

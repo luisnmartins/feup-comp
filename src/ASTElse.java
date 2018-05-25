@@ -44,6 +44,10 @@ class ASTElse extends SimpleNode {
 
     instructions = this.jjtGetChild(0).getJVMCode(parent, instructions);
 
+    setMaxStack(this.jjtGetChild(0).getMaxStack());
+
+    System.out.println("ELSE MAX: " + getMaxStack());
+
     return instructions;
   }
 

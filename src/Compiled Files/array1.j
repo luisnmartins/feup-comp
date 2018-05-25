@@ -2,7 +2,7 @@
 .super java/lang/Object
 
 .method public static print_array(I[II)V
-.limit stack 100
+.limit stack 3
 .limit locals 7
 
 ldc 7
@@ -62,7 +62,7 @@ return
 .end method
 
 .method public static main([Ljava/lang/String;)V
-.limit stack 100
+.limit stack 3
 .limit locals 2
 
 ldc 10
@@ -78,7 +78,7 @@ return
 .end method
 
 .method static public <clinit>()V
-.limit stack 100
+.limit stack 0
 .limit locals 0
 
 return

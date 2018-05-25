@@ -86,8 +86,6 @@ public class ASTIf extends SimpleNode {
     int reg = registry;
     Boolean retHasReg = false;
 
-    
-
     if (parent.getReturnParameter() != null)
       if (parent.getReturnParameter().getValue().getRegistry() != null || parent.getRetHasReg())
         retHasReg = true;
@@ -148,7 +146,12 @@ public class ASTIf extends SimpleNode {
         variablesIf.getReturnParameter().getValue().setRegistry(parent.getReturnParameter().getValue().getRegistry());
     }
 
+    int maxStack = this.jjtGetChild(0).getMaxStack();
+
     instructions = this.jjtGetChild(1).getJVMCode(variablesIf, instructions);
+
+    maxStack = setStackCounter(maxStack, this.jjtGetChild(1).getMaxStack());
+
 
     parent.setMaxRegistry(variablesIf.getMaxRegistry());
 
@@ -167,9 +170,17 @@ public class ASTIf extends SimpleNode {
 
       instructions = this.jjtGetChild(2).getJVMCode(variablesElse, instructions);
 
+      maxStack = setStackCounter(maxStack, this.jjtGetChild(2).getMaxStack());
+
+      
+
       parent.setMaxRegistry(variablesElse.getMaxRegistry());
 
     }
+
+    setMaxStack(maxStack);
+
+    System.out.println("IF MAX: " + getMaxStack());
 
     instructions.add("if_end" + ifCount + ":");
 
