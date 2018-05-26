@@ -93,7 +93,7 @@ public class ASTFunction extends SimpleNode {
     int reg = registry;
 
     // if (name.compareTo("main") == 0)
-    //   reg = 1;
+    // reg = 1;
 
     LinkedHashMap<String, Symbol> parameters = table.getParameters();
 
@@ -143,15 +143,7 @@ public class ASTFunction extends SimpleNode {
     else
       returnType = "V";
 
-    ArrayList funcList = new ArrayList<>();
-
-    ArrayList instList = new ArrayList<>();
-
     int maxStack = 0;
-
-    System.out.println();
-    System.out.println("FUNCTION " + name + " MAX: " + getMaxStack());
-    System.out.println();
 
     if (name.compareTo("main") == 0)
       writeToFile(".method public static " + name + "([Ljava/lang/String;" + funcParams + ")V", module_name);
@@ -165,16 +157,12 @@ public class ASTFunction extends SimpleNode {
     writeToFile("", module_name);
 
     for (int i = 0; i < children.length; i++) {
-      children[i].getJVMCode(table, instList);
+      children[i].getJVMCode(table);
 
       maxStack = setStackCounter(maxStack, children[i].getMaxStack());
     }
 
-    
-
-
-
-    if (returnValue != null){
+    if (returnValue != null) {
       if (returnArray) {
 
         String retKey = table.getReturnParameter().getKey();
@@ -191,13 +179,11 @@ public class ASTFunction extends SimpleNode {
         writeToFile("ireturn", module_name);
 
       }
-      maxStack =  setStackCounter(maxStack, 1);
-    }else
+      maxStack = setStackCounter(maxStack, 1);
+    } else
       writeToFile("return", module_name);
 
     setMaxStack(maxStack);
-
-    
 
     writeToFile(".end method", module_name);
 

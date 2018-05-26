@@ -59,8 +59,7 @@ public class ASTWhile extends SimpleNode {
 
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
+  public void getJVMCode(FunctionTable parent) {
 
     int loopCount = parent.getLoopCount();
 
@@ -70,7 +69,7 @@ public class ASTWhile extends SimpleNode {
 
     writeToFile("", module_name);
 
-    this.jjtGetChild(0).getJVMCode(parent, instructions);
+    this.jjtGetChild(0).getJVMCode(parent);
 
     String op = getLastLine(module_name);
     editLastLine(op + " loop_end" + loopCount, module_name);
@@ -85,14 +84,13 @@ public class ASTWhile extends SimpleNode {
             .setRegistry(parent.getReturnParameter().getValue().getRegistry());
     }
 
-    this.jjtGetChild(1).getJVMCode(variablesWhile, instructions);
+    this.jjtGetChild(1).getJVMCode(variablesWhile);
 
 
     maxStack = setStackCounter(maxStack, this.jjtGetChild(1).getMaxStack());
 
     setMaxStack(maxStack);
 
-    System.out.println("WHILE MAX: " + getMaxStack());
 
     parent.setMaxRegistry(variablesWhile.getMaxRegistry());
 
@@ -105,7 +103,7 @@ public class ASTWhile extends SimpleNode {
 
     parent.incLoopCount();
 
-    return instructions;
+    return;
 
   }
 

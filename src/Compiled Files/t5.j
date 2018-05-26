@@ -3,7 +3,7 @@
 
 .method public static main([Ljava/lang/String;)V
 .limit stack 2
-.limit locals 4
+.limit locals 3
 
 iconst_0
 istore_0
@@ -19,7 +19,7 @@ goto if_end0
 
 if_else0:
 bipush 7
-istore_2
+istore_1
 
 if_end0:
 

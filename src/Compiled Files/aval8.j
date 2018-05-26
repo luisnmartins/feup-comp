@@ -3,7 +3,7 @@
 
 .method public static max1()I
 .limit stack 2
-.limit locals 6
+.limit locals 5
 
 invokestatic io/read()I
 
@@ -47,7 +47,7 @@ if_else1:
 bipush -2
 bipush 4
 imul
-istore 5
+istore 4
 
 if_end1:
 

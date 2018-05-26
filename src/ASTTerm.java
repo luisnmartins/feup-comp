@@ -47,9 +47,7 @@ class ASTTerm extends SimpleNode {
     return new SimpleEntry<>(true, false);
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
-
+  public void getJVMCode(FunctionTable parent) {
     String module_name = parent.getParent().getModuleName();
 
     String value_str = getValueSigned();
@@ -59,13 +57,12 @@ class ASTTerm extends SimpleNode {
       writeToFile(getConstInst(valueInt), module_name);
       setMaxStack(1);
     } else {
-      this.jjtGetChild(0).getJVMCode(parent, instList);
+      this.jjtGetChild(0).getJVMCode(parent);
       setMaxStack(this.jjtGetChild(0).getMaxStack());
     }
 
-    System.out.println("TERM MAX: " + getMaxStack());    
 
-    return instructions;
+    return;
 
   }
 

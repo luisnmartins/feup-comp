@@ -147,8 +147,8 @@ public class SimpleNode implements Node {
     return registry;
   };
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    return instList;
+  public void getJVMCode(FunctionTable parent) {
+    return;
   }
 
   public ArrayList<LinkedHashMap<String, ArrayList>> getJVMCode(GlobalTable parent,

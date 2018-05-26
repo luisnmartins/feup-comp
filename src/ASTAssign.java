@@ -114,9 +114,7 @@ public class ASTAssign extends SimpleNode {
 
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
-
+  public void getJVMCode(FunctionTable parent) {
     ASTAccess access = (ASTAccess) this.jjtGetChild(0);
 
     String module_name = parent.getParent().getModuleName();
@@ -132,7 +130,7 @@ public class ASTAssign extends SimpleNode {
       symbol = parent.getFromAll(access.name);
     }
 
-    this.jjtGetChild(1).getJVMCode(parent, instructions);
+    this.jjtGetChild(1).getJVMCode(parent);
 
     maxStack = this.jjtGetChild(1).getMaxStack();
 
@@ -154,7 +152,7 @@ public class ASTAssign extends SimpleNode {
           writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
 
         // METER AKI O INDEX
-        access.jjtGetChild(0).getJVMCode(parent, instructions);
+        access.jjtGetChild(0).getJVMCode(parent);
 
         writeToFile(getInstWihUnderscore("iload", maxReg), module_name);
         writeToFile("iastore", module_name);
@@ -314,9 +312,8 @@ public class ASTAssign extends SimpleNode {
 
     setMaxStack(maxStack);
 
-    System.out.println("ASSIGN MAX: " + getMaxStack());
     
-    return instructions;
+    return;
   }
 
 }

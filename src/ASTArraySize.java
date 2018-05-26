@@ -60,9 +60,7 @@ public class ASTArraySize extends SimpleNode {
 
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
-
+  public void getJVMCode(FunctionTable parent) {
     String module_name = parent.getParent().getModuleName();
 
     Symbol symbol = parent.getFromScope(sizeVar);
@@ -95,10 +93,9 @@ public class ASTArraySize extends SimpleNode {
 
     setMaxStack(1);
 
-    System.out.println("ARRAYSIZE MAX: " + getMaxStack());
 
 
-    return instructions;
+    return;
   }
 
   public ArrayList<LinkedHashMap<String, ArrayList>> getJVMCode(GlobalTable parent,

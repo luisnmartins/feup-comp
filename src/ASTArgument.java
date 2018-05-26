@@ -21,8 +21,7 @@ public class ASTArgument extends SimpleNode {
     return prefix + " " + toString() + " ( " + this.value + " -> isID:  " + this.isID + " )";
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
+  public void getJVMCode(FunctionTable parent) {
 
     String module_name = parent.getParent().getModuleName();
 
@@ -54,7 +53,7 @@ public class ASTArgument extends SimpleNode {
       }
     }
 
-    return instructions;
+    return;
 
   }
 

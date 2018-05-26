@@ -39,16 +39,13 @@ class ASTElse extends SimpleNode {
 
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
+  public void getJVMCode(FunctionTable parent) {
 
-    this.jjtGetChild(0).getJVMCode(parent, instructions);
+    this.jjtGetChild(0).getJVMCode(parent);
 
     setMaxStack(this.jjtGetChild(0).getMaxStack());
+    return;
 
-    System.out.println("ELSE MAX: " + getMaxStack());
-
-    return instructions;
   }
 
 

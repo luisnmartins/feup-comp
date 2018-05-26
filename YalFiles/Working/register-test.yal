@@ -7,4 +7,9 @@ module registerTest {
 		d = c + 1;
 		y = d + 1;
 	}
+	
+	function main(){
+		x = f(7);
+		io.println(x);
+	}
 }

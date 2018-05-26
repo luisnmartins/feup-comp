@@ -47,26 +47,22 @@ class ASTStmtlst extends SimpleNode {
 
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
-
-    String module_name = parent.getParent().getModuleName();
+  public void getJVMCode(FunctionTable parent) {
 
     if (jjtGetNumChildren() == 0)
-      return instructions;
+      return;
 
       int maxStack = 0;
 
     for (int i = 0; i < children.length; i++) {
-      children[i].getJVMCode(parent, instructions);
+      children[i].getJVMCode(parent);
       maxStack = setStackCounter(maxStack, children[i].getMaxStack());
     }
 
     setMaxStack(maxStack);
 
-    System.out.println("STMTLIST MAX: " + getMaxStack());
 
-    return instructions;
+    return;
 
   }
 

@@ -47,14 +47,13 @@ public class ASTRhs extends SimpleNode {
       return new SimpleEntry<>(true, response.getValue());
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
+  public void getJVMCode(FunctionTable parent) {
 
     String module_name = parent.getParent().getModuleName();
 
     if (children.length == 1) {
 
-      this.jjtGetChild(0).getJVMCode(parent, instructions);
+      this.jjtGetChild(0).getJVMCode(parent);
 
       setMaxStack(this.jjtGetChild(0).getMaxStack());
 
@@ -102,7 +101,7 @@ public class ASTRhs extends SimpleNode {
         }
       } else {
         for (int m = 0; m < 2; m++) {
-          this.jjtGetChild(m).getJVMCode(parent, instructions);
+          this.jjtGetChild(m).getJVMCode(parent);
           maxStack = setStackCounter(maxStack, this.jjtGetChild(m).getMaxStack());
         }
       }
@@ -113,9 +112,8 @@ public class ASTRhs extends SimpleNode {
 
     }
 
-    System.out.println("RHS MAX: " + getMaxStack());
 
-    return instructions;
+    return;
 
   }
 

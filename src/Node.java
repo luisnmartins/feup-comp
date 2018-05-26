@@ -56,7 +56,7 @@ interface Node {
   public ArrayList<LinkedHashMap<String, ArrayList>> getJVMCode(GlobalTable parent,
       ArrayList<LinkedHashMap<String, ArrayList>> insts, LinkedHashMap<String, String> statics_array_sizes);
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList);
+  public void getJVMCode(FunctionTable parent);
 
   public int getMaxStack();
 

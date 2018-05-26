@@ -58,18 +58,17 @@ public class ASTExprtest extends SimpleNode {
     return new SimpleEntry<>(true, null);
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
+  public void getJVMCode(FunctionTable parent) {
 
     String module_name = parent.getParent().getModuleName();
 
     if (jjtGetNumChildren() == 0)
-      return instructions;
+      return;
 
     int maxStack = 0;
 
     for (int i = 0; i < children.length; i++) {
-      children[i].getJVMCode(parent, instructions);
+      children[i].getJVMCode(parent);
 
       maxStack = setStackCounter(maxStack, children[i].getMaxStack() + 1);
 
@@ -79,12 +78,10 @@ public class ASTExprtest extends SimpleNode {
 
     setMaxStack(maxStack);
 
-    System.out.println("EXPRTEST MAX: " + getMaxStack());  
 
     writeToFile(getOperationReverse(operator), module_name);
 
-    return instructions;
-
+    return;
   }
 
   public String getOperationReverse(String op) {

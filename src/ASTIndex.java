@@ -38,8 +38,7 @@ public class ASTIndex extends SimpleNode {
     return new SimpleEntry<>(true, false);
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
+  public void getJVMCode(FunctionTable parent) {
 
     String module_name = parent.getParent().getModuleName();
 
@@ -68,9 +67,8 @@ public class ASTIndex extends SimpleNode {
 
     setMaxStack(1);
 
-    System.out.println("INDEX MAX: " + getMaxStack());
 
-    return instructions;
+    return;
   }
 
 }

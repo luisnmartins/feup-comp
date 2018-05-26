@@ -113,46 +113,19 @@ public class ASTIf extends SimpleNode {
   @Override
   public int setRegistry(FunctionTable parent, int registry) {
     int reg = registry;
-    Boolean retHasReg = false;
-
-    if (parent.getReturnParameter() != null)
-      if (parent.getReturnParameter().getValue().getRegistry() != null || parent.getRetHasReg())
-        retHasReg = true;
 
     if (jjtGetNumChildren() == 0)
       return reg;
 
     for (int i = 0; i < children.length; i++) {
-      if (children[i] instanceof ASTElse) {
-        if (variablesIf.getReturnParameter() != null)
-          if (variablesIf.getReturnParameter().getValue().getRegistry() != null) {
-            retHasReg = true;
-            variablesElse.getReturnParameter().getValue()
-                .setRegistry(variablesIf.getReturnParameter().getValue().getRegistry());
-          }
-
-        variablesElse.setRetHasReg(retHasReg);
-        reg = children[i].setRegistry(variablesElse, reg);
-      } else {
-        if (this.jjtGetNumChildren() > 2)
-          if (variablesElse.getReturnParameter() != null)
-            if (variablesElse.getReturnParameter().getValue().getRegistry() != null) {
-              retHasReg = true;
-              variablesIf.getReturnParameter().getValue()
-                  .setRegistry(variablesElse.getReturnParameter().getValue().getRegistry());
-            }
-        variablesIf.setRetHasReg(retHasReg);
-        reg = children[i].setRegistry(variablesIf, reg);
-      }
+      reg = children[i].setRegistry(parent, reg);
     }
 
     return reg;
 
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
-
+  public void getJVMCode(FunctionTable parent) {
     String module_name = parent.getParent().getModuleName();
 
     int ifCount = parent.getIfCount();
@@ -160,7 +133,7 @@ public class ASTIf extends SimpleNode {
     if (this.jjtGetNumChildren() == 3)
       hasElse = true;
 
-    this.jjtGetChild(0).getJVMCode(parent, instructions);
+    this.jjtGetChild(0).getJVMCode(parent);
 
     String op = getLastLine(module_name);
     if (hasElse)
@@ -170,48 +143,46 @@ public class ASTIf extends SimpleNode {
 
     writeToFile("", module_name);
 
-    variablesIf.setMaxRegistry(parent.getMaxRegistry());
+    // variablesIf.setMaxRegistry(parent.getMaxRegistry());
 
-    if (variablesIf.getReturnParameter() != null) {
-      if (variablesIf.getReturnParameter().getValue().getRegistry() == null)
-        variablesIf.getReturnParameter().getValue().setRegistry(parent.getReturnParameter().getValue().getRegistry());
-    }
+    // if (parent.getReturnParameter() != null) {
+    //   if (parent.getReturnParameter().getValue().getRegistry() == null)
+    //     variablesIf.getReturnParameter().getValue().setRegistry(parent.getReturnParameter().getValue().getRegistry());
+    // }
 
     int maxStack = this.jjtGetChild(0).getMaxStack();
 
-    this.jjtGetChild(1).getJVMCode(variablesIf, instructions);
+    this.jjtGetChild(1).getJVMCode(parent);
 
     maxStack = setStackCounter(maxStack, this.jjtGetChild(1).getMaxStack());
 
 
-    parent.setMaxRegistry(variablesIf.getMaxRegistry());
+    // parent.setMaxRegistry(variablesIf.getMaxRegistry());
 
     if (hasElse) {
       writeToFile("goto if_end" + ifCount, module_name);
       writeToFile("", module_name);
       writeToFile("if_else" + ifCount + ":", module_name);
 
-      variablesElse.setMaxRegistry(parent.getMaxRegistry());
+      // variablesElse.setMaxRegistry(parent.getMaxRegistry());
 
-      if (variablesElse.getReturnParameter() != null) {
-        if (variablesElse.getReturnParameter().getValue().getRegistry() == null)
-          variablesElse.getReturnParameter().getValue()
-              .setRegistry(parent.getReturnParameter().getValue().getRegistry());
-      }
+      // if (variablesElse.getReturnParameter() != null) {
+      //   if (variablesElse.getReturnParameter().getValue().getRegistry() == null)
+      //     variablesElse.getReturnParameter().getValue()
+      //         .setRegistry(parent.getReturnParameter().getValue().getRegistry());
+      // }
 
-      this.jjtGetChild(2).getJVMCode(variablesElse, instructions);
+      this.jjtGetChild(2).getJVMCode(parent);
 
       maxStack = setStackCounter(maxStack, this.jjtGetChild(2).getMaxStack());
 
       
 
-      parent.setMaxRegistry(variablesElse.getMaxRegistry());
+      // parent.setMaxRegistry(variablesElse.getMaxRegistry());
 
     }
 
     setMaxStack(maxStack);
-
-    System.out.println("IF MAX: " + getMaxStack());
 
     writeToFile("if_end" + ifCount + ":", module_name);
 
@@ -219,7 +190,7 @@ public class ASTIf extends SimpleNode {
 
     parent.incIfCount();
 
-    return instructions;
+    return;
 
   }
 

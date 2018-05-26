@@ -16,6 +16,8 @@ iconst_1
 isub
 putstatic callMain/x I
 
+invokestatic callMain/main()V
+
 if_end0:
 
 return
@@ -33,7 +35,7 @@ invokestatic callMain/f()V
 return
 .end method
 
-.method static public <clinit>()V	
+.method static public <clinit>()V
 .limit stack 0
 .limit locals 0
 

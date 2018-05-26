@@ -91,8 +91,7 @@ public class ASTCall extends SimpleNode {
     }
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
+  public void getJVMCode(FunctionTable parent) {
 
     String module_name = parent.getParent().getModuleName();
 
@@ -102,12 +101,11 @@ public class ASTCall extends SimpleNode {
       for (int i = 0; i < children.length; i++) {
         ASTArgument arg = (ASTArgument) children[i];
         newFuncParams += arg.getFuncParams(parent);
-        children[i].getJVMCode(parent, instructions);
+        children[i].getJVMCode(parent);
       }
       setMaxStack(this.jjtGetNumChildren());
     }
 
-    System.out.println("CALL MAX: " + getMaxStack());
 
     
 
@@ -138,7 +136,6 @@ public class ASTCall extends SimpleNode {
     String returnT = "V";
 
     if (ret != null){
-      System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + funcName);
       if (ret.isArray())
         returnT = "[I";
       else
@@ -169,8 +166,7 @@ public class ASTCall extends SimpleNode {
         writeToFile("pop", module_name);
     writeToFile("", module_name);
 
-    return instructions;
-
+    return;
   }
 
 }

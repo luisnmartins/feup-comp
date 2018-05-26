@@ -107,9 +107,7 @@ public class ASTAccess extends SimpleNode {
 
   }
 
-  public ArrayList getJVMCode(FunctionTable parent, ArrayList instList) {
-    ArrayList instructions = instList;
-
+  public void getJVMCode(FunctionTable parent) {
     String module_name = parent.getParent().getModuleName();
 
     Symbol symbol = parent.getFromScope(name);
@@ -126,7 +124,7 @@ public class ASTAccess extends SimpleNode {
       else
         writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
 
-      jjtGetChild(0).getJVMCode(parent, instructions);
+      jjtGetChild(0).getJVMCode(parent);
 
       setMaxStack(jjtGetChild(0).getMaxStack() + 1);
 
@@ -175,11 +173,7 @@ public class ASTAccess extends SimpleNode {
 
     }
 
-    System.out.println("ACCESS MAX: " + getMaxStack());
-
-
-
-    return instructions;
+    return;
 
   }
 }
