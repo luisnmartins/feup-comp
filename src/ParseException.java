@@ -71,6 +71,11 @@ public class ParseException extends Exception {
     super(semanticError(currentNode, message));
   }
 
+  /** Constructor with message. */
+  public ParseException(String message) {
+    super("PARSE EXCEPTION: " + message);
+  }
+
 
   /**
    * This is the last token that has been consumed successfully.  If

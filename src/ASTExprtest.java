@@ -43,7 +43,7 @@ public class ASTExprtest extends SimpleNode {
         }
         if (newVar != null) {
 
-          if (!newVar.isInitialized()) {
+          if (!newVar.isInitialized() || newVar.getMayBeUninitialized()) {
             throw new ParseException(this, "Variable " + leftSide.name + " is not initialized!");
 
           }

@@ -62,7 +62,7 @@ public class ASTAssign extends SimpleNode {
         if (newVar != null) {
 
           if (isLeftArray) {
-            if (!rhs.getValue() && !newVar.isInitialized()) {
+            if (!rhs.getValue() && (!newVar.isInitialized() || newVar.getMayBeUninitialized())) {
               throw new ParseException(this,
                   "Array " + leftSide.name + " can't be filled since it has no size specified");
 
@@ -75,12 +75,12 @@ public class ASTAssign extends SimpleNode {
                   "Variable " + leftSide.name + " is not compatible with the right side value");
             }
             // a; a=[100];
-            if (!newVar.isInitialized() && rhs.getValue()) {
+            if ((!newVar.isInitialized() || newVar.getMayBeUninitialized()) && rhs.getValue()) {
               throw new ParseException(this, "Variable " + leftSide.name + "can not be initialized as an array");
 
             }
             // Freshly added
-            if (isIndex && !newVar.isInitialized()) {
+            if (isIndex && (!newVar.isInitialized() || newVar.getMayBeUninitialized())) {
               throw new ParseException(this,
                   "Can't access variable " + leftSide.name + " with an index since it is not an array");
             }

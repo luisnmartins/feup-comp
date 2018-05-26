@@ -74,7 +74,7 @@ public class ASTFunction extends SimpleNode {
     if (returnValue != null) {
       Symbol returnVar;
       if ((returnVar = table.getFromScope(returnValue)) != null) {
-        if (returnVar.isArray() != returnArray || !returnVar.isInitialized()) {
+        if (returnVar.isArray() != returnArray || !returnVar.isInitialized() || returnVar.getMayBeUninitialized()) {
           throw new ParseException(this, "Function " + name + " return variable " + returnValue
               + " is not initialized or it has a different type in the function scope");
         }

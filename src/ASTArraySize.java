@@ -41,7 +41,7 @@ public class ASTArraySize extends SimpleNode {
         throw new ParseException(this, "Variable " + this.sizeVar + " doesn't exist");
 
         // sizeVariable is not initialized (a = [N] but N is not initialized)
-      } else if (!sizeVariable.isInitialized()) {
+      } else if (!sizeVariable.isInitialized() || sizeVariable.getMayBeUninitialized()) {
         throw new ParseException(this, "Variable " + this.sizeVar + " is not initialized");
 
         // sizeVariable is not an array and it doesn't try to get his size (a =[N] but N

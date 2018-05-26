@@ -4,6 +4,7 @@ public class Symbol implements Cloneable{
     private Boolean isArray;
     private Integer registry;
     private Boolean isInitialized;
+    private Boolean mayBeUninitialized = false;
 
 
     public Symbol() {
@@ -49,6 +50,20 @@ public class Symbol implements Cloneable{
     public Integer getRegistry() {
         return registry;
     }
+
+    /**
+	 * @return the mayBeUninitialized
+	 */
+	public Boolean getMayBeUninitialized() {
+		return mayBeUninitialized;
+	}
+
+	/**
+	 * @param mayBeUninitialized the mayBeUninitialized to set
+	 */
+	public void setMayBeUninitialized(Boolean mayBeUninitialized) {
+		this.mayBeUninitialized = mayBeUninitialized;
+	}
 
 
     @Override

@@ -55,7 +55,7 @@ public class ASTCall extends SimpleNode {
                 + arg.value + "':does not exist");
 
           } else {
-            if (!entrySymbol.isInitialized() || entrySymbol.isArray() != symbol.isArray()) {
+            if (!entrySymbol.isInitialized() || entrySymbol.isArray() != symbol.isArray() || entrySymbol.getMayBeUninitialized()) {
               throw new ParseException(this, "There was a problem calling function '" + name + "' on the parameter '"
                   + arg.value + "':wrong type or not initialized");
             }
@@ -81,7 +81,7 @@ public class ASTCall extends SimpleNode {
       for (int i = 0; i < this.jjtGetNumChildren(); i++) {
         ASTArgument arg = (ASTArgument) this.jjtGetChild(i);
         Symbol entrySymbol;
-        if (arg.isID && ((entrySymbol = parent.getFromAll(arg.value)) == null || !entrySymbol.isInitialized())) {
+        if (arg.isID && ((entrySymbol = parent.getFromAll(arg.value)) == null || !entrySymbol.isInitialized() || entrySymbol.getMayBeUninitialized())) {
           throw new ParseException(this, "There was a problem calling function '" + functionCalled
               + "' on the parameter '" + arg.value + "':wrong type or not initialized");
         }

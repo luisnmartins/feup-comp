@@ -51,25 +51,44 @@ public class ASTIf extends SimpleNode {
         allCorrect = false;
       }
       if (isElse) {
-        mergeSymbolTables(symbolStack, parent);
-        isElse = false;
+        try {
+          mergeSymbolTables(symbolStack, parent);
+          parent.print();
+        }catch(ParseException e) {
+          System.out.println(e.getMessage());
+          allCorrect = false;
+        }
       }
     }
+    if(!isElse) {
+      mergeIf(symbolStack.pop(), parent);
+    }
+
     return new SimpleEntry<>(allCorrect, null);
   }
 
-  public void mergeSymbolTables(Stack<SymbolTable> symbols, SymbolTable parent) {
+  public void mergeSymbolTables(Stack<SymbolTable> symbols, SymbolTable parent) throws ParseException{
 
     FunctionTable elseTable = (FunctionTable) symbols.pop();
     FunctionTable ifTable = (FunctionTable) symbols.pop();
 
     LinkedHashMap<String, Symbol> ifVariables = ifTable.getVariables();
-    Symbol elseVariable;
+    Symbol tempVariable;
     for (Map.Entry<String, Symbol> entry : ifVariables.entrySet()) {
-      if ((elseVariable = elseTable.lookupVariable(entry.getKey())) != null) {
-        if (elseVariable.equals(entry.getValue())) {
-          parent.pushVariable(entry.getKey(), entry.getValue());
+      parent.pushVariable(entry.getKey(), entry.getValue());
+      if ((tempVariable = elseTable.lookupVariable(entry.getKey())) != null) {
+        if(!tempVariable.equals(entry.getValue())) {
+          throw new ParseException("Variable " + entry.getKey() + " can not be reasigned as a different type in else statement");
         }
+      } else {
+        entry.getValue().setMayBeUninitialized(true);
+      }
+    }
+    LinkedHashMap<String, Symbol> elseVariables = elseTable.getVariables();
+    for (Map.Entry<String, Symbol> entry : elseVariables.entrySet()) {
+      if ((tempVariable = ifTable.lookupVariable(entry.getKey())) == null) {
+        parent.pushVariable(entry.getKey(), entry.getValue());
+        entry.getValue().setMayBeUninitialized(true);
       }
     }
     SimpleEntry<String, Symbol> finalReturn = elseTable.getReturnParameter();
@@ -79,6 +98,16 @@ public class ASTIf extends SimpleNode {
       }
     }
 
+  }
+
+  public void mergeIf(SymbolTable ifTable, SymbolTable parent) {
+    LinkedHashMap<String, Symbol> ifVariables = ifTable.getVariables();
+    for (Map.Entry<String, Symbol> entry : ifVariables.entrySet()) {
+      if ((parent.lookupVariable(entry.getKey())) == null) {
+        parent.pushVariable(entry.getKey(), entry.getValue());
+        entry.getValue().setMayBeUninitialized(true);
+      }
+    }
   }
 
   @Override

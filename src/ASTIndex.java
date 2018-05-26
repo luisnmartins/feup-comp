@@ -30,7 +30,7 @@ public class ASTIndex extends SimpleNode {
         throw new ParseException(this, "Index variable " + value + " doesn't exist ");
         // return new SimpleEntry<>(false,false);
       }
-      if (!index.isInitialized() || index.isArray()) {
+      if (!index.isInitialized() || index.isArray() || index.getMayBeUninitialized()) {
         throw new ParseException(this, "Index variable " + value + " is not initialized or it is not of a valid type");
       } else
         return new SimpleEntry<>(true, false);
