@@ -1,0 +1,17 @@
+CHECKPOINT 3 FEEDBACK
+=====================
+Class 1 - Group 56
+
+These notes are based on an analysis of commit 27fe12e990f630494625cb444e25337d491e67dd.
+If you believe this is an error, contact your class teacher.
+=====================
+
+High-priority:
+	- "call-main.yal": Incorrect signature when calling "main". The function should take a
+single dummy "String[]" argument (and a corresponding null value should be pushed onto the
+stack).
+	- "nested-branch.yal": Duplicated label "if_end0".
+
+Low-priority:
+	- Consider using "iconst_5" instead of "biconst 5". Also, iconst_m1 can be used instead
+of "biconst -1".
