@@ -66,6 +66,7 @@ Token error_skipto(int kind, ParseException e) {
 	Token t;
 	do{
 		t=getNextToken();
+		System.out.println("TT1: " + t);
 	}while(t.kind != kind);
 
 	return t;
@@ -79,8 +80,12 @@ Token error_skipto2(int kind, int kind2, ParseException e) {
   Token t; 
   do{ 
      
-    t=getNextToken(); 
+	t=getNextToken(); 
+	System.out.println("TT2: " + t);
+	
   }while(t.kind != kind && t.kind != kind2); 
+
+  
 
   return t;
 }
@@ -218,6 +223,7 @@ void Rhs() : {Token t;}
 
 }
 
+
 void ArraySize() : {Token t;}
 {
 	((t=<ID> {jjtThis.isSize = Boolean.valueOf(ScalarAccess()); jjtThis.sizeVar = t.image; jjtThis.line = t.beginLine;}) | 
@@ -274,6 +280,7 @@ void If() : {}
 		{token_source.error = true;}
 		error_skipto(PVIRG, e);
 	}
+	
 }
 
 void ArgumentList() #void : {}

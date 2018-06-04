@@ -130,17 +130,11 @@ public class ASTAssign extends SimpleNode {
       symbol = parent.getFromAll(access.name);
     }
 
-    this.jjtGetChild(1).getJVMCode(parent);
-
-    maxStack = this.jjtGetChild(1).getMaxStack();
-
     if (symbol.isArray()) {
       if (access.jjtGetNumChildren() > 0) {
 
         int maxReg = parent.getMaxRegistry();
         maxReg++;
-        
-        writeToFile(getInstWihUnderscore("istore", maxReg), module_name);
 
         parent.setMaxRegistry(maxReg);
 
@@ -154,7 +148,10 @@ public class ASTAssign extends SimpleNode {
         // METER AKI O INDEX
         access.jjtGetChild(0).getJVMCode(parent);
 
-        writeToFile(getInstWihUnderscore("iload", maxReg), module_name);
+        this.jjtGetChild(1).getJVMCode(parent);
+
+        maxStack = this.jjtGetChild(1).getMaxStack();
+
         writeToFile("iastore", module_name);
         writeToFile("", module_name);
 
@@ -164,6 +161,10 @@ public class ASTAssign extends SimpleNode {
 
         if ((this.jjtGetChild(1).jjtGetNumChildren() == 1 && this.jjtGetChild(1).jjtGetChild(0) instanceof ASTArraySize)
             || access.isSize) {
+
+          this.jjtGetChild(1).getJVMCode(parent);
+
+          maxStack = this.jjtGetChild(1).getMaxStack();
           // a = [2]; ou a.size = [2]
           if (accessGlobal)
             writeToFile("putstatic " + module_name + "/" + access.name + " [I", module_name);
@@ -185,6 +186,10 @@ public class ASTAssign extends SimpleNode {
 
           Boolean toGo = false;
 
+          this.jjtGetChild(1).getJVMCode(parent);
+
+          maxStack = this.jjtGetChild(1).getMaxStack();
+
           if (this.jjtGetChild(1).jjtGetChild(0).jjtGetNumChildren() > 0) {
             // array = algo sem ser integer
 
@@ -200,18 +205,19 @@ public class ASTAssign extends SimpleNode {
               if (rhs_access_symbol.isArray()) {
                 rhs_access_is_array = true;
               }
-            }else if(this.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0) instanceof ASTCall){
+            } else if (this.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0) instanceof ASTCall) {
+
               if (accessGlobal)
                 writeToFile("putstatic " + module_name + "/" + access.name + " [I", module_name);
               else
                 writeToFile(getInstWihUnderscore("astore", symbol.getRegistry()), module_name);
 
-                toGo = true;
+              toGo = true;
 
             }
           }
 
-          if(!toGo){
+          if (!toGo) {
             if (rhs_access_is_array) {
 
               if (accessRhsGlobal) {
@@ -256,9 +262,9 @@ public class ASTAssign extends SimpleNode {
 
               writeToFile(getInstWihUnderscore("istore", size), module_name);
               writeToFile("iconst_0", module_name);
-              writeToFile(getInstWihUnderscore("istore", iterator), module_name); // cria variavel para o iterador do loop , de
-                                                                          // inicializacao
-              
+              writeToFile(getInstWihUnderscore("istore", iterator), module_name); // cria variavel para o iterador do
+                                                                                  // loop , de
+              // inicializacao
 
               writeToFile("loop" + loopCount + ":", module_name);
 
@@ -293,13 +299,22 @@ public class ASTAssign extends SimpleNode {
             }
           }
 
-          
-
         }
 
       }
 
     } else {
+      ASTRhs rhs = (ASTRhs) this.jjtGetChild(1);
+      rhs.getJVMCode(parent);
+
+      
+      symbol.value = rhs.value;
+
+      System.out.println(rhs.value);
+      
+
+      maxStack = this.jjtGetChild(1).getMaxStack();
+
       if (accessGlobal)
         writeToFile("putstatic " + module_name + "/" + access.name + " I", module_name);
       else
@@ -312,7 +327,6 @@ public class ASTAssign extends SimpleNode {
 
     setMaxStack(maxStack);
 
-    
     return;
   }
 

@@ -58,7 +58,11 @@ interface Node {
 
   public void getJVMCode(FunctionTable parent);
 
+  public void getJVMCode(FunctionTable parent, Boolean notReverse);
+
   public int getMaxStack();
+
+  public int getCountStores(String module_name, int stack, String function_name);
 
   public void setMaxStack(int stack);
 

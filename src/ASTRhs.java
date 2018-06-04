@@ -6,6 +6,7 @@ import java.util.AbstractMap.SimpleEntry;
 public class ASTRhs extends SimpleNode {
 
   public String operator = null;
+  public Integer value = null;
 
   public ASTRhs(int id) {
     super(id);
@@ -52,6 +53,11 @@ public class ASTRhs extends SimpleNode {
     String module_name = parent.getParent().getModuleName();
 
     if (children.length == 1) {
+      ASTTerm term;
+      if (this.jjtGetChild(0) instanceof ASTTerm) {
+        term = (ASTTerm) this.jjtGetChild(0);
+        value = term.value;
+      }
 
       this.jjtGetChild(0).getJVMCode(parent);
 
@@ -111,7 +117,6 @@ public class ASTRhs extends SimpleNode {
       writeToFile(getOperation(operator), module_name);
 
     }
-
 
     return;
 

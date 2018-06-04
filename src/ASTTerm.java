@@ -17,13 +17,10 @@ class ASTTerm extends SimpleNode {
     super(p, id);
   }
 
-  public String getValueSigned() {
-    if (operation != null && value != null)
-      return "" + this.operation + this.value;
-    else if (value != null && operation == null)
-      return "" + this.value;
-    else
-      return "";
+  public void getValueSigned() {
+    if(this.operation != null && this.operation.equals("-")) {
+      this.value = this.value *(-1);
+    }
   }
 
 
@@ -31,10 +28,11 @@ class ASTTerm extends SimpleNode {
   @Override
   public String toString(String prefix) { 
     
-    if(operation != null  && value != null)
-      return prefix + " " + toString() +" ( "+ this.operation + this.value+" )";
-    else if(value != null)
+
+    if(value != null) {
+      getValueSigned();
       return prefix + " " + toString() +" ( "+ this.value+" )";
+    }
     else
      return prefix + " " + toString();
   }
@@ -50,11 +48,9 @@ class ASTTerm extends SimpleNode {
   public void getJVMCode(FunctionTable parent) {
     String module_name = parent.getParent().getModuleName();
 
-    String value_str = getValueSigned();
     
-    if (value_str != "") {
-      int valueInt = Integer.parseInt(value_str);
-      writeToFile(getConstInst(valueInt), module_name);
+    if (value != null) {
+      writeToFile(getConstInst(value), module_name);
       setMaxStack(1);
     } else {
       this.jjtGetChild(0).getJVMCode(parent);

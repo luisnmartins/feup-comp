@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.AbstractMap.SimpleEntry;
 
@@ -145,18 +146,6 @@ public class ASTModule extends SimpleNode {
       insts = children[i].getJVMCode(global, insts, statics_array_sizes);
     }
    
-    
-
-    // ArrayList lines = new ArrayList<>();
-
-    // Path file = Paths.get("Compiled Files/" + global.getModuleName() + ".j");
-    
-    // for (String key : insts.get(2).keySet()) {
-    //   ArrayList lis = insts.get(2).get(key);
-    //   for (int i = 0; i < lis.size(); i++) {
-    //     lines.add(lis.get(i).toString());
-    //   }
-    // }
 
     for (String key : insts.get(1).keySet()) {
       ArrayList lis = insts.get(1).get(key);
@@ -165,16 +154,30 @@ public class ASTModule extends SimpleNode {
       }
     }
 
-    try {
-      //Files.write(file, lines, Charset.forName("UTF-8"));
-    } catch (Exception e) {
-      // TODO: handle exception
-    }
+
+
   }
 
   public void print() {
     System.out.println("\n\nSymbol Tables\n");
     global.showAll();
+  }
+
+  private void constantPropagation(){
+
+    // HashMap<String, FunctionTable> functions = global.getFunctions();
+    // for(int i = 0 ; i < functions.length;  i++){
+
+    // }
+
+    // for (int i = 0; i < children.length; i++) {
+    //   if(children[i] instanceof ASTFunction){
+    //     int stack = children[i].getMaxStack();
+    //     for(int j = 0 ; j <= stack; j++){
+    //       int count = getCountStores(global.getModuleName(), j, );
+    //     }
+    //   }
+    // }
   }
 
   

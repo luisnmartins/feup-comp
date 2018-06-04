@@ -61,6 +61,11 @@ public class ASTWhile extends SimpleNode {
 
   public void getJVMCode(FunctionTable parent) {
 
+    if(YAL.optimized){
+      makeOptimizedWhile(parent);
+      return;
+    }
+
     int loopCount = parent.getLoopCount();
 
     String module_name = parent.getParent().getModuleName();
@@ -105,6 +110,50 @@ public class ASTWhile extends SimpleNode {
 
     return;
 
+  }
+
+  private void makeOptimizedWhile(FunctionTable parent){
+    int loopCount = parent.getLoopCount();
+
+    String module_name = parent.getParent().getModuleName();
+
+    this.jjtGetChild(0).getJVMCode(parent);
+
+    String op = getLastLine(module_name);
+    editLastLine(op + " loop_end" + loopCount, module_name);
+
+    writeToFile("loop" + loopCount + ":", module_name);
+
+    writeToFile("", module_name);
+
+    variablesWhile.setMaxRegistry(parent.getMaxRegistry());
+
+    int maxStack = this.jjtGetChild(0).getMaxStack();
+
+    if (variablesWhile.getReturnParameter() != null) {
+      if (variablesWhile.getReturnParameter().getValue().getRegistry() == null)
+        variablesWhile.getReturnParameter().getValue()
+            .setRegistry(parent.getReturnParameter().getValue().getRegistry());
+    }
+
+    this.jjtGetChild(1).getJVMCode(variablesWhile);
+
+    maxStack = setStackCounter(maxStack, this.jjtGetChild(1).getMaxStack());
+
+    setMaxStack(maxStack);
+
+    parent.setMaxRegistry(variablesWhile.getMaxRegistry());
+
+    this.jjtGetChild(0).getJVMCode(parent, true);
+
+    op = getLastLine(module_name);
+    editLastLine(op + " loop" + loopCount, module_name);
+
+    writeToFile("loop_end" + loopCount + ":", module_name);
+
+    parent.incLoopCount();
+
+    return;
   }
 
 }

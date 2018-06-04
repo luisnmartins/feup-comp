@@ -14,7 +14,7 @@ import java.util.AbstractMap.SimpleEntry;
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public class SimpleNode implements Node {
 
-  protected Node parent;
+  public Node parent;
   protected Node[] children;
   protected int id;
   protected Object value;
@@ -151,6 +151,10 @@ public class SimpleNode implements Node {
     return;
   }
 
+  public void getJVMCode(FunctionTable parent, Boolean notReverse) {
+    return;
+  }
+
   public ArrayList<LinkedHashMap<String, ArrayList>> getJVMCode(GlobalTable parent,
       ArrayList<LinkedHashMap<String, ArrayList>> insts, LinkedHashMap<String, String> statics_array_sizes) {
     return insts;
@@ -159,32 +163,6 @@ public class SimpleNode implements Node {
   public int setStackCounter(int max, int newC) {
     return (newC > max ? newC : max);
   }
-
-  // public int getLoopCount(ArrayList insts) {
-  // int loopCount = 0;
-  // for (int i = 0; i < insts.size(); i++) {
-  // if (insts.get(i).toString().contains("loop_end")) {
-  // loopCount++;
-  // }
-  // }
-
-  // loopCount /= 2;
-
-  // return loopCount;
-  // }
-
-  // public int getIfCount(ArrayList insts) {
-  // int ifCount = 0;
-  // for (int i = 0; i < insts.size(); i++) {
-  // if (insts.get(i).toString().contains("if_end")) {
-  // ifCount++;
-  // }
-  // }
-
-  // ifCount /= 2;
-
-  // return ifCount;
-  // }
 
   public String getConstInst(int value) {
     String res = "ldc " + value;
@@ -275,6 +253,35 @@ public class SimpleNode implements Node {
       // TODO: handle exception
     }
     return fileContent.get(fileContent.size() - 1).toString();
+  }
+
+  public int getCountStores(String module_name, int stack, String function_name){
+    int count = 0;
+
+    try {
+      List<String> fileContent = new ArrayList<>(
+          Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));
+
+      Boolean inFunction = false;
+
+      String function_line = ".method public static " + function_name;
+      String store1 = "istore " + stack;
+      String store2 = "istore_" + stack;
+
+      for (int i = 0; i < fileContent.size(); i++) {
+        if (fileContent.get(i).contains(function_line)) {
+          inFunction = true;
+        }else if(fileContent.get(i).contains(".end method")){
+          inFunction = false;
+        }else if(inFunction && (fileContent.get(i).contains(store1) || fileContent.get(i).contains(store2))){
+          count++;
+        }
+      }
+    } catch (IOException e) {
+      // TODO: handle exception
+    }
+
+    return count;
   }
 }
 

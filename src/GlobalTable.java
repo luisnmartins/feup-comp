@@ -45,6 +45,9 @@ public class GlobalTable extends SymbolTable {
         return moduleName;
     }
 
-  
+    public HashMap<String,FunctionTable> getFunctions(){
+        return functions;
+    }
+
 
 }

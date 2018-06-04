@@ -1,15 +1,15 @@
 .class public array1
 .super java/lang/Object
 
+.field static v I = 1904
+
 .method public static print_array(I[II)V
 .limit stack 3
 .limit locals 7
 
-bipush 7
-istore 5
 aload_1
 iconst_3
-iload 5
+bipush -7
 iastore
 
 iconst_0
@@ -20,14 +20,12 @@ loop0:
 iload_3
 iload_0
 if_icmpge loop_end0
-iload_3
-istore 6
 aload_1
 iload_3
-iload 6
+iconst_0
 iastore
 
-iload_3
+iconst_0
 iconst_1
 iadd
 istore_3
@@ -51,7 +49,7 @@ ldc "a: "
 iload 4
 invokestatic io/print(Ljava/lang/String;I)V
 
-iload_3
+iconst_0
 iconst_1
 iadd
 istore_3

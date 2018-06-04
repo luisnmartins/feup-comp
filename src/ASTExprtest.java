@@ -103,6 +103,51 @@ public class ASTExprtest extends SimpleNode {
     }
   }
 
+  public void getJVMCode(FunctionTable parent, Boolean notReverse) {
+
+    String module_name = parent.getParent().getModuleName();
+
+    if (jjtGetNumChildren() == 0)
+      return;
+
+    int maxStack = 0;
+
+    for (int i = 0; i < children.length; i++) {
+      children[i].getJVMCode(parent);
+
+      maxStack = setStackCounter(maxStack, children[i].getMaxStack() + 1);
+
+    }
+
+    maxStack = setStackCounter(maxStack, 2); // No minimo sao 2!
+
+    setMaxStack(maxStack);
+
+    if(notReverse)
+      writeToFile(getOperation(operator), module_name);
+
+    return;
+  }
+
+  public String getOperation(String op) {
+    switch (op) {
+    case ">":
+      return "if_icmpgt";
+    case "<":
+      return "if_icmplt";
+    case "<=":
+      return "if_icmple";
+    case ">=":
+      return "if_icmpge ";
+    case "==":
+      return "if_icmpeq";
+    case "!=":
+      return "if_icmpne";
+    default:
+      return "";
+    }
+  }
+
 }
 /*
  * JavaCC - OriginalChecksum=583babd77beef46dab385c625b5ec4a0 (do not edit this

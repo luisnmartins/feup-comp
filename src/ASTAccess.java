@@ -85,7 +85,7 @@ public class ASTAccess extends SimpleNode {
 
   @Override
   public int setRegistry(FunctionTable parent, FunctionTable parent2, int registry) {
-    
+
     int reg = registry;
     Symbol symbol = parent.hasRegistry(name);
     if (symbol != null) {
@@ -147,8 +147,6 @@ public class ASTAccess extends SimpleNode {
 
         } else {
 
-          
-
           // a = [10]; b = a;
 
         }
@@ -158,18 +156,19 @@ public class ASTAccess extends SimpleNode {
 
         if (accessGlobal)
           writeToFile("getstatic " + module_name + "/" + name + " I", module_name);
-        else{
-          writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
-          
+        else {
+          System.out.println("ACCESS " + symbol.value);
+          if (this.parent instanceof ASTTerm  && symbol.value != null)
+            writeToFile(getConstInst(symbol.value), module_name);
+          else
+            writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
         }
-          
+
         // countStack = setStackCounter(countStack, 1);
 
       }
 
       setMaxStack(1);
-
-      
 
     }
 
