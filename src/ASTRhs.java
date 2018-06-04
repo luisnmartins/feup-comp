@@ -7,6 +7,7 @@ public class ASTRhs extends SimpleNode {
 
   public String operator = null;
   public Integer value = null;
+  public Boolean is_iinc = false;
 
   public ASTRhs(int id) {
     super(id);
@@ -120,15 +121,15 @@ public class ASTRhs extends SimpleNode {
 
         int maxStack = 0;
 
-        Boolean is_iinc = false;
-
         ASTAccess access = (ASTAccess) this.parent.jjtGetChild(0);
         ASTAccess rhs_access = null;
         ASTTerm second_term = null;
         if (this.jjtGetChild(0).jjtGetNumChildren() > 0) {
           if (this.jjtGetChild(0).jjtGetChild(0) instanceof ASTAccess) {
             rhs_access = (ASTAccess) this.jjtGetChild(0).jjtGetChild(0);
-            if (access.name == rhs_access.name) {
+            System.out.println(rhs_access.name);
+            System.out.println(access.name);
+            if (access.name.compareTo(rhs_access.name) == 0) {
               second_term = (ASTTerm) this.jjtGetChild(1);
               is_iinc = true;
             }
@@ -138,7 +139,7 @@ public class ASTRhs extends SimpleNode {
         if (!is_iinc && this.jjtGetChild(1).jjtGetNumChildren() > 1) {
           if (this.jjtGetChild(1).jjtGetChild(0) instanceof ASTAccess) {
             rhs_access = (ASTAccess) this.jjtGetChild(1).jjtGetChild(0);
-            if (access.name == rhs_access.name) {
+            if (access.name.compareTo(rhs_access.name) == 0) {
               second_term = (ASTTerm) this.jjtGetChild(0);
               is_iinc = true;
             }
@@ -151,6 +152,7 @@ public class ASTRhs extends SimpleNode {
 
             if (symbol != null) {
               writeToFile("iinc " + symbol.getRegistry() + " " + second_term.value, module_name);
+              writeToFile("", module_name);
               maxStack = setStackCounter(maxStack, 1);
             }
 
@@ -160,11 +162,13 @@ public class ASTRhs extends SimpleNode {
             this.jjtGetChild(m).getJVMCode(parent);
             maxStack = setStackCounter(maxStack, this.jjtGetChild(m).getMaxStack());
           }
+
+          setMaxStack(maxStack + 1); // como é uma soma tem sempre o maximo dos dois mais um
+
+          writeToFile(getOperation(operator), module_name);
         }
 
-        setMaxStack(maxStack + 1); // como é uma soma tem sempre o maximo dos dois mais um
-
-        writeToFile(getOperation(operator), module_name);
+        
       }
 
     }
