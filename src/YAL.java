@@ -12,6 +12,7 @@ public class YAL{
         this.parser = parser;
         this.symbolTables = new LinkedHashMap<>();
         try {
+            
             SimpleNode root = parser.Module();
 
 
@@ -53,6 +54,7 @@ public class YAL{
                 optimized = true;
             }
             try {
+                
                 xparser = new Parser(new java.io.FileInputStream(args[0]));
             } catch (java.io.FileNotFoundException e) {
                 System.out.println("Parser, The file " + args[0] + " was not found");

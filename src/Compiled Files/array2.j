@@ -68,11 +68,9 @@ loop0:
 iload_2
 iload_0
 if_icmpge loop_end0
-iload_2
-istore 5
 aload_1
 iload_2
-iload 5
+iload_2
 iastore
 
 iload_2

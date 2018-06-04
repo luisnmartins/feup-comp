@@ -34,8 +34,13 @@ public class ASTArgument extends SimpleNode {
       if (!symbol.isArray()) {
         if (argGlobal)
           writeToFile("getstatic " + module_name + "/" + value + " I", module_name);
-        else
-          writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
+        else {
+          if(this.canBeConst(symbol)) {
+            writeToFile(getConstInst(symbol.getValue()), module_name);
+          }
+          else
+            writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
+        }
       } else {
         if (argGlobal)
           writeToFile("getstatic " + module_name + "/" + value + " [I", module_name);

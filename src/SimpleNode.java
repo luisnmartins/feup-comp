@@ -166,7 +166,9 @@ public class SimpleNode implements Node {
 
   public String getConstInst(int value) {
     String res = "ldc " + value;
-    if (value >= 0 && value < 4) {
+    if(value == -1) {
+      res = "iconst_m1";
+    } else if (value >= 0 && value <= 5) {
       res = "iconst_" + value;
     } else if (value >= -128 && value < 127) {
       res = "bipush " + value;
@@ -282,6 +284,20 @@ public class SimpleNode implements Node {
     }
 
     return count;
+  }
+
+  public boolean canBeConst(Symbol symbol) {
+    if(symbol.getValue() == null)
+      return false;
+    SimpleNode node = (SimpleNode) this;
+    while(!(node.parent instanceof ASTFunction)) {
+      if((node.parent instanceof ASTWhile) || (node.parent instanceof ASTIf) || (node.parent instanceof ASTElse)) {
+        symbol.setValue(null);
+        return false;
+      }
+      node = (SimpleNode) node.parent;
+    }
+    return true;
   }
 }
 

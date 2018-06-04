@@ -157,13 +157,13 @@ public class ASTAccess extends SimpleNode {
         if (accessGlobal)
           writeToFile("getstatic " + module_name + "/" + name + " I", module_name);
         else {
-          System.out.println("ACCESS " + symbol.value);
-          if (this.parent instanceof ASTTerm  && symbol.value != null)
-            writeToFile(getConstInst(symbol.value), module_name);
-          else
+          System.out.println("ACCESS " + symbol.getValue());
+         if(this.canBeConst(symbol) && !(this.parent instanceof ASTAssign)) {
+          writeToFile(getConstInst(symbol.getValue()), module_name);
+         }
+         else
             writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
         }
-
         // countStack = setStackCounter(countStack, 1);
 
       }

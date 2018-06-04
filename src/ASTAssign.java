@@ -306,9 +306,7 @@ public class ASTAssign extends SimpleNode {
     } else {
       ASTRhs rhs = (ASTRhs) this.jjtGetChild(1);
       rhs.getJVMCode(parent);
-
-      
-      symbol.value = rhs.value;
+      symbol.setValue(rhs.value);
 
       System.out.println(rhs.value);
       

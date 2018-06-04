@@ -5,8 +5,7 @@ public class Symbol implements Cloneable{
     private Integer registry;
     private Boolean isInitialized;
     private Boolean mayBeUninitialized = false;
-    public Integer value;
-
+    private Integer value;
 
     public Symbol() {
         this.isArray = true;
@@ -88,6 +87,14 @@ public class Symbol implements Cloneable{
 
         Symbol symbol = (Symbol) o;
         return  symbol.isInitialized().equals(this.isInitialized) && symbol.isArray().equals(this.isArray);
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+    
+    public Integer getValue() {
+        return this.value;
     }
     
 

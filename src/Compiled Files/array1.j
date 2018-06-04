@@ -22,10 +22,10 @@ iload_0
 if_icmpge loop_end0
 aload_1
 iload_3
-iconst_0
+iload_3
 iastore
 
-iconst_0
+iload_3
 iconst_1
 iadd
 istore_3
@@ -49,7 +49,7 @@ ldc "a: "
 iload 4
 invokestatic io/print(Ljava/lang/String;I)V
 
-iconst_0
+iload_3
 iconst_1
 iadd
 istore_3
@@ -69,7 +69,7 @@ astore_0
 
 bipush 10
 aload_0
-bipush 4
+iconst_4
 invokestatic array1/print_array(I[II)V
 
 return

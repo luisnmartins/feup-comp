@@ -60,7 +60,11 @@ public class ASTIndex extends SimpleNode {
       if (accessGlobal) {
         writeToFile("getstatic " + module_name + "/" + value + " I", module_name);
       } else {
-        writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
+        if(this.canBeConst(symbol)) {
+          writeToFile(getConstInst(symbol.getValue()), module_name);
+        }
+        else
+          writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
       }
 
     }
