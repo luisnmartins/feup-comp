@@ -62,8 +62,6 @@ interface Node {
 
   public int getMaxStack();
 
-  public int getCountStores(String module_name, int stack, String function_name);
-
   public void setMaxStack(int stack);
 
   public String getConstInst(int value);
