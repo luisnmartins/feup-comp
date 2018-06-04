@@ -38,8 +38,13 @@ public class ASTRhs extends SimpleNode {
         response = new SimpleEntry<>(false, false);
         System.out.println(e.getMessage());
       }
-      if (operator != null && response.getValue() == true) {
-        throw new ParseException(this, "Is not possible to operate with arrays");
+      if (operator != null) {
+        if (response.getValue() == null) {
+          throw new ParseException(this, "The function does not return a value");
+        } else if (response.getValue() == true) {
+          throw new ParseException(this, "Is not possible to operate with arrays");
+        }
+
       }
     }
     if (allCorrect == false)
