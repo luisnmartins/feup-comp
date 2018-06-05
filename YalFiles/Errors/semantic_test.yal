@@ -1,0 +1,62 @@
+module semanticAnalysis {
+    array1 = [30];
+    a = 5;
+
+    array2 = [40];
+    array2 = [30];
+
+    function ret=main(c[]){
+        scalar1 = 10;
+        scalar2 = scalar1 + scalar1;
+        ret = a + c; //error a doesnt exist
+        ret = scalar1  + b //error because b is an array, no operations with arrays are allowed
+
+        scalar1 = ext.func(array1); //assume scalar1 then as constant value
+        newArray = [scalar1];
+        newArray = scalar1;
+        
+    }
+
+    function a[]=f(){
+        a=[20];
+        a=3;
+    }
+
+      function scal=scalar(let, bad[]) {
+        scal = 2;
+    }
+
+    function f(){ //error duplicate function
+        d = 1
+    }
+
+    function test(){
+        c(array1) //error since function 'c' does not exist
+        scalar = 20;
+        scalar = f() //error since f() returns an array not a scalar
+        array1 = scalar(5,arr);
+        array1 = array1.size;
+        array1 = ext.func() //valid since array1 is already defined as an array assume function returns an array
+
+
+        scalar = scalar(5); // error wrong number of arguments
+        scalar = scalar(5,array1);
+        scalar = scalar(array1,array1); //error wrong type of arguments
+        scalar = scalar(var1,var2) // error undefined variables as parameters
+
+    }
+
+    function param(a,a[],b,l,b[]){ //error duplicate parameters name
+        io.println("Hello")
+    }
+
+    function return = noreturn(){ //error, no return
+        hello = 1;
+    }
+
+    function new[] = notype(){ //error return type invalid
+        new = 5;
+    }
+
+
+}

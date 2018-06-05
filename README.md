@@ -9,7 +9,7 @@ COMP Group56
 ### Group 56
 
 - Carlos Freitas - 201504749, <grade>, 33%
-- Luís Martins - 201503344, <grade> , 33%
+- LuÃ­s Martins - 201503344, <grade> , 33%
 - Rui Quaresma - xxxxxxxxx, <grade> , 33%
 - Tiago Carvalho - xxxxxxx, <grade> , 33%
 
@@ -39,15 +39,15 @@ java aval1
 
 ## Dealing with syntactic errors
 
-When a syntactic error is detected an exception is thrown 
-and one of the following functions is called: error_skipto(int kind, ParseException e) 
-or error_skipto2(int kind, int kind2, ParseException e). 
+When a syntactic error is detected an exception is thrown
+and one of the following functions is called: error_skipto(int kind, ParseException e)
+or error_skipto2(int kind, int kind2, ParseException e).
 
 These functions print a message with the line of code where the error occurred and which kind of tokens it was expecting. After that, it ignores the following tokens until a specific token (kind or kind2) so that it can continue the analysis and find other syntactic errors. There is a constraint that limits the number of founded error up to 10.
 
 ## Semantic analysis
 
-As semantic rules, we decided to implement the following rules:
+As semantic rules, we decided to implement the following:
 
 - On the main scope a[] creates a not initialized array
 - a[] = 100 or a = 100, assuming 'a' is already consider an array, only is allowed if 'a' has been initialized with a specified size.
@@ -61,7 +61,12 @@ As semantic rules, we decided to implement the following rules:
 - Whenever a function is called the parameters are always checked if they are compatible (are initialized and are of the same type)
 - A call function cannot be on the right side of an assign if it doesnt return a variable
 - The return variable of a function must be initialized
-- Any call of a function of other modules are per default considered to return a scalar value
+- Any call of a function of other modules are per default considered to return a scalar value, unless the variable that the call is to be assigned is already defined.For example:
+  - a = ext.fun(), if a is not defined ext.fun() returns scalar
+  - a = [100]; a = ext.fun(), since a is defined assume ext.fun() returns an array
+- Overload of functions is not allowed
+- Variables declared inside of an if cannot be used outside of it
+-
 
 ## Code generation
 
@@ -74,7 +79,7 @@ Main algorithms (???) third party tools (???)
 ## Task Distribution
 
 - Carlos Freitas -
-- Luís Martins -
+- Luï¿½s Martins -
 - Rui Quaresma -
 - Tiago Carvalho -
 
