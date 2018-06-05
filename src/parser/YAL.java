@@ -1,10 +1,14 @@
 package parser;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
 public class YAL{
 
     public static String filename;
+    public static String module_name;
     private LinkedHashMap<String, SymbolTable> symbolTables;
     private Parser parser;
     public static Boolean optimized = false;
@@ -55,6 +59,7 @@ public class YAL{
             }
             System.out.println("Parser: Reading the file " + args[file]);
             filename = args[file];
+            
 
             try {
 

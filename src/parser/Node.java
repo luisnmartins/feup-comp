@@ -48,8 +48,6 @@ interface Node {
 
   public int setRegistry(FunctionTable parent, int registry);
 
-  public int setRegistry(FunctionTable parent, FunctionTable parent2, int registry);
-
   public int setRegistry(SymbolTable parent, int registry);
 
   public int setStackCounter(int max, int newC);
@@ -69,14 +67,14 @@ interface Node {
 
   public String getInstWihUnderscore(String inst, int reg);
 
-  public void writeToFile(String str, String module_name);
+  public void writeToFile(String str);
 
-  public void editLastLine(String str, String module_name);
+  public void editLastLine(String str);
 
-  public void editLocals(String str, String oldLine, String module_name);
+  public void editLocals(String str, String oldLine);
 
-  public void editStack(String str, String oldLine, String module_name);
+  public void editStack(String str, String oldLine);
 
-  public String getLastLine(String module_name);
+  public String getLastLine();
 }
 /* JavaCC - OriginalChecksum=f321f02c1d43b87914acea48d856de05 (do not edit this line) */

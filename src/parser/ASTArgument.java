@@ -35,28 +35,28 @@ public class ASTArgument extends SimpleNode {
         argGlobal = true;
       if (!symbol.isArray()) {
         if (argGlobal)
-          writeToFile("getstatic " + module_name + "/" + value + " I", module_name);
+          writeToFile("getstatic " + module_name + "/" + value + " I");
         else {
           if(this.canBeConst(symbol)) {
-            writeToFile(getConstInst(symbol.getValue()), module_name);
+            writeToFile(getConstInst(symbol.getValue()));
           }
           else
-            writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
+            writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()));
         }
       } else {
         if (argGlobal)
-          writeToFile("getstatic " + module_name + "/" + value + " [I", module_name);
+          writeToFile("getstatic " + module_name + "/" + value + " [I");
         else
-          writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
+          writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()));
       }
     } else {
       try {
         int valueInt = Integer.parseInt(value);
 
-        writeToFile(getConstInst(valueInt), module_name);
+        writeToFile(getConstInst(valueInt));
 
       } catch (Exception e) {
-        writeToFile("ldc " + value, module_name);
+        writeToFile("ldc " + value);
       }
     }
 

@@ -1,0 +1,7 @@
+Na linha 16 é possivel verificar a existencia da instrução iconst_m1, optimizada para instruções em que um dos elementos é uma constante igual a -1
+
+na linha 19 a 21, 23 e 24 é possivel observar que está a ser tratado um caso de constant propagation seguido de constant folding, ou seja, as variaveis t e a são substituidas e logo de seguida são feitas as operações sendo que apenas existe uma instrução de istore do valor final.
+
+Já nas linhas 34 e 35 apenas é realizado constant propagation pois a variavel c pode ter o seu valor alterado anteriormente pelo que não é possível propagar o seu valor.
+
+Nota ainda para as linhas 29 e 30 que por serem variaveis internas a um ciclo while não são realizadas quaisquer optimizações de constant propagation e constant folding, uma vez que estas variaveis podem ser alteradas nas varias iterações do ciclo.

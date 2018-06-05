@@ -1,0 +1,40 @@
+module gen_code1{
+	arr = [10];
+	function i=func(i) {
+		while(i < arr.size){
+			arr[i] = arr[i] + i;
+			v = arr[i];
+			io.println(v);
+			i = i + 1;
+		}
+	}
+	
+	function main() {
+		io.println("Indique um numero: ");
+		h = io.read();
+		
+		io.println("h: ", h);
+		while(h > 2){
+			if(h == 4){
+				while(h < 8){
+					h = h +1;
+				}
+				h = 0;
+				io.println(":o");
+			}else{
+				if(h == 5){
+					io.println("HI", h);
+				}else{
+					io.println("TWITTER");
+				}
+			}
+			h = h - 1;
+		}
+
+		arr = 8;	
+		i = 0;
+		i = func(i);
+		io.println("i: ", i);
+
+	}
+}

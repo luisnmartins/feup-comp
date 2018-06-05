@@ -34,6 +34,7 @@ public class ASTModule extends SimpleNode {
 
     global = new GlobalTable();
     global.setModuleName(name);
+    YAL.module_name = name;
     Boolean allCorrect = true;
     SimpleEntry<Boolean, Boolean> response;
 
@@ -124,7 +125,7 @@ public class ASTModule extends SimpleNode {
 
         statics.put("finish", staList);
 
-        Path file = Paths.get("Compiled Files/" + global.getModuleName() + ".j");
+        Path file = Paths.get("Compiled Files/" + YAL.module_name + ".j");
         ArrayList lines = new ArrayList<>();
         File directory = new File("Compiled Files");
         if (!directory.exists()) {
@@ -151,7 +152,7 @@ public class ASTModule extends SimpleNode {
     for (String key : insts.get(1).keySet()) {
       ArrayList lis = insts.get(1).get(key);
       for (int i = 0; i < lis.size(); i++) {
-        writeToFile(lis.get(i).toString(), name);
+        writeToFile(lis.get(i).toString());
       }
     }
 

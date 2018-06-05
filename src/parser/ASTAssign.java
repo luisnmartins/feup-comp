@@ -141,9 +141,9 @@ public class ASTAssign extends SimpleNode {
         // a[...] = ...
 
         if (accessGlobal)
-          writeToFile("getstatic " + module_name + "/" + access.name + " [I", module_name);
+          writeToFile("getstatic " + module_name + "/" + access.name + " [I");
         else
-          writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
+          writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()));
 
         // METER AKI O INDEX
         access.jjtGetChild(0).getJVMCode(parent);
@@ -154,8 +154,8 @@ public class ASTAssign extends SimpleNode {
 
         maxStack = maxStack + 2;
 
-        writeToFile("iastore", module_name);
-        writeToFile("", module_name);
+        writeToFile("iastore");
+        writeToFile("");
 
         maxStack = setStackCounter(maxStack, 3);
 
@@ -169,11 +169,11 @@ public class ASTAssign extends SimpleNode {
           maxStack = this.jjtGetChild(1).getMaxStack();
           // a = [2]; ou a.size = [2]
           if (accessGlobal)
-            writeToFile("putstatic " + module_name + "/" + access.name + " [I", module_name);
+            writeToFile("putstatic " + module_name + "/" + access.name + " [I");
           else
-            writeToFile(getInstWihUnderscore("astore", symbol.getRegistry()), module_name);
+            writeToFile(getInstWihUnderscore("astore", symbol.getRegistry()));
 
-          writeToFile("", module_name);
+          writeToFile("");
 
           maxStack = setStackCounter(maxStack, 1);
 
@@ -210,9 +210,9 @@ public class ASTAssign extends SimpleNode {
             } else if (this.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0) instanceof ASTCall) {
 
               if (accessGlobal)
-                writeToFile("putstatic " + module_name + "/" + access.name + " [I", module_name);
+                writeToFile("putstatic " + module_name + "/" + access.name + " [I");
               else
-                writeToFile(getInstWihUnderscore("astore", symbol.getRegistry()), module_name);
+                writeToFile(getInstWihUnderscore("astore", symbol.getRegistry()));
 
               toGo = true;
 
@@ -223,15 +223,15 @@ public class ASTAssign extends SimpleNode {
             if (rhs_access_is_array) {
 
               if (accessRhsGlobal) {
-                writeToFile("getstatic " + module_name + "/" + rhs_access.name + " [I", module_name);
+                writeToFile("getstatic " + module_name + "/" + rhs_access.name + " [I");
               } else {
-                writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
+                writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()));
               }
 
               if (accessGlobal)
-                writeToFile("putstatic " + module_name + "/" + access.name + " [I", module_name);
+                writeToFile("putstatic " + module_name + "/" + access.name + " [I");
               else
-                writeToFile(getInstWihUnderscore("astore", symbol.getRegistry()), module_name);
+                writeToFile(getInstWihUnderscore("astore", symbol.getRegistry()));
 
               maxStack = setStackCounter(maxStack, 1);
 
@@ -241,14 +241,14 @@ public class ASTAssign extends SimpleNode {
               // a = value, logo fill the array
 
               value = maxReg;
-              writeToFile(getInstWihUnderscore("istore", value), module_name);
+              writeToFile(getInstWihUnderscore("istore", value));
 
               if (accessGlobal) {
-                writeToFile("getstatic " + module_name + "/" + access.name + " [I", module_name);
+                writeToFile("getstatic " + module_name + "/" + access.name + " [I");
               } else {
-                writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
+                writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()));
               }
-              writeToFile("arraylength", module_name);
+              writeToFile("arraylength");
 
               maxReg++;
 
@@ -262,37 +262,37 @@ public class ASTAssign extends SimpleNode {
 
               int loopCount = parent.getParent().getLoopCount();
 
-              writeToFile(getInstWihUnderscore("istore", size), module_name);
-              writeToFile("iconst_0", module_name);
-              writeToFile(getInstWihUnderscore("istore", iterator), module_name); // cria variavel para o iterador do
+              writeToFile(getInstWihUnderscore("istore", size));
+              writeToFile("iconst_0");
+              writeToFile(getInstWihUnderscore("istore", iterator)); // cria variavel para o iterador do
                                                                                   // loop , de
               // inicializacao
 
-              writeToFile("loop" + loopCount + ":", module_name);
+              writeToFile("loop" + loopCount + ":");
 
-              writeToFile(getInstWihUnderscore("iload", iterator), module_name);
-              writeToFile(getInstWihUnderscore("iload", size), module_name);
+              writeToFile(getInstWihUnderscore("iload", iterator));
+              writeToFile(getInstWihUnderscore("iload", size));
 
-              writeToFile("if_icmpge loop_end" + loopCount, module_name);
+              writeToFile("if_icmpge loop_end" + loopCount);
 
               if (accessGlobal) {
-                writeToFile("getstatic " + module_name + "/" + access.name + " [I", module_name);
+                writeToFile("getstatic " + module_name + "/" + access.name + " [I");
               } else {
-                writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
+                writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()));
               }
-              writeToFile(getInstWihUnderscore("iload", iterator), module_name);
+              writeToFile(getInstWihUnderscore("iload", iterator));
 
-              writeToFile(getInstWihUnderscore("iload", value), module_name);
+              writeToFile(getInstWihUnderscore("iload", value));
 
-              writeToFile("iastore", module_name);
+              writeToFile("iastore");
 
-              writeToFile("iinc " + iterator + " 1", module_name);
+              writeToFile("iinc " + iterator + " 1");
 
-              writeToFile("goto loop" + loopCount, module_name);
+              writeToFile("goto loop" + loopCount);
 
-              writeToFile("loop_end" + loopCount + ":", module_name);
+              writeToFile("loop_end" + loopCount + ":");
 
-              writeToFile("", module_name);
+              writeToFile("");
 
               maxStack = setStackCounter(maxStack, 3);
 
@@ -318,11 +318,11 @@ public class ASTAssign extends SimpleNode {
       if(!rhs.is_iinc){
       
         if (accessGlobal)
-          writeToFile("putstatic " + module_name + "/" + access.name + " I", module_name);
+          writeToFile("putstatic " + module_name + "/" + access.name + " I");
         else
-          writeToFile(getInstWihUnderscore("istore", symbol.getRegistry()), module_name);
+          writeToFile(getInstWihUnderscore("istore", symbol.getRegistry()));
 
-        writeToFile("", module_name);
+        writeToFile("");
       }
       
 

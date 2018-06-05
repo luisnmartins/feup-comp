@@ -1,28 +1,41 @@
 module t6{
-
+a = [10];
 function x=avg(a,b,c,d){
 	x = 4;
 }
 FUNCtion main(){
+	a = 4;
+	i = 0;
+	while(i < a.size){
+		q = a[i];
+		io.println(q);
+	}
 	h = 4;
 	H = 7;
 	io.println(h);
 	while(h > 2){
-		while(h < 8){
-			while(h < 7){
-				h = h + 1;
-				while(h < 6){
+		if(h == 4){
+			while(h < 8){
+				while(h < 7){
 					h = h + 1;
-					io.println(h);
+					while(h < 6){
+						h = h + 1;
+						io.println(h);
+					}
+					h = h + 1;
 				}
+				io.println(h);
+				h = h + 1;
 			}
-			io.println(h);
 		}
+		h = h - 1;
 	}
 	
 	while(h < 6){
 		io.println(h);
 	}
+	
+	x = sign(a);
 }
 
 }

@@ -147,15 +147,15 @@ public class ASTFunction extends SimpleNode {
     int maxStack = 0;
 
     if (name.compareTo("main") == 0)
-      writeToFile(".method public static " + name + "([Ljava/lang/String;" + funcParams + ")V", module_name);
+      writeToFile(".method public static " + name + "([Ljava/lang/String;" + funcParams + ")V");
     else {
-      writeToFile(".method public static " + name + "(" + funcParams + ")" + returnType, module_name);
+      writeToFile(".method public static " + name + "(" + funcParams + ")" + returnType);
     }
 
-    writeToFile(".limit stack " + getMaxStack(), module_name);
-    writeToFile(".limit locals " + (table.getMaxRegistry() + 1), module_name);
+    writeToFile(".limit stack " + getMaxStack());
+    writeToFile(".limit locals " + (table.getMaxRegistry() + 1));
 
-    writeToFile("", module_name);
+    writeToFile("");
 
     for (int i = 0; i < children.length; i++) {
       children[i].getJVMCode(table);
@@ -169,29 +169,29 @@ public class ASTFunction extends SimpleNode {
         String retKey = table.getReturnParameter().getKey();
         Symbol ret = table.getFromAll(retKey);
 
-        writeToFile(getInstWihUnderscore("aload", ret.getRegistry()), module_name);
-        writeToFile("areturn", module_name);
+        writeToFile(getInstWihUnderscore("aload", ret.getRegistry()));
+        writeToFile("areturn");
 
       } else {
         String retKey = table.getReturnParameter().getKey();
         Symbol ret = table.getFromAll(retKey);
 
-        writeToFile(getInstWihUnderscore("iload", ret.getRegistry()), module_name);
-        writeToFile("ireturn", module_name);
+        writeToFile(getInstWihUnderscore("iload", ret.getRegistry()));
+        writeToFile("ireturn");
 
       }
       maxStack = setStackCounter(maxStack, 1);
     } else
-      writeToFile("return", module_name);
+      writeToFile("return");
 
     setMaxStack(maxStack);
 
-    writeToFile(".end method", module_name);
+    writeToFile(".end method");
 
-    writeToFile("", module_name);
+    writeToFile("");
 
-    editStack(".limit stack " + getMaxStack(), ".method public static " + name, module_name);
-    editLocals(".limit locals " + (table.getMaxRegistry() + 1), ".method public static " + name, module_name);
+    editStack(".limit stack " + getMaxStack(), ".method public static " + name);
+    editLocals(".limit locals " + (table.getMaxRegistry() + 1), ".method public static " + name);
 
     return instructions;
   }

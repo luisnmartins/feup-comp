@@ -51,7 +51,7 @@ class ASTTerm extends SimpleNode {
 
     
     if (value != null) {
-      writeToFile(getConstInst(value), module_name);
+      writeToFile(getConstInst(value));
       setMaxStack(1);
     } else {
       this.jjtGetChild(0).getJVMCode(parent);

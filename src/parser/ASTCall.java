@@ -118,7 +118,7 @@ public class ASTCall extends SimpleNode {
 
       if (functionCalled.compareTo("main") == 0) {
         newFuncParams = "[Ljava/lang/String;";
-        writeToFile("aconst_null", module_name);
+        writeToFile("aconst_null");
       }
     } else {
       funcName = name;
@@ -126,7 +126,7 @@ public class ASTCall extends SimpleNode {
 
       if (name.compareTo("main") == 0) {
         newFuncParams = "[Ljava/lang/String;";
-        writeToFile("aconst_null", module_name);
+        writeToFile("aconst_null");
       }
     }
 
@@ -169,11 +169,11 @@ public class ASTCall extends SimpleNode {
 
     
 
-    writeToFile("invokestatic " + caller + "(" + newFuncParams + ")" + returnT, module_name);
+    writeToFile("invokestatic " + caller + "(" + newFuncParams + ")" + returnT);
     if (this.parent instanceof ASTStmtlst)
       if (returnT != "V")
-        writeToFile("pop", module_name);
-    writeToFile("", module_name);
+        writeToFile("pop");
+    writeToFile("");
 
     return;
   }

@@ -1,8 +1,3 @@
-.class public t6
-.super java/lang/Object
-
-.field static a [I 
-
 .method public static avg(IIII)I
 .limit stack 1
 .limit locals 5

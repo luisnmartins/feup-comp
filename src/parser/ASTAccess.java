@@ -85,30 +85,6 @@ public class ASTAccess extends SimpleNode {
 
   }
 
-  @Override
-  public int setRegistry(FunctionTable parent, FunctionTable parent2, int registry) {
-
-    int reg = registry;
-    Symbol symbol = parent.hasRegistry(name);
-    if (symbol != null) {
-      symbol.setRegistry(reg);
-      reg++;
-    } else {
-      SimpleEntry<String, Symbol> symbolEntry = parent.getReturnParameter();
-      if (symbolEntry != null && !parent.getRetHasReg()) {
-        symbol = symbolEntry.getValue();
-        if (!symbol.isRegistered()) {
-          symbol.setRegistry(reg);
-          reg++;
-
-        }
-      }
-    }
-
-    return reg;
-
-  }
-
   public void getJVMCode(FunctionTable parent) {
     String module_name = parent.getParent().getModuleName();
 
@@ -122,15 +98,15 @@ public class ASTAccess extends SimpleNode {
     if (this.jjtGetNumChildren() > 0) {
       // x = a[2];
       if (accessGlobal)
-        writeToFile("getstatic " + module_name + "/" + name + " [I", module_name);
+        writeToFile("getstatic " + module_name + "/" + name + " [I");
       else
-        writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
+        writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()));
 
       jjtGetChild(0).getJVMCode(parent);
 
       setMaxStack(jjtGetChild(0).getMaxStack() + 1);
 
-      writeToFile("iaload", module_name);
+      writeToFile("iaload");
 
     } else {
 
@@ -141,11 +117,11 @@ public class ASTAccess extends SimpleNode {
           // x = a.size;
 
           if (accessGlobal) {
-            writeToFile("getstatic " + module_name + "/" + name + " [I", module_name);
+            writeToFile("getstatic " + module_name + "/" + name + " [I");
           } else {
-            writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()), module_name);
+            writeToFile(getInstWihUnderscore("aload", symbol.getRegistry()));
           }
-          writeToFile("arraylength", module_name);
+          writeToFile("arraylength");
 
         } else {
 
@@ -157,13 +133,13 @@ public class ASTAccess extends SimpleNode {
         // x = a;
 
         if (accessGlobal)
-          writeToFile("getstatic " + module_name + "/" + name + " I", module_name);
+          writeToFile("getstatic " + module_name + "/" + name + " I");
         else {
          if(this.canBeConst(symbol) && !(this.parent instanceof ASTAssign)) {
-          writeToFile(getConstInst(symbol.getValue()), module_name);
+          writeToFile(getConstInst(symbol.getValue()));
          }
          else
-            writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()), module_name);
+            writeToFile(getInstWihUnderscore("iload", symbol.getRegistry()));
         }
         // countStack = setStackCounter(countStack, 1);
 
