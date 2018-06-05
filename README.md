@@ -70,22 +70,7 @@ As semantic rules, we decided to implement the following:
 
 ## Code generation
 
-## Overview
-
-Main algorithms (???) third party tools (???)
-
-## Testsuite and test infrastructure
-
-## Task Distribution
-
-- Carlos Freitas -
-- Lu�s Martins -
-- Rui Quaresma -
-- Tiago Carvalho -
-
-## Pros
-
-## Cons
+TODO
 
 ## Optimizations
 
@@ -122,6 +107,8 @@ Begin:
 body
 cond jump Begin
 End:
+
+## Overview
 
 Main algorithms (???) third party tools (???)
 
