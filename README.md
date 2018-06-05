@@ -9,7 +9,7 @@ COMP Group56
 ### Group 56
 
 - Carlos Freitas - 201504749, 19 , 30%
-- Luis Martins - 201503344, 19 , 30%
+- Luís Martins - 201503344, 19 , 30%
 - Rui Quaresma - 201503005, 19 , 30%
 - Tiago Carvalho - xxxxxxx, 12 , 10%
 
@@ -87,7 +87,16 @@ Notes:
 - In cases like: x = x + 1, the iinc instruction is used.
 - In constants loading cases the instructions used are the ones that fit the value of the constant.
 
-## Optimizations
+## Overview
+
+To pre-compile and generate the .j file, the system starts by constructing an abstract syntax tree with some nodes using the grammar structure.
+
+After getting the AST, it creates a symbol table where it saves for each variable, the kind and if it is initialized. 
+While the symbol table is created the compiler also checks all variables use and assign checking if there are not any semantic errors.
+
+If all these steps are valid, the final code is generated with or without optimizations, depending on the user's preference.
+
+### Optimizations
 
 To optimize the compiled file we consider some optimizations. To get an optimize code you should run using -o flag
 
@@ -123,24 +132,23 @@ body
 cond jump Begin
 End:
 
-## Overview
-
-Main algorithms (???) third party tools (???)
 
 ## Testsuite and test infrastructure
 
-There is a script that iterates through each file from working folder and runs all the necessary commands to compile and execute each yal file.
+There is a script that iterates through each file from working folder and runs all the necessary commands to compile and execute each yal file. 
+
+PS: It does not work with files which filename and module name are different because the generated class file has the module name as filename.
 
 ## Task Distribution
 
 - Carlos Freitas - semantic analysis and
-- Luis Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
+- Luís Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
 - Rui Quaresma - code generation and constant folding
 - Tiago Carvalho -
 
 ## Pros
 
-Our tool is optimized to use the least resources possible in orther for the program to run correctly.
+Our tool is optimized to use the least resources possible in other for the program to run correctly.
 
 ## Cons
 
