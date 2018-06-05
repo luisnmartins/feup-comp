@@ -17,7 +17,7 @@ COMP Group56
 
 ## Summary
 
-This tool ...
+This tool allows the user to pre-compile a yal file to .j file so that it can be after compiled to .class file using jasmin.
 
 ## Pre-requirements
 
@@ -31,7 +31,7 @@ jjtree parser/Parser.jjt && javacc parser/Parser.jj && javac parser/\*.java
 
 And then gerate code for jasmin:
 
-java parser/YAL ../YalFiles/Working/aval1.yal
+java parser/YAL [-o] ../YalFiles/Working/aval1.yal
 
 java -jar jasmin.jar "Compiled Files"/aval1.j
 
@@ -107,17 +107,19 @@ Main algorithms (???) third party tools (???)
 
 ## Testsuite and test infrastructure
 
+There is a script that iterates through each file from working folder and runs all the necessary commands to compile and execute each yal file.
+
 ## Task Distribution
 
-- Carlos Freitas -
-- Luís Martins -
-- Rui Quaresma -
+- Carlos Freitas - semantic analysis and 
+- Luís Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
+- Rui Quaresma - code generation and 
 - Tiago Carvalho -
 
 ## Pros
 
 ## Cons
-
+It can be optimized implementing other otimizations such as minimizing the number of allocated registeries with dataflow analysis and graph coloring.
 
 
 ## Some notes
