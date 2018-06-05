@@ -258,7 +258,7 @@ public class SimpleNode implements Node {
   }
 
   public boolean canBeConst(Symbol symbol) {
-    if(symbol.getValue() == null)
+    if(symbol.getValue() == null || !YAL.optimized)
       return false;
     return canBeAssigned(symbol);
   }

@@ -127,8 +127,6 @@ public class ASTRhs extends SimpleNode {
         if (this.jjtGetChild(0).jjtGetNumChildren() > 0) {
           if (this.jjtGetChild(0).jjtGetChild(0) instanceof ASTAccess) {
             rhs_access = (ASTAccess) this.jjtGetChild(0).jjtGetChild(0);
-            System.out.println(rhs_access.name);
-            System.out.println(access.name);
             if (access.name.compareTo(rhs_access.name) == 0) {
               second_term = (ASTTerm) this.jjtGetChild(1);
               is_iinc = true;
