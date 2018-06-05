@@ -50,6 +50,7 @@ These functions print a message with the line of code where the error occurred a
 As semantic rules, we decided to implement the following:
 
 - On the main scope a[] creates a not initialized array
+- An instanciated a array cannot be redeclared as for example, a=[100]; a=[20];
 - a[] = 100 or a = 100, assuming 'a' is already consider an array, only is allowed if 'a' has been initialized with a specified size.
 - a[] = 100, if it is the first time 'appears' is accepted and assumes 'a' as constant of value 100
 - a = b, assuming b is an array is only acceptable if a has not been already initialized and b is of course initialized (????)

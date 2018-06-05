@@ -6,7 +6,7 @@ module semanticAnalysis {
             b = [20];
         }
 
-        a = b //error b is not defined 
+        a = b; //error b is not defined 
 
         while( i == 3){
             val = 50;
@@ -16,16 +16,16 @@ module semanticAnalysis {
             }
         }
 
-        c = val //error val is not defined
-        c = another //error another is not defined
+        c = val; //error val is not defined
+        c = another; //error another is not defined
 
         i = 4;
         if(i > 4){
-            val1 = [20]
+            val1 = [20];
         }else{
-            val1 = 2
+            val1 = 2;
         }
-        c = val1 //error val1 no type defined
+        c = val1; //error val1 no type defined
 
         if(i < 3){
             scalar = 2;
