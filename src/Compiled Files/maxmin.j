@@ -10,6 +10,9 @@ invokestatic io/read()I
 istore_0
 
 iload_0
+invokestatic io/println(I)V
+
+iload_0
 iconst_0
 if_icmpge if_else0
 
@@ -18,10 +21,7 @@ loop0:
 iload_0
 iconst_0
 if_icmpge loop_end0
-iload_0
-iconst_1
-iadd
-istore_0
+iinc 0 1
 
 goto loop0
 loop_end0:
@@ -33,10 +33,7 @@ loop1:
 iload_0
 iconst_0
 if_icmple loop_end1
-iload_0
-iconst_1
-isub
-istore_0
+iinc 0 -1
 
 goto loop1
 loop_end1:

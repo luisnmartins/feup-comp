@@ -152,6 +152,8 @@ public class ASTAssign extends SimpleNode {
 
         maxStack = this.jjtGetChild(1).getMaxStack();
 
+        maxStack = maxStack + 2;
+
         writeToFile("iastore", module_name);
         writeToFile("", module_name);
 
@@ -258,7 +260,7 @@ public class ASTAssign extends SimpleNode {
 
               parent.setMaxRegistry(maxReg);
 
-              int loopCount = parent.getLoopCount();
+              int loopCount = parent.getParent().getLoopCount();
 
               writeToFile(getInstWihUnderscore("istore", size), module_name);
               writeToFile("iconst_0", module_name);
@@ -294,7 +296,7 @@ public class ASTAssign extends SimpleNode {
 
               maxStack = setStackCounter(maxStack, 3);
 
-              parent.incLoopCount();
+              parent.getParent().incLoopCount();
 
             }
           }

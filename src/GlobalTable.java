@@ -7,6 +7,8 @@ public class GlobalTable extends SymbolTable {
 
     private HashMap<String,FunctionTable> functions;
     private String moduleName;
+    int loopCount = 0;
+    int ifcount = 0;
     public GlobalTable(){
         super();
         functions = new HashMap<>();
@@ -47,6 +49,22 @@ public class GlobalTable extends SymbolTable {
 
     public HashMap<String,FunctionTable> getFunctions(){
         return functions;
+    }
+
+    public void incLoopCount() {
+        loopCount++;
+    }
+
+    public int getLoopCount() {
+        return loopCount;
+    }
+
+    public void incIfCount() {
+        ifcount++;
+    }
+
+    public int getIfCount() {
+        return ifcount;
     }
 
 

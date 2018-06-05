@@ -30,18 +30,18 @@ ireturn
 
 iload_0
 iload_1
-if_icmple if_else0
+if_icmple if_else1
 
 iload_1
 istore_2
 
-goto if_end0
+goto if_end1
 
-if_else0:
+if_else1:
 iload_0
 istore_2
 
-if_end0:
+if_end1:
 
 iload_2
 ireturn

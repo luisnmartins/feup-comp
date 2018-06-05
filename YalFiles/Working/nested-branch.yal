@@ -9,10 +9,15 @@ module nestedBranch {
 				y = 1;
 			}
 		}
+		
+		if(a == 9){
+		
+		}
 	}
 	
 	function main() {
-		x = sign(4);
+		a = -1;
+		x = sign(a);
 		io.println(x);
 		
 	}

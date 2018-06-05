@@ -26,7 +26,7 @@ istore_2
 if_end0:
 
 iconst_2
-bipush 4
+iconst_4
 imul
 istore_3
 
@@ -45,7 +45,7 @@ goto if_end1
 
 if_else1:
 bipush -2
-bipush 4
+iconst_4
 imul
 istore 4
 

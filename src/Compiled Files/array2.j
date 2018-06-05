@@ -2,7 +2,7 @@
 .super java/lang/Object
 
 .method public static sum_array([I)I
-.limit stack 3
+.limit stack 2
 .limit locals 4
 
 iconst_0
@@ -17,13 +17,6 @@ iload_1
 aload_0
 arraylength
 if_icmpge loop_end0
-iload_2
-aload_0
-iload_1
-iaload
-iadd
-istore_2
-
 iload_1
 bipush 10
 if_icmpne if_end0
@@ -31,17 +24,9 @@ if_icmpne if_end0
 sipush 1904
 istore_3
 
-iload_2
-iload_3
-iadd
-istore_2
-
 if_end0:
 
-iload_1
-iconst_1
-iadd
-istore_1
+iinc 1 1
 
 goto loop0
 loop_end0:
@@ -63,23 +48,20 @@ astore_1
 iconst_0
 istore_2
 
-loop0:
+loop1:
 
 iload_2
 iload_0
-if_icmpge loop_end0
+if_icmpge loop_end1
 aload_1
 iload_2
 iload_2
 iastore
 
-iload_2
-iconst_1
-iadd
-istore_2
+iinc 2 1
 
-goto loop0
-loop_end0:
+goto loop1
+loop_end1:
 aload_1
 invokestatic array2/sum_array([I)I
 

@@ -17,12 +17,12 @@ if_icmpge if_else0
 
 iload_0
 iconst_3
-if_icmpge if_end0
+if_icmpge if_end1
 
-bipush 4
+iconst_4
 istore_1
 
-if_end0:
+if_end1:
 
 goto if_end0
 

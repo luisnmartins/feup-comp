@@ -25,10 +25,7 @@ iload_3
 iload_3
 iastore
 
-iload_3
-iconst_1
-iadd
-istore_3
+iinc 3 1
 
 goto loop0
 loop_end0:
@@ -49,10 +46,7 @@ ldc "a: "
 iload 4
 invokestatic io/print(Ljava/lang/String;I)V
 
-iload_3
-iconst_1
-iadd
-istore_3
+iinc 3 1
 
 goto loop1
 loop_end1:

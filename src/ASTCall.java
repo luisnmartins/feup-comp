@@ -107,10 +107,6 @@ public class ASTCall extends SimpleNode {
     }
 
 
-    
-
-    // countStack = setStackCounter(countStack, children.length);
-
     String caller;
     String funcName;
     Symbol ret = null;
@@ -118,9 +114,19 @@ public class ASTCall extends SimpleNode {
     if (isCaller) {
       funcName = functionCalled;
       caller = name + "/" + functionCalled;
+
+      if (functionCalled.compareTo("main") == 0) {
+        newFuncParams = "[Ljava/lang/String;";
+        writeToFile("aconst_null", module_name);
+      }
     } else {
       funcName = name;
       caller = module_name + "/" + name;
+
+      if (name.compareTo("main") == 0) {
+        newFuncParams = "[Ljava/lang/String;";
+        writeToFile("aconst_null", module_name);
+      }
     }
 
     funcT = parent.getFunction(funcName);
@@ -159,6 +165,8 @@ public class ASTCall extends SimpleNode {
 
       }
     }
+
+    
 
     writeToFile("invokestatic " + caller + "(" + newFuncParams + ")" + returnT, module_name);
     if (this.parent instanceof ASTStmtlst)

@@ -12,8 +12,7 @@ public abstract class SymbolTable implements Cloneable{
 
     LinkedHashMap<String,Symbol> variables;
 
-    int loopCount = 0;
-    int ifcount = 0;
+    
 
 
     public SymbolTable(){
@@ -40,21 +39,7 @@ public abstract class SymbolTable implements Cloneable{
         
     }
 
-    public void incLoopCount(){
-        loopCount++;
-    }
-
-    public int getLoopCount(){
-        return loopCount;
-    }
-
-    public void incIfCount() {
-        ifcount++;
-    }
-
-    public int getIfCount() {
-        return ifcount;
-    }
+    
 
    /* public boolean lookupAll(String name) {
         if(this.variables.containsKey(name) || this.parameters.containsKey(name))

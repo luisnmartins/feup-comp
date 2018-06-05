@@ -13,7 +13,7 @@ ireturn
 .limit stack 1
 .limit locals 2
 
-bipush 4
+iconst_4
 invokestatic inputAsOutput/f(I)I
 
 istore_0

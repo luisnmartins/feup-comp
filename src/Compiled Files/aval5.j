@@ -17,10 +17,7 @@ loop0:
 iload_0
 iload_2
 if_icmpge loop_end0
-iload_0
-iconst_1
-iadd
-istore_0
+iinc 0 1
 
 goto loop0
 loop_end0:
@@ -32,11 +29,6 @@ istore_1
 goto if_end0
 
 if_else0:
-iload_1
-iload_0
-iadd
-istore_1
-
 if_end0:
 
 iload_1
@@ -47,8 +39,8 @@ ireturn
 .limit stack 2
 .limit locals 2
 
-bipush 4
-bipush 5
+iconst_4
+iconst_5
 invokestatic aval5/f(II)I
 
 istore_0

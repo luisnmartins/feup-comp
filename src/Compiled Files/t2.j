@@ -69,10 +69,7 @@ iload 12
 ior
 istore 4
 
-iload_1
-iconst_2
-ishl
-istore_1
+iinc 1 2
 
 iload 8
 iload 4
@@ -92,17 +89,11 @@ if_else0:
 iload 9
 istore_3
 
-iload_2
-iconst_2
-ishl
-istore_2
+iinc 2 2
 
 if_end0:
 
-iload 5
-iconst_1
-iadd
-istore 5
+iinc 5 1
 
 goto loop0
 loop_end0:
@@ -146,37 +137,32 @@ astore_3
 iconst_0
 istore 4
 
-loop0:
+loop1:
 
 iload 4
 aload_2
 arraylength
-if_icmpge loop_end0
-iload 4
-istore 7
+if_icmpge loop_end1
 aload_2
 iload 4
-iload 7
+iload 4
 iastore
 
-iload 4
-iconst_1
-iadd
-istore 4
+iinc 4 1
 
-goto loop0
-loop_end0:
+goto loop1
+loop_end1:
 aload_3
 astore_3
 iconst_0
 istore 4
 
-loop1:
+loop2:
 
 iload 4
 aload_3
 arraylength
-if_icmpge loop_end1
+if_icmpge loop_end2
 aload_3
 iload 4
 iaload
@@ -185,13 +171,10 @@ istore 5
 iload 5
 invokestatic io/print(I)V
 
-iload 4
-iconst_1
-iadd
-istore 4
+iinc 4 1
 
-goto loop1
-loop_end1:
+goto loop2
+loop_end2:
 return
 .end method
 

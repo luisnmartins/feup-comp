@@ -143,16 +143,25 @@ public class ASTRhs extends SimpleNode {
             }
           }
         }
+        Symbol symbol = null;
+        if (rhs_access != null) {
+          symbol = parent.getFromScope(rhs_access.name);
+
+          if (symbol == null) {
+            is_iinc = false;
+          }
+        }
 
         if (is_iinc) {
           if (second_term.jjtGetNumChildren() == 0) {
-            Symbol symbol = parent.getFromScope(rhs_access.name);
-
-            if (symbol != null) {
-              writeToFile("iinc " + symbol.getRegistry() + " " + second_term.value, module_name);
-              writeToFile("", module_name);
-              maxStack = setStackCounter(maxStack, 1);
+            int val = second_term.value;
+            if(operator.equals("-")){
+              val = -val;
             }
+
+            writeToFile("iinc " + symbol.getRegistry() + " " + val, module_name);
+            writeToFile("", module_name);
+            maxStack = setStackCounter(maxStack, 1);
 
           }
         } else {
@@ -166,7 +175,6 @@ public class ASTRhs extends SimpleNode {
           writeToFile(getOperation(operator), module_name);
         }
 
-        
       }
 
     }

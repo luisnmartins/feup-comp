@@ -5,7 +5,7 @@
 .limit stack 2
 .limit locals 3
 
-bipush 4
+iconst_4
 istore_0
 
 bipush 10
@@ -18,10 +18,7 @@ if_icmpge if_end0
 iload_0
 invokestatic io/println(I)V
 
-iload_0
-iconst_1
-iadd
-istore_0
+iinc 0 1
 
 if_end0:
 

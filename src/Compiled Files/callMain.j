@@ -16,7 +16,8 @@ iconst_1
 isub
 putstatic callMain/x I
 
-invokestatic callMain/main()V
+aconst_null
+invokestatic callMain/main([Ljava/lang/String;)V
 
 if_end0:
 

@@ -15,7 +15,7 @@ istore_2
 goto if_end0
 
 if_else0:
-bipush 4
+iconst_4
 istore_2
 
 if_end0:

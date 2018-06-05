@@ -55,7 +55,7 @@ ireturn
 iconst_1
 iconst_2
 iconst_3
-bipush 4
+iconst_4
 iconst_3
 invokestatic max/max(IIIII)I
 
@@ -67,8 +67,8 @@ invokestatic io/println(I)V
 iconst_1
 bipush 6
 iconst_3
-bipush 4
-bipush 5
+iconst_4
+iconst_5
 invokestatic max/max(IIIII)I
 
 istore_0

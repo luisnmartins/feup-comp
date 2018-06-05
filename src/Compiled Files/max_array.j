@@ -32,10 +32,7 @@ istore_1
 
 if_end0:
 
-iload_2
-iconst_1
-iadd
-istore_2
+iinc 2 1
 
 goto loop0
 loop_end0:
@@ -58,25 +55,20 @@ astore_0
 iconst_0
 istore_1
 
-loop0:
+loop1:
 
 iload_1
 bipush 10
-if_icmpge loop_end0
-iload_1
-istore 4
+if_icmpge loop_end1
 aload_0
 iload_1
-iload 4
+iload_1
 iastore
 
-iload_1
-iconst_1
-iadd
-istore_1
+iinc 1 1
 
-goto loop0
-loop_end0:
+goto loop1
+loop_end1:
 aload_0
 invokestatic max_array/maxarray([I)I
 

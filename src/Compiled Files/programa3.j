@@ -2,7 +2,7 @@
 .super java/lang/Object
 
 .method public static f1([I)[I
-.limit stack 3
+.limit stack 4
 .limit locals 4
 
 iconst_0
@@ -19,19 +19,14 @@ iload_1
 aload_0
 arraylength
 if_icmpge loop_end0
+aload_2
+iload_1
 aload_0
 iload_1
 iaload
-istore_3
-aload_2
-iload_1
-iload_3
 iastore
 
-iload_1
-iconst_1
-iadd
-istore_1
+iinc 1 1
 
 goto loop0
 loop_end0:
@@ -54,17 +49,17 @@ arraylength
 istore_3
 iconst_0
 istore 4
-loop0:
+loop1:
 iload 4
 iload_3
-if_icmpge loop_end0
+if_icmpge loop_end1
 aload_1
 iload 4
 iload_2
 iastore
 iinc 4 1
-goto loop0
-loop_end0:
+goto loop1
+loop_end1:
 
 aload_1
 areturn
@@ -78,18 +73,14 @@ bipush 100
 newarray int
 astore_0
 
-iconst_1
-istore 5
 aload_0
 iconst_0
-iload 5
+iconst_1
 iastore
 
-iconst_2
-istore 6
 aload_0
 bipush 99
-iload 6
+iconst_2
 iastore
 
 aload_0

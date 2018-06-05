@@ -11,16 +11,6 @@ iadd
 istore 4
 
 iload 4
-iload_2
-iadd
-istore 4
-
-iload 4
-iload_3
-iadd
-istore 4
-
-iload 4
 ireturn
 .end method
 
@@ -38,7 +28,7 @@ iaload
 iconst_1
 iconst_2
 iconst_3
-bipush 4
+iconst_4
 invokestatic t4/f1(IIII)I
 
 iadd

@@ -18,11 +18,6 @@ invokestatic io/read()I
 
 istore_0
 
-iload_0
-iload_2
-iadd
-istore_0
-
 goto loop0
 loop_end0:
 iload_0
@@ -33,7 +28,7 @@ ireturn
 .limit stack 2
 .limit locals 2
 
-bipush 5
+iconst_5
 bipush 6
 invokestatic aval4/f(II)I
 

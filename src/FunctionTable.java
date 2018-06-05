@@ -120,6 +120,10 @@ public class FunctionTable extends SymbolTable {
         this.parameters = parameters;
     }
 
+    public void setParent(GlobalTable table) {
+        this.parent = table;
+    }
+
     
 
     public GlobalTable getParent() {

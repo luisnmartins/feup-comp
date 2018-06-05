@@ -65,8 +65,9 @@ public class ASTWhile extends SimpleNode {
       makeOptimizedWhile(parent);
       return;
     }
-
-    int loopCount = parent.getLoopCount();
+    int loopCount = parent.getParent().getLoopCount();
+    parent.getParent().incLoopCount();
+    variablesWhile.setParent(parent.getParent());
 
     String module_name = parent.getParent().getModuleName();
 
@@ -106,15 +107,18 @@ public class ASTWhile extends SimpleNode {
 
     writeToFile("loop_end" + loopCount + ":", module_name);
 
-    parent.incLoopCount();
+    
 
     return;
 
   }
 
   private void makeOptimizedWhile(FunctionTable parent){
-    int loopCount = parent.getLoopCount();
-
+    
+    int loopCount = parent.getParent().getLoopCount();
+    parent.getParent().incLoopCount();
+    variablesWhile.setParent(parent.getParent());
+   
     String module_name = parent.getParent().getModuleName();
 
     this.jjtGetChild(0).getJVMCode(parent);
@@ -150,8 +154,6 @@ public class ASTWhile extends SimpleNode {
     editLastLine(op + " loop" + loopCount, module_name);
 
     writeToFile("loop_end" + loopCount + ":", module_name);
-
-    parent.incLoopCount();
 
     return;
   }
