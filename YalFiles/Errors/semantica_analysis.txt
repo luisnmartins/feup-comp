@@ -1,0 +1,28 @@
+On the modules semanticAnalysis and semanticAnalysis2 on the files semantic_test and semantic_test2 respectively , we can verify a lot of examples (the more relevant) of semantic error detected by our tool.
+
+Starting with the first module:
+
+    Our parser doesnt allow the redeclaration of an array size, that is why there is an error on line 6
+    On line 12 we can verify an error because there cannot be operations with arrays and in ret = scalar1 + c, c is an array
+
+    Overload of functions is not allowed so there is an error on line 29 because f() is already defined on line 20
+    There is an error on line 34 because there is no function named 'c' anywhere in the module
+    On line 36 there is an error because variable scalar as already been defined as a scalar, function f() returns an array, incompatible types
+    Our parser analyses the function call parameters,so in line 36 there is an error on the call of the function scalar because, parameter arr doesnt exist or isnt initialized
+    In line 43 function scalar receives wrong number of arguments
+    In line 45 function scalar receives a parameter of wrong type (first parameter to be precise)
+    In line 46 call of scalar with parameters undefined (similar to line 37 error)
+    A function isnt allowed to have parameters with the same name even if they are of different types, so there is an error on line 50 because of the duplication of the parameters 'a' and 'b'
+    We also check the return variable of a function, there is an error on line 54 because the return variable 'return' is never declared on the scope of the function
+    In line 58 is detected an error because, the return type is declared but with the wrong type
+
+
+Now going to the second module, this module is more focused on the if and whiles statements
+
+    It is detected an error in line 9 since variable 'b' is only declared on the if scope of line 5
+    Same issue in line 20, variable 'val' is only defined inside of the while in line 11
+    To show that semantic analysis works in stack of whiles or if, we show the error on line 21 where 'another' is not declared outside of the while, is only declared on the if in line 14 that is inside of the while  that is why there is an error on line 17 too, 'another' is only inside of the if statement
+    Error on line 27 because of incompatible type of variable 'val1' on the else statement with the 'val1' on the if statement NOTE: because of this error the error on line 29 is ignored
+    Finnally theres is an error on return statement of the function main, because is only declared on an if scope;
+
+    To point out that there is no error in line 37 because scalar is defined in both of the if and else statement with the same type

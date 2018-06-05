@@ -8,7 +8,7 @@ module semanticAnalysis {
     function ret=main(c[]){
         scalar1 = 10;
         scalar2 = scalar1 + scalar1;
-        ret = a + 5; //error a doesnt exist
+        ret = a + 5; 
         ret = scalar1  + c; //error because c is an array, no operations with arrays are allowed
 
         scalar1 = ext.func(array1); //assume scalar1 then as constant value

@@ -142,7 +142,7 @@ PS: It does not work with files which filename and module name are different bec
 
 ## Task Distribution
 
-- Carlos Freitas - semantic analysis and
+- Carlos Freitas - semantic analysis, contributed to generation of the AST and constant folding.
 - Luis Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
 - Rui Quaresma - code generation and constant folding
 - Tiago Carvalho - modified the grammar in order to eliminate conflicts, error treatment and contributed to the generation of jvm code accepted by jasmin
