@@ -43,7 +43,21 @@ We decided to only detect at most 10 syntactic errors at once
 
 ## Semantic analysis
 
-As semantic rules, we
+As semantic rules, we decided to implement the following rules:
+
+- On the main scope a[] creates a not initialized array
+- a[] = 100 or a = 100, assuming 'a' is already consider an array, only is allowed if 'a' has been initialized with a specified size.
+- a[] = 100, if it is the first time 'appears' is accepted and assumes 'a' as constant of value 100
+- a = b, assuming b is an array is only acceptable if a has not been already initialized and b is of course initialized (????)
+- a = x, where x is any type of operation with constant,variable or calls, the semantic analysis verifies if 'x' is of the same type of 'a' if 'a' as already been defined or just assumes 'a' as variable of the same type as 'x'.All variables used on the right side ('x'),must be initialized.The right side ('x'), unless is only an array ('x' represents an array or a call that returns an array), can only be integer since there cannot be allowed operations between arrays, only with its values
+  - a = [100], b = [100] , c = a is allowed
+  - a = [100], b = [100], c = a + b is not allowed but c = a[1] + b[2] is allowed.
+- Change the size of an array like a.size = 10 is not allowed.
+- Variable .size is only allowed if the variable is an instaciated array. (?need to check)
+- Whenever a function is called the parameters are always checked if they are compatible (are initialized and are of the same type)
+- A call function cannot be on the right side of an assign if it doesnt return a variable
+- The return variable of a function must be initialized
+- Any call of a function of other modules are per default considered to return a scalar value
 
 ## Code generation
 
