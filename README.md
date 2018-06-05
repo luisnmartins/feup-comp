@@ -12,15 +12,11 @@ jasmin.jar and io.class to be placed on the src folder
 
 Run the following commands on command line:
 
-jjtree Parser.jjt
-
-javacc Parser.jj
-
-javac *.java
+jjtree parser/Parser.jjt && javacc parser/Parser.jj && javac parser/*.java
 
 And then gerate code for jasmin:
 
-java YAL ../YalFiles/Working/aval1.yal
+java parser/YAL ../YalFiles/Working/aval1.yal
 
 java -jar jasmin.jar "Compiled Files"/aval1.j
 
