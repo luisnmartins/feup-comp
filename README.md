@@ -8,10 +8,10 @@ COMP Group56
 
 ### Group 56
 
-- Carlos Freitas - 201504749, <grade>, 33%
-- Luís Martins - 201503344, <grade> , 33%
-- Rui Quaresma - xxxxxxxxx, <grade> , 33%
-- Tiago Carvalho - xxxxxxx, <grade> , 33%
+- Carlos Freitas - 201504749, <grade>, 30%
+- Luís Martins - 201503344, <grade> , 30%
+- Rui Quaresma - xxxxxxxxx, <grade> , 30%
+- Tiago Carvalho - xxxxxxx, <grade> , 10%
 
 ### Global grade of project : 18
 
@@ -47,7 +47,7 @@ These functions print a message with the line of code where the error occurred a
 
 ## Semantic analysis
 
-As semantic rules, we decided to implement the following rules:
+The following semantic rules are the ones implemented by the compiler:
 
 - On the main scope a[] creates a not initialized array
 - a[] = 100 or a = 100, assuming 'a' is already consider an array, only is allowed if 'a' has been initialized with a specified size.
@@ -67,38 +67,23 @@ As semantic rules, we decided to implement the following rules:
 
 ## Overview
 
-Main algorithms (???) third party tools (???)
-
-## Testsuite and test infrastructure
-
-## Task Distribution
-
-- Carlos Freitas -
-- Luís Martins -
-- Rui Quaresma -
-- Tiago Carvalho -
-
-## Pros
-
-## Cons
-
-## Optimizations
+### Optimizations
 
 To optimize the compiled file we consider some optimizations. To get an optimize code you should run using -o flag
 
 We implemented 3 optimizations: constant propagation, constant folding and while loop removing unnecessary goto instructions.
 
-#### Constant Propagation
+##### Constant Propagation
 
 So, to implement constant propagation while generating code for each assigned variable (not array) it saves the assigned value in the symbol table of the function. So when it variable is used it can replace the iload instruction by instructions like iconst. Although, it do not replace if the variable is used inside a while loop or an if/else block since it can change inside this block even after be used and the analysis in done while generating code.
 
 It allows some load instructions to be saved, so it is optimized.
 
-#### Constant Folding
+##### Constant Folding
 
 Since we implemented Constant Progagation,to take advantange of it, we decided to also implement Constant Folding. Basically Constant Folding is the process of recognizing and evaluating constant expressions at compile time rather than computing the calculations at runtime.So basically everytime there is any type of operation (eg a = 4+4), while generating the code we do the operation and store the 8 immediately instead putting the operation on the jasmin file.This optimization works also with constant variables like b = a + 7, since we have done Constant Progagation, of course since constant progagation is not used on variables inside while loops and if/else, then,inside of these constant folding only works with constant (eg: a = 8>>6).
 
-#### While loop
+##### While loop
 
 To generate code without unnecessary goto instructions when -o flag is on the generated code of a while loop becomes an if/do while loop. This transformation saves 2 jumps, since it checks the condition just after executing the code. It allows that it is not necessary to jump to the beginning of the cycle in the last iteration, because the condition is checked in the end, so it can leave right away.
 
@@ -117,6 +102,23 @@ Begin:
 body
 cond jump Begin
 End:
+
+Main algorithms (???) third party tools (???)
+
+## Testsuite and test infrastructure
+
+## Task Distribution
+
+- Carlos Freitas -
+- Luís Martins -
+- Rui Quaresma -
+- Tiago Carvalho -
+
+## Pros
+
+## Cons
+
+
 
 ## Some notes
 
