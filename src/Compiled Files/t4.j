@@ -11,6 +11,16 @@ iadd
 istore 4
 
 iload 4
+iload_2
+iadd
+istore 4
+
+iload 4
+iload_3
+iadd
+istore 4
+
+iload 4
 ireturn
 .end method
 

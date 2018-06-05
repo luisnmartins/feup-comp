@@ -29,6 +29,11 @@ istore_1
 goto if_end0
 
 if_else0:
+iload_1
+iload_0
+iadd
+istore_1
+
 if_end0:
 
 iload_1

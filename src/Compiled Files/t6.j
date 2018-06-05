@@ -14,10 +14,16 @@ ireturn
 
 .method public static main([Ljava/lang/String;)V
 .limit stack 2
-.limit locals 2
+.limit locals 3
 
 iconst_4
 istore_0
+
+bipush 7
+istore_1
+
+iload_0
+invokestatic io/println(I)V
 
 loop0:
 

@@ -18,6 +18,11 @@ invokestatic io/read()I
 
 istore_0
 
+iload_0
+iload_2
+iadd
+istore_0
+
 goto loop0
 loop_end0:
 iload_0
