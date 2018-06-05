@@ -8,10 +8,10 @@ COMP Group56
 
 ### Group 56
 
-- Carlos Freitas - 201504749, <grade>, 30%
-- Lu�s Martins - 201503344, <grade> , 30%
-- Rui Quaresma - xxxxxxxxx, <grade> , 30%
-- Tiago Carvalho - xxxxxxx, <grade> , 10%
+- Carlos Freitas - 201504749, 19 , 30%
+- Luis Martins - 201503344, 19 , 30%
+- Rui Quaresma - 201503005, 19 , 30%
+- Tiago Carvalho - xxxxxxx, 12 , 10%
 
 ### Global grade of project : 18
 
@@ -70,7 +70,22 @@ As semantic rules, we decided to implement the following:
 
 ## Code generation
 
-TODO
+The code generation is being done after the semantic analysis. 
+First the regists are assigned to the symbols present in the symbol table, which also allows us to have an initial value for locals (later this number may be increased according to te code provided, beacuse of the need to use more regists).
+After that, the declarations are generated. The field static are pushed into an ArrayList and the count for the stack and locals in the <clinit> is made. Also, for the declarations that are arrays, the corresponding code to the array initialization and filling is also pushed to another ArrayList.
+The declarations ArrayList is printed on the file. 
+Then, the code for the functions is generated. Function by function, line by line, The code begins to be generated and written on the file starting in the deepest child of each line.
+The stack is updated in each set of instructions correspondent to each element of a line of yal code.
+The code generation covers all the cases needed: nested ifs, nested whiles, arrays, all kind of assigns, fill of arrays, calls, arithmetic expressions, ...
+After one function is all written on the file, its stack is updated.
+
+After all the functions are on the file, the global arrays are initialized (and filled) in the method <clinit>.
+
+Notes:
+
+- The code generation is optimized to use the instructions that have the least cost in terms of resources. 
+- In cases like: x = x + 1, the iinc instruction is used.
+- In constants loading cases the instructions used are the ones that fit the value of the constant.
 
 ## Optimizations
 
@@ -119,11 +134,13 @@ There is a script that iterates through each file from working folder and runs a
 ## Task Distribution
 
 - Carlos Freitas - semantic analysis and
-- Lu�s Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
-- Rui Quaresma - code generation and
+- Luis Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
+- Rui Quaresma - code generation and constant folding
 - Tiago Carvalho -
 
 ## Pros
+
+Our tool is optimized to use the least resources possible in orther for the program to run correctly.
 
 ## Cons
 
