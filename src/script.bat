@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 
 FOR %%i IN (C:\Users\emanu\Documents\g56\YalFiles\Working\*) DO (
 
-java YAL ../YalFiles/Working/%%~ni.yal
+java parser/YAL ../YalFiles/Working/%%~ni.yal
 cd "Compiled Files"
 java -jar jasmin.jar %%~ni.j
 java %%~ni

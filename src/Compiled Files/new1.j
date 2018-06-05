@@ -32,7 +32,7 @@ goto loop0
 loop_end0:
 
 aload_1
-bipush 4
+iconst_4
 iaload
 istore_2
 

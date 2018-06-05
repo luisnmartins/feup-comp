@@ -20,17 +20,17 @@ arraylength
 istore 4
 iconst_0
 istore 5
-loop0:
+loop2:
 iload 5
 iload 4
-if_icmpge loop_end0
+if_icmpge loop_end2
 aload_1
 iload 5
 iload_3
 iastore
 iinc 5 1
-goto loop0
-loop_end0:
+goto loop2
+loop_end2:
 
 iload_0
 bipush 114
@@ -63,23 +63,21 @@ arraylength
 istore 8
 iconst_0
 istore 9
-loop0:
+loop3:
 iload 9
 iload 8
-if_icmpge loop_end0
+if_icmpge loop_end3
 aload_1
 iload 9
 iload 7
 iastore
 iinc 9 1
-goto loop0
-loop_end0:
+goto loop3
+loop_end3:
 
-bipush 87
-istore 10
 getstatic test/k [I
 iconst_2
-iload 10
+bipush 87
 iastore
 
 getstatic test/k [I
@@ -91,34 +89,32 @@ iconst_2
 iaload
 istore_3
 
-bipush 4
+iconst_4
 newarray int
 astore_1
 
-bipush 5
+iconst_5
 istore 11
 aload_1
 arraylength
 istore 12
 iconst_0
 istore 13
-loop1:
+loop4:
 iload 13
 iload 12
-if_icmpge loop_end1
+if_icmpge loop_end4
 aload_1
 iload 13
 iload 11
 iastore
 iinc 13 1
-goto loop1
-loop_end1:
+goto loop4
+loop_end4:
 
-iconst_2
-istore 14
 aload_1
 iconst_3
-iload 14
+iconst_2
 iastore
 
 getstatic test/k [I
@@ -139,17 +135,17 @@ arraylength
 istore 16
 iconst_0
 istore 17
-loop2:
+loop5:
 iload 17
 iload 16
-if_icmpge loop_end2
+if_icmpge loop_end5
 aload 4
 iload 17
 iload 15
 iastore
 iinc 17 1
-goto loop2
-loop_end2:
+goto loop5
+loop_end5:
 
 aload 4
 iconst_1
@@ -180,11 +176,11 @@ return
 .limit stack 3
 .limit locals 6
 
-bipush 4
+iconst_4
 newarray int
 putstatic test/k [I
 
-bipush 4
+iconst_4
 istore_1
 iconst_0
 istore_2

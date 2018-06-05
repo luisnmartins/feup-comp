@@ -65,10 +65,7 @@ iload 12
 ior
 istore 4
 
-iload_1
-iconst_2
-ishl
-istore_1
+iinc 1 2
 
 iload 8
 iload 4
@@ -88,17 +85,11 @@ if_else0:
 iload 9
 istore_3
 
-iload_2
-iconst_2
-ishl
-istore_2
+iinc 2 2
 
 if_end0:
 
-iload 5
-iconst_1
-iadd
-istore 5
+iinc 5 1
 
 goto loop0
 loop_end0:

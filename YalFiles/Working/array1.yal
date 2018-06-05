@@ -1,11 +1,11 @@
 
 module array1
 {
-
+	v = 1904;
   function print_array(N, a[], k)
   {
 
-   a[3] = 7;
+   a[3] = -7;
 
    i=0;
    while(i < N)

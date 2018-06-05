@@ -8,12 +8,21 @@
 iconst_0
 istore_0
 
+iconst_0
+istore_1
+
 iload_0
 bipush 7
 if_icmpge if_else0
 
-bipush 4
+iload_0
+iconst_3
+if_icmpge if_end1
+
+iconst_4
 istore_1
+
+if_end1:
 
 goto if_end0
 
@@ -22,6 +31,9 @@ bipush 7
 istore_1
 
 if_end0:
+
+iload_1
+invokestatic io/println(I)V
 
 return
 .end method

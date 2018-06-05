@@ -19,10 +19,7 @@ if_icmpge loop_end0
 iload_0
 invokestatic io/print(I)V
 
-iload_0
-iconst_1
-iadd
-istore_0
+iinc 0 1
 
 goto loop0
 loop_end0:

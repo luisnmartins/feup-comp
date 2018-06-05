@@ -12,7 +12,7 @@ return
 .limit stack 1
 .limit locals 3
 
-bipush 5
+iconst_5
 istore_0
 
 invokestatic io/read()I

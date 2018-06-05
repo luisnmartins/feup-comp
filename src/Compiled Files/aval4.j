@@ -33,7 +33,7 @@ ireturn
 .limit stack 2
 .limit locals 2
 
-bipush 5
+iconst_5
 bipush 6
 invokestatic aval4/f(II)I
 

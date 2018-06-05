@@ -34,20 +34,17 @@ iconst_1
 isub
 istore_3
 
-loop0:
+loop1:
 
 iload_2
 iload_3
-if_icmpge loop_end0
+if_icmpge loop_end1
 aload_0
 iload_2
 iaload
 istore 4
 
-iload_2
-iconst_1
-iadd
-istore_2
+iinc 2 1
 
 aload_0
 iload_2
@@ -66,8 +63,8 @@ invokestatic library1/min(II)I
 
 putstatic programa1/mn I
 
-goto loop0
-loop_end0:
+goto loop1
+loop_end1:
 return
 .end method
 

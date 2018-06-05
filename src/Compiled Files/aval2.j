@@ -34,7 +34,7 @@ istore_0
 iload_0
 invokestatic io/println(I)V
 
-bipush 4
+iconst_4
 iconst_2
 invokestatic aval2/f(II)I
 
@@ -46,7 +46,7 @@ invokestatic io/println(I)V
 iconst_3
 istore_0
 
-bipush 4
+iconst_4
 iconst_2
 invokestatic aval2/f(II)I
 

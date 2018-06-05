@@ -8,7 +8,7 @@
 iconst_0
 istore_1
 
-bipush -1
+iconst_m1
 istore_2
 
 loop0:
@@ -25,22 +25,13 @@ iload_3
 iconst_1
 if_icmpne if_end0
 
-iload_1
-iconst_1
-iadd
-istore_1
+iinc 1 1
 
 if_end0:
 
-iload_0
-iconst_1
-ishr
-istore_0
+iinc 0 1
 
-iload_2
-iconst_1
-iadd
-istore_2
+iinc 2 1
 
 goto loop0
 loop_end0:

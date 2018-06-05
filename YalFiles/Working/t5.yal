@@ -2,11 +2,16 @@ module t5{
 
 function main(){
 		i = 0;
+		x = 0;
 		if ( i < 7 ){
-			x = 4;
+			if(i < 3){ 
+				x = 4;
+			}
 		}else{
 			x = 7;
 		}
+		
+		io.println(x);
 }
 
 }

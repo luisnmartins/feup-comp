@@ -38,7 +38,7 @@ iaload
 iconst_1
 iconst_2
 iconst_3
-bipush 4
+iconst_4
 invokestatic t4/f1(IIII)I
 
 iadd

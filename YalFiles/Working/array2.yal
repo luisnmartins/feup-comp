@@ -6,8 +6,11 @@ module array2
   {
 	i=0;
 	sum=0;
+	k = A[7];
+	io.println(k);
 	while(i < A.size) {
-		sum=sum+A[i];
+		sum=sum + A[i];
+		io.print(sum);
 		if(i == 10){
 			z = 1904;
 			sum = sum + z;
@@ -26,7 +29,10 @@ module array2
    while(i < N)
    {
    	a[i] = i;
+	x = a[i];
 	i=i+1;
+	
+	io.println(x);
 	}
 
 	sum=sum_array(a);

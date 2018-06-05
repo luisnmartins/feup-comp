@@ -1,0 +1,28 @@
+module t6{
+
+function x=avg(a,b,c,d){
+	x = 4;
+}
+FUNCtion main(){
+	h = 4;
+	H = 7;
+	io.println(h);
+	while(h > 2){
+		while(h < 8){
+			while(h < 7){
+				h = h + 1;
+				while(h < 6){
+					h = h + 1;
+					io.println(h);
+				}
+			}
+			io.println(h);
+		}
+	}
+	
+	while(h < 6){
+		io.println(h);
+	}
+}
+
+}

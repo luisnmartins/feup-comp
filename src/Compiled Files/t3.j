@@ -18,27 +18,22 @@ putstatic t3/v [I
 iconst_0
 istore_1
 
-loop0:
+loop1:
 
 iload_1
-bipush 4
-bipush 4
+iconst_4
+iconst_4
 iadd
-if_icmpge loop_end0
-iload_1
-istore 8
+if_icmpge loop_end1
 getstatic t3/v [I
 iload_1
-iload 8
+iload_1
 iastore
 
-iload_1
-iconst_1
-iadd
-istore_1
+iinc 1 1
 
-goto loop0
-loop_end0:
+goto loop1
+loop_end1:
 bipush 40
 newarray int
 astore_2
@@ -49,20 +44,18 @@ bipush 20
 newarray int
 astore_0
 
-iconst_1
-istore 9
 aload_0
-bipush 4
-iload 9
+iconst_4
+iconst_1
 iastore
 
 aload_2
-bipush 4
+iconst_4
 iaload
 istore_3
 
 aload_0
-bipush 4
+iconst_4
 iaload
 istore 4
 
@@ -83,27 +76,27 @@ arraylength
 istore 11
 iconst_0
 istore 12
-loop1:
+loop2:
 iload 12
 iload 11
-if_icmpge loop_end1
+if_icmpge loop_end2
 aload 5
 iload 12
 iload 10
 iastore
 iinc 12 1
-goto loop1
-loop_end1:
+goto loop2
+loop_end2:
 
 iconst_0
 istore_1
 
-loop2:
+loop3:
 
 iload_1
 aload_2
 arraylength
-if_icmpge loop_end2
+if_icmpge loop_end3
 aload_2
 iload_1
 iaload
@@ -112,13 +105,10 @@ istore 6
 iload 6
 invokestatic io/print(I)V
 
-iload_1
-iconst_1
-iadd
-istore_1
+iinc 1 1
 
-goto loop2
-loop_end2:
+goto loop3
+loop_end3:
 invokestatic t3/f1()V
 
 return
