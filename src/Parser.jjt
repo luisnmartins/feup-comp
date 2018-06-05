@@ -9,7 +9,10 @@ PARSER_BEGIN(Parser)
 	import java.io.*;
 
 	
-	public class Parser{}
+
+	public class Parser{
+		static Integer counter = 0;
+	}
 
 
 PARSER_END(Parser)
@@ -24,7 +27,7 @@ SKIP : {
 }
 
 /* reserved words */
-TOKEN : {
+TOKEN[IGNORE_CASE] : {
 <RELA_OP: ">" | "<" | "<=" | ">=" | "==" | "!=">
 | <ADDSUB_OP: "+" | "-">
 | <ARITH_OP: "*" | "/" | "<<" | ">>" | ">>>">
@@ -62,30 +65,34 @@ TOKEN_MGR_DECLS : {
 //Function used to skip tokens until kind. This returns the last token that is kind
 JAVACODE
 Token error_skipto(int kind, ParseException e) {
+	Token t = null;
+	if(counter < 10){
 	System.out.println(e.toString());
-	Token t;
+	counter++;
+	
 	do{
 		t=getNextToken();
-		System.out.println("TT1: " + t);
 	}while(t.kind != kind);
-
+}
 	return t;
 }
 
 //Function used to skip tokens until kind or kind2. This returns the last token that is kind or kind2
 JAVACODE 
 Token error_skipto2(int kind, int kind2, ParseException e) { 
-   
+	Token t = null;
+	if(counter < 10){
+
+	
+	counter++;
   System.out.println(e.toString()); 
-  Token t; 
   do{ 
      
 	t=getNextToken(); 
-	System.out.println("TT2: " + t);
 	
   }while(t.kind != kind && t.kind != kind2); 
 
-  
+}
 
   return t;
 }
@@ -149,7 +156,7 @@ void Function() : {Token t = null, v = null;}
 
 void Element() :{Token t;}
 {
-	(t=<ID> {jjtThis.name = t.image;jjtThis.line = t.beginLine;}) ((ArrayElement() {jjtThis.isArray = true;}) | {})
+	(t=<ID> {jjtThis.name = t.image;jjtThis.line = t.beginLine;}) ((ArrayElement() {jjtThis.isArray = true;}))?
 }
 
 void Varlist() : {}

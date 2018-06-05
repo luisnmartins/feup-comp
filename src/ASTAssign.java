@@ -311,14 +311,20 @@ public class ASTAssign extends SimpleNode {
       }
       
 
-      maxStack = this.jjtGetChild(1).getMaxStack();
+      maxStack = rhs.getMaxStack();
 
-      if (accessGlobal)
-        writeToFile("putstatic " + module_name + "/" + access.name + " I", module_name);
-      else
-        writeToFile(getInstWihUnderscore("istore", symbol.getRegistry()), module_name);
+      if(!rhs.is_iinc){
+      
+        if (accessGlobal)
+          writeToFile("putstatic " + module_name + "/" + access.name + " I", module_name);
+        else
+          writeToFile(getInstWihUnderscore("istore", symbol.getRegistry()), module_name);
 
-      writeToFile("", module_name);
+        writeToFile("", module_name);
+      }
+      
+
+      
     }
 
     maxStack = setStackCounter(maxStack, 1);

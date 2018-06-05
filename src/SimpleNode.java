@@ -257,35 +257,6 @@ public class SimpleNode implements Node {
     return fileContent.get(fileContent.size() - 1).toString();
   }
 
-  public int getCountStores(String module_name, int stack, String function_name){
-    int count = 0;
-
-    try {
-      List<String> fileContent = new ArrayList<>(
-          Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));
-
-      Boolean inFunction = false;
-
-      String function_line = ".method public static " + function_name;
-      String store1 = "istore " + stack;
-      String store2 = "istore_" + stack;
-
-      for (int i = 0; i < fileContent.size(); i++) {
-        if (fileContent.get(i).contains(function_line)) {
-          inFunction = true;
-        }else if(fileContent.get(i).contains(".end method")){
-          inFunction = false;
-        }else if(inFunction && (fileContent.get(i).contains(store1) || fileContent.get(i).contains(store2))){
-          count++;
-        }
-      }
-    } catch (IOException e) {
-      // TODO: handle exception
-    }
-
-    return count;
-  }
-
   public boolean canBeConst(Symbol symbol) {
     if(symbol.getValue() == null)
       return false;

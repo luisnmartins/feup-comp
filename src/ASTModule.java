@@ -162,24 +162,6 @@ public class ASTModule extends SimpleNode {
     System.out.println("\n\nSymbol Tables\n");
     global.showAll();
   }
-
-  private void constantPropagation(){
-
-    // HashMap<String, FunctionTable> functions = global.getFunctions();
-    // for(int i = 0 ; i < functions.length;  i++){
-
-    // }
-
-    // for (int i = 0; i < children.length; i++) {
-    //   if(children[i] instanceof ASTFunction){
-    //     int stack = children[i].getMaxStack();
-    //     for(int j = 0 ; j <= stack; j++){
-    //       int count = getCountStores(global.getModuleName(), j, );
-    //     }
-    //   }
-    // }
-  }
-
   
 }
 /*

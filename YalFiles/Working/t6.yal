@@ -1,0 +1,13 @@
+module t6{
+
+function x=avg(a,b,c,d){
+	x = 4;
+}
+function main(){
+	a = 7;
+	x = a * a;
+	x = x + 1;
+	io.println(x);
+}
+
+}

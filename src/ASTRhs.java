@@ -7,6 +7,7 @@ public class ASTRhs extends SimpleNode {
 
   public String operator = null;
   public Integer value = null;
+  public Boolean is_iinc = false;
 
   public ASTRhs(int id) {
     super(id);
@@ -38,8 +39,13 @@ public class ASTRhs extends SimpleNode {
         response = new SimpleEntry<>(false, false);
         System.out.println(e.getMessage());
       }
-      if (operator != null && response.getValue() == true) {
-        throw new ParseException(this, "Is not possible to operate with arrays");
+      if (operator != null) {
+        if (response.getValue() == null) {
+          throw new ParseException(this, "The function does not return a value");
+        } else if (response.getValue() == true) {
+          throw new ParseException(this, "Is not possible to operate with arrays");
+        }
+
       }
     }
     if (allCorrect == false)
@@ -68,53 +74,102 @@ public class ASTRhs extends SimpleNode {
 
     } else {
 
-      int maxStack = 0;
+      Integer opera = 0;
+      Boolean constFold = false;
+      Integer t1 = null;
+      Integer t2 = null;
 
-      Boolean is_iinc = false;
-
-      ASTAccess access = (ASTAccess) this.parent.jjtGetChild(0);
-      ASTAccess rhs_access = null;
-      ASTTerm second_term = null;
-      if (this.jjtGetChild(0).jjtGetNumChildren() > 0) {
-        if (this.jjtGetChild(0).jjtGetChild(0) instanceof ASTAccess) {
-          rhs_access = (ASTAccess) this.jjtGetChild(0).jjtGetChild(0);
-          if (access.name == rhs_access.name) {
-            second_term = (ASTTerm) this.jjtGetChild(1);
-            is_iinc = true;
+      if (YAL.optimized) {
+        if (this.jjtGetChild(0) instanceof ASTTerm) {
+          ASTTerm term = (ASTTerm) this.jjtGetChild(0);
+          if (term.value != null) {
+            t1 = term.value;
+          } else if (term.jjtGetChild(0) instanceof ASTAccess) {
+            ASTAccess access = (ASTAccess) term.jjtGetChild(0);
+            Symbol symbol = parent.getFromScope(access.name);
+            if (canBeConst(symbol)) {
+              t1 = symbol.getValue();
+            }
           }
+        }
+
+        if (t1 != null) {
+          if (this.jjtGetChild(1) instanceof ASTTerm) {
+            ASTTerm term = (ASTTerm) this.jjtGetChild(1);
+            if (term.value != null) {
+              t2 = term.value;
+            } else if (term.jjtGetChild(0) instanceof ASTAccess) {
+              ASTAccess access = (ASTAccess) term.jjtGetChild(0);
+              Symbol symbol = parent.getFromScope(access.name);
+              if (canBeConst(symbol)) {
+                t2 = symbol.getValue();
+              }
+            }
+          }
+        }
+
+        if (t1 != null && t2 != null) {
+          opera = makeOperation(operator, t1, t2);
+          constFold = true;
         }
       }
 
-      if (!is_iinc && this.jjtGetChild(1).jjtGetNumChildren() > 1) {
-        if (this.jjtGetChild(1).jjtGetChild(0) instanceof ASTAccess) {
-          rhs_access = (ASTAccess) this.jjtGetChild(1).jjtGetChild(0);
-          if (access.name == rhs_access.name) {
-            second_term = (ASTTerm) this.jjtGetChild(0);
-            is_iinc = true;
-          }
-        }
-      }
-
-      if (is_iinc) {
-        if (second_term.jjtGetNumChildren() == 0) {
-          Symbol symbol = parent.getFromScope(rhs_access.name);
-
-          if (symbol != null) {
-            writeToFile("iinc " + symbol.getRegistry() + " " + second_term.value, module_name);
-            maxStack = setStackCounter(maxStack, 1);
-          }
-
-        }
+      if (constFold) {
+        writeToFile(getConstInst(opera), module_name);
+        setMaxStack(1); // como é uma soma tem sempre o maximo dos dois mais um
       } else {
-        for (int m = 0; m < 2; m++) {
-          this.jjtGetChild(m).getJVMCode(parent);
-          maxStack = setStackCounter(maxStack, this.jjtGetChild(m).getMaxStack());
+
+        int maxStack = 0;
+
+        ASTAccess access = (ASTAccess) this.parent.jjtGetChild(0);
+        ASTAccess rhs_access = null;
+        ASTTerm second_term = null;
+        if (this.jjtGetChild(0).jjtGetNumChildren() > 0) {
+          if (this.jjtGetChild(0).jjtGetChild(0) instanceof ASTAccess) {
+            rhs_access = (ASTAccess) this.jjtGetChild(0).jjtGetChild(0);
+            System.out.println(rhs_access.name);
+            System.out.println(access.name);
+            if (access.name.compareTo(rhs_access.name) == 0) {
+              second_term = (ASTTerm) this.jjtGetChild(1);
+              is_iinc = true;
+            }
+          }
         }
+
+        if (!is_iinc && this.jjtGetChild(1).jjtGetNumChildren() > 1) {
+          if (this.jjtGetChild(1).jjtGetChild(0) instanceof ASTAccess) {
+            rhs_access = (ASTAccess) this.jjtGetChild(1).jjtGetChild(0);
+            if (access.name.compareTo(rhs_access.name) == 0) {
+              second_term = (ASTTerm) this.jjtGetChild(0);
+              is_iinc = true;
+            }
+          }
+        }
+
+        if (is_iinc) {
+          if (second_term.jjtGetNumChildren() == 0) {
+            Symbol symbol = parent.getFromScope(rhs_access.name);
+
+            if (symbol != null) {
+              writeToFile("iinc " + symbol.getRegistry() + " " + second_term.value, module_name);
+              writeToFile("", module_name);
+              maxStack = setStackCounter(maxStack, 1);
+            }
+
+          }
+        } else {
+          for (int m = 0; m < 2; m++) {
+            this.jjtGetChild(m).getJVMCode(parent);
+            maxStack = setStackCounter(maxStack, this.jjtGetChild(m).getMaxStack());
+          }
+
+          setMaxStack(maxStack + 1); // como é uma soma tem sempre o maximo dos dois mais um
+
+          writeToFile(getOperation(operator), module_name);
+        }
+
+        
       }
-
-      setMaxStack(maxStack + 1); // como é uma soma tem sempre o maximo dos dois mais um
-
-      writeToFile(getOperation(operator), module_name);
 
     }
 
@@ -146,6 +201,33 @@ public class ASTRhs extends SimpleNode {
       return "ixor";
     default:
       return "";
+    }
+  }
+
+  public Integer makeOperation(String op, int t1, int t2) {
+    switch (op) {
+    case "+":
+      return t1 + t2;
+    case "-":
+      return t1 - t2;
+    case "*":
+      return t1 * t2;
+    case "/":
+      return t1 / t2;
+    case "<<":
+      return t1 << t2;
+    case ">>":
+      return t1 >> t2;
+    case ">>>":
+      return t1 >>> t2;
+    case "&":
+      return t1 & t2;
+    case "|":
+      return t1 | t2;
+    case "^":
+      return t1 ^ t2;
+    default:
+      return 0;
     }
   }
 
