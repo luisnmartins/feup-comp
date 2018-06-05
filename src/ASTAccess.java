@@ -157,7 +157,6 @@ public class ASTAccess extends SimpleNode {
         if (accessGlobal)
           writeToFile("getstatic " + module_name + "/" + name + " I", module_name);
         else {
-          System.out.println("ACCESS " + symbol.getValue());
          if(this.canBeConst(symbol) && !(this.parent instanceof ASTAssign)) {
           writeToFile(getConstInst(symbol.getValue()), module_name);
          }

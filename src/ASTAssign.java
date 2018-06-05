@@ -306,9 +306,9 @@ public class ASTAssign extends SimpleNode {
     } else {
       ASTRhs rhs = (ASTRhs) this.jjtGetChild(1);
       rhs.getJVMCode(parent);
-      symbol.setValue(rhs.value);
-
-      System.out.println(rhs.value);
+      if(this.canBeAssigned(symbol)){
+        symbol.setValue(rhs.value);
+      }
       
 
       maxStack = this.jjtGetChild(1).getMaxStack();

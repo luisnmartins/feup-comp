@@ -289,6 +289,10 @@ public class SimpleNode implements Node {
   public boolean canBeConst(Symbol symbol) {
     if(symbol.getValue() == null)
       return false;
+    return canBeAssigned(symbol);
+  }
+
+  public boolean canBeAssigned(Symbol symbol) {
     SimpleNode node = (SimpleNode) this;
     while(!(node.parent instanceof ASTFunction)) {
       if((node.parent instanceof ASTWhile) || (node.parent instanceof ASTIf) || (node.parent instanceof ASTElse)) {
