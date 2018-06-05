@@ -11,7 +11,7 @@ COMP Group56
 - Carlos Freitas - 201504749, 18 , 27%
 - Luis Martins - 201503344, 18 , 27%
 - Rui Quaresma - 201503005, 18 , 27%
-- Tiago Carvalho - 201504461, 14 , 20%
+- Tiago Carvalho - 201504461, 16 , 20%
 
 ### Global grade of project : 18
 
@@ -145,7 +145,7 @@ PS: It does not work with files which filename and module name are different bec
 - Carlos Freitas - semantic analysis and
 - Luis Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
 - Rui Quaresma - code generation and constant folding
-- Tiago Carvalho -
+- Tiago Carvalho - modified the grammar in order to eliminate conflicts, error treatment and contributed to the generation of jvm code accepted by jasmin
 
 ## Pros
 
