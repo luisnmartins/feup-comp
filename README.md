@@ -9,7 +9,7 @@ COMP Group56
 ### Group 56
 
 - Carlos Freitas - 201504749, <grade>, 30%
-- Luï¿½s Martins - 201503344, <grade> , 30%
+- Luís Martins - 201503344, <grade> , 30%
 - Rui Quaresma - xxxxxxxxx, <grade> , 30%
 - Tiago Carvalho - xxxxxxx, <grade> , 10%
 
@@ -72,7 +72,16 @@ As semantic rules, we decided to implement the following:
 
 TODO
 
-## Optimizations
+## Overview
+
+To pre-compile and generate the .j file, the system starts by constructing an abstract syntax tree with some nodes using the grammar structure.
+
+After getting the AST, it creates a symbol table where it saves for each variable, the kind and if it is initialized. 
+While the symbol table is created the compiler also checks all variables use and assign checking if there are not any semantic errors. 
+
+If all these steps are valid, the final code is generated with or without optimizations, depending on the user's preference.
+
+### Optimizations
 
 To optimize the compiled file we consider some optimizations. To get an optimize code you should run using -o flag
 
@@ -108,9 +117,6 @@ body
 cond jump Begin
 End:
 
-## Overview
-
-Main algorithms (???) third party tools (???)
 
 ## Testsuite and test infrastructure
 
@@ -119,7 +125,7 @@ There is a script that iterates through each file from working folder and runs a
 ## Task Distribution
 
 - Carlos Freitas - semantic analysis and
-- Luï¿½s Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
+- Luís Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed to some other tasks from code generation.
 - Rui Quaresma - code generation and
 - Tiago Carvalho -
 
