@@ -8,10 +8,10 @@ COMP Group56
 
 ### Group 56
 
-- Carlos Freitas - 201504749, 18 , 30%
-- Luis Martins - 201503344, 18 , 30%
-- Rui Quaresma - 201503005, 18 , 30%
-- Tiago Carvalho - xxxxxxx, 12 , 10%
+- Carlos Freitas - 201504749, 18 , 28%
+- Luis Martins - 201503344, 18 , 29%
+- Rui Quaresma - 201503005, 18 , 28%
+- Tiago Carvalho - xxxxxxx, 12 , 15%
 
 ### Global grade of project : 18
 
