@@ -140,10 +140,6 @@ public class SimpleNode implements Node {
     return registry;
   };
 
-  public int setRegistry(FunctionTable parent, FunctionTable parent2, int registry) {
-    return registry;
-  };
-
   public int setRegistry(SymbolTable parent, int registry) {
     return registry;
   };
@@ -187,9 +183,10 @@ public class SimpleNode implements Node {
       return inst + " " + reg;
   }
 
-  public void writeToFile(String str, String module_name) {
+  public void writeToFile(String str) {
+    String module_name = YAL.module_name;
     try {
-      output = new BufferedWriter(new FileWriter("Compiled Files/" + module_name + ".j", true)); // clears file every time
+      output = new BufferedWriter(new FileWriter("Compiled Files/" + module_name + ".j", true)); 
       output.append(str);
       output.append('\n');
       output.close();
@@ -199,7 +196,8 @@ public class SimpleNode implements Node {
 
   }
 
-  public void editLastLine(String str, String module_name) {
+  public void editLastLine(String str) {
+    String module_name = YAL.module_name;
     try {
       List<String> fileContent = new ArrayList<>(
           Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));
@@ -211,7 +209,8 @@ public class SimpleNode implements Node {
     }
   }
 
-  public void editStack(String str, String oldLine, String module_name) {
+  public void editStack(String str, String oldLine) {
+    String module_name = YAL.module_name;
     try {
       List<String> fileContent = new ArrayList<>(
           Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));
@@ -229,7 +228,8 @@ public class SimpleNode implements Node {
     }
   }
 
-  public void editLocals(String str, String oldLine, String module_name) {
+  public void editLocals(String str, String oldLine) {
+    String module_name = YAL.module_name;
     try {
       List<String> fileContent = new ArrayList<>(
           Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));
@@ -247,8 +247,9 @@ public class SimpleNode implements Node {
     }
   }
 
-  public String getLastLine(String module_name) {
+  public String getLastLine() {
     List<String> fileContent = null;
+    String module_name = YAL.module_name;
     try {
       fileContent = new ArrayList<>(
           Files.readAllLines(Paths.get("Compiled Files/" + module_name + ".j"), StandardCharsets.UTF_8));

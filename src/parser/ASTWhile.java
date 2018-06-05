@@ -72,14 +72,14 @@ public class ASTWhile extends SimpleNode {
 
     String module_name = parent.getParent().getModuleName();
 
-    writeToFile("loop" + loopCount + ":", module_name);
+    writeToFile("loop" + loopCount + ":");
 
-    writeToFile("", module_name);
+    writeToFile("");
 
     this.jjtGetChild(0).getJVMCode(parent);
 
-    String op = getLastLine(module_name);
-    editLastLine(op + " loop_end" + loopCount, module_name);
+    String op = getLastLine();
+    editLastLine(op + " loop_end" + loopCount);
 
     variablesWhile.setMaxRegistry(parent.getMaxRegistry());
 
@@ -104,9 +104,9 @@ public class ASTWhile extends SimpleNode {
     
 
 
-    writeToFile("goto loop" + loopCount, module_name);
+    writeToFile("goto loop" + loopCount);
 
-    writeToFile("loop_end" + loopCount + ":", module_name);
+    writeToFile("loop_end" + loopCount + ":");
 
     
 
@@ -124,12 +124,12 @@ public class ASTWhile extends SimpleNode {
 
     this.jjtGetChild(0).getJVMCode(parent);
 
-    String op = getLastLine(module_name);
-    editLastLine(op + " loop_end" + loopCount, module_name);
+    String op = getLastLine();
+    editLastLine(op + " loop_end" + loopCount);
 
-    writeToFile("loop" + loopCount + ":", module_name);
+    writeToFile("loop" + loopCount + ":");
 
-    writeToFile("", module_name);
+    writeToFile("");
 
     variablesWhile.setMaxRegistry(parent.getMaxRegistry());
 
@@ -151,10 +151,10 @@ public class ASTWhile extends SimpleNode {
 
     this.jjtGetChild(0).getJVMCode(parent, true);
 
-    op = getLastLine(module_name);
-    editLastLine(op + " loop" + loopCount, module_name);
+    op = getLastLine();
+    editLastLine(op + " loop" + loopCount);
 
-    writeToFile("loop_end" + loopCount + ":", module_name);
+    writeToFile("loop_end" + loopCount + ":");
 
     return;
   }

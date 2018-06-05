@@ -88,6 +88,7 @@ public class ASTRhs extends SimpleNode {
           } else if (term.jjtGetChild(0) instanceof ASTAccess) {
             ASTAccess access = (ASTAccess) term.jjtGetChild(0);
             Symbol symbol = parent.getFromScope(access.name);
+            if(symbol != null)
             if (canBeConst(symbol)) {
               t1 = symbol.getValue();
             }
@@ -102,6 +103,7 @@ public class ASTRhs extends SimpleNode {
             } else if (term.jjtGetChild(0) instanceof ASTAccess) {
               ASTAccess access = (ASTAccess) term.jjtGetChild(0);
               Symbol symbol = parent.getFromScope(access.name);
+              if(symbol != null)
               if (canBeConst(symbol)) {
                 t2 = symbol.getValue();
               }
@@ -111,12 +113,13 @@ public class ASTRhs extends SimpleNode {
 
         if (t1 != null && t2 != null) {
           opera = makeOperation(operator, t1, t2);
+          value = opera;
           constFold = true;
         }
       }
 
       if (constFold) {
-        writeToFile(getConstInst(opera), module_name);
+        writeToFile(getConstInst(opera));
         setMaxStack(1); // como é uma soma tem sempre o maximo dos dois mais um
       } else {
 
@@ -151,15 +154,16 @@ public class ASTRhs extends SimpleNode {
         }
         
         if (is_iinc) {
-          if (second_term.jjtGetNumChildren() == 0) {
-            int val = second_term.value;
-            if(operator.equals("-")){
-              val = -val;
-            }
-            writeToFile("iinc " + symbol.getRegistry() + " " + val, module_name);
-            writeToFile("", module_name);
-            maxStack = setStackCounter(maxStack, 1);
-
+          if (second_term.jjtGetNumChildren() == 0 && (operator.equals("+") || operator.equals("-"))) {
+           
+              int val = second_term.value;
+              if(operator.equals("-")){
+                val = -val;
+              }
+              writeToFile("iinc " + symbol.getRegistry() + " " + val);
+              writeToFile("");
+              maxStack = setStackCounter(maxStack, 1);
+            
           }else{
             is_iinc = false;
              for (int m = 0; m < 2; m++) {
@@ -169,7 +173,7 @@ public class ASTRhs extends SimpleNode {
 
             setMaxStack(maxStack + 1); // como é uma soma tem sempre o maximo dos dois mais um
 
-            writeToFile(getOperation(operator), module_name);
+            writeToFile(getOperation(operator));
           }
         } else {
           for (int m = 0; m < 2; m++) {
@@ -179,7 +183,7 @@ public class ASTRhs extends SimpleNode {
 
           setMaxStack(maxStack + 1); // como é uma soma tem sempre o maximo dos dois mais um
 
-          writeToFile(getOperation(operator), module_name);
+          writeToFile(getOperation(operator));
         }
 
       }

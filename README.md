@@ -8,9 +8,9 @@ COMP Group56
 
 ### Group 56
 
-- Carlos Freitas - 201504749, 19 , 30%
-- Luís Martins - 201503344, 19 , 30%
-- Rui Quaresma - 201503005, 19 , 30%
+- Carlos Freitas - 201504749, 18 , 30%
+- Luis Martins - 201503344, 18 , 30%
+- Rui Quaresma - 201503005, 18 , 30%
 - Tiago Carvalho - xxxxxxx, 12 , 10%
 
 ### Global grade of project : 18
@@ -143,13 +143,13 @@ PS: It does not work with files which filename and module name are different bec
 ## Task Distribution
 
 - Carlos Freitas - semantic analysis and
-- Luís Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
+- Luis Martins - semantic analysis and some optimizations such as constant propagation and efficient while loop. Also contributed in some other tasks from code generation.
 - Rui Quaresma - code generation and constant folding
 - Tiago Carvalho -
 
 ## Pros
 
-Our tool is optimized to use the least resources possible in other for the program to run correctly.
+Our tool is optimized to use the least resources possible in order for the program to run correctly.
 
 ## Cons
 

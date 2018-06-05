@@ -54,7 +54,6 @@ public class ASTIf extends SimpleNode {
       if (isElse) {
         try {
           mergeSymbolTables(symbolStack, parent);
-          parent.print();
         }catch(ParseException e) {
           System.out.println(e.getMessage());
           allCorrect = false;
@@ -137,13 +136,13 @@ public class ASTIf extends SimpleNode {
 
     this.jjtGetChild(0).getJVMCode(parent);
 
-    String op = getLastLine(module_name);
+    String op = getLastLine();
     if (hasElse)
-      editLastLine(op + " if_else" + ifCount, module_name);
+      editLastLine(op + " if_else" + ifCount);
     else
-      editLastLine(op + " if_end" + ifCount, module_name);
+      editLastLine(op + " if_end" + ifCount);
 
-    writeToFile("", module_name);
+    writeToFile("");
 
     int maxStack = this.jjtGetChild(0).getMaxStack();
 
@@ -152,9 +151,9 @@ public class ASTIf extends SimpleNode {
     maxStack = setStackCounter(maxStack, this.jjtGetChild(1).getMaxStack());
 
     if (hasElse) {
-      writeToFile("goto if_end" + ifCount, module_name);
-      writeToFile("", module_name);
-      writeToFile("if_else" + ifCount + ":", module_name);
+      writeToFile("goto if_end" + ifCount);
+      writeToFile("");
+      writeToFile("if_else" + ifCount + ":");
 
       this.jjtGetChild(2).getJVMCode(parent);
 
@@ -164,9 +163,9 @@ public class ASTIf extends SimpleNode {
 
     setMaxStack(maxStack);
 
-    writeToFile("if_end" + ifCount + ":", module_name);
+    writeToFile("if_end" + ifCount + ":");
 
-    writeToFile("", module_name);
+    writeToFile("");
 
     
 

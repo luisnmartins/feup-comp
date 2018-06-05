@@ -80,7 +80,7 @@ public class ASTExprtest extends SimpleNode {
     setMaxStack(maxStack);
 
 
-    writeToFile(getOperationReverse(operator), module_name);
+    writeToFile(getOperationReverse(operator));
 
     return;
   }
@@ -125,7 +125,7 @@ public class ASTExprtest extends SimpleNode {
     setMaxStack(maxStack);
 
     if(notReverse)
-      writeToFile(getOperation(operator), module_name);
+      writeToFile(getOperation(operator));
 
     return;
   }
