@@ -34,7 +34,7 @@ So, to implement constant propagation while generating code for each assigned va
 It allows some load instructions to be saved, so it is optimized.  
 
 #### Constant Folding ####
-To implement constant folding
+Since we implemented Constant Progagation,to take advantange of it, we decided to also implement Constant Folding. Basically Constant Folding is the process of recognizing and evaluating constant expressions at compile time rather than computing the calculations at runtime.So basically everytime there is any type of operation (eg a = 4+4), while generating the code we do the operation and store the 8 immediately instead putting the operation on the jasmin file.This optimization works also with constant variables like b = a + 7, since we have done Constant Progagation, of course since constant progagation is not used on variables inside while loops and if/else, then,inside of these constant folding only works with constant (eg: a = 8>>6).
 
 
 
