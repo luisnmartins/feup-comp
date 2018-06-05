@@ -48,17 +48,19 @@ public class YAL{
             System.out.println("Parser, reading the input...");
             xparser = new Parser(System.in);
         } else if (args.length >= 1 && args.length < 3) {
-            System.out.println("Parser: Reading the file " + args[0]);
-            filename = args[0];
-            
-            if(args.length > 1 && args[1].compareTo("-o") == 0) {
+            int file = 0;
+            if (args[0].equals("-o")) {
                 optimized = true;
+                file = 1;
             }
+            System.out.println("Parser: Reading the file " + args[file]);
+            filename = args[file];
+
             try {
-                
-                xparser = new Parser(new java.io.FileInputStream(args[0]));
+
+                xparser = new Parser(new java.io.FileInputStream(args[file]));
             } catch (java.io.FileNotFoundException e) {
-                System.out.println("Parser, The file " + args[0] + " was not found");
+                System.out.println("Parser, The file " + args[file] + " was not found");
                 return;
 
             }
