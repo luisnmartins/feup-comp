@@ -9,7 +9,7 @@ COMP Group56
 ### Group 56
 
 - Carlos Freitas - 201504749, <grade>, 33%
-- LuÃ­s Martins - 201503344, <grade> , 33%
+- Luís Martins - 201503344, <grade> , 33%
 - Rui Quaresma - xxxxxxxxx, <grade> , 33%
 - Tiago Carvalho - xxxxxxx, <grade> , 33%
 
@@ -39,7 +39,11 @@ java aval1
 
 ## Dealing with syntactic errors
 
-We decided to only detect at most 10 syntactic errors at once
+When a syntactic error is detected an exception is thrown 
+and one of the following functions is called: error_skipto(int kind, ParseException e) 
+or error_skipto2(int kind, int kind2, ParseException e). 
+
+These functions print a message with the line of code where the error occurred and which kind of tokens it was expecting. After that, it ignores the following tokens until a specific token (kind or kind2) so that it can continue the analysis and find other syntactic errors. There is a constraint that limits the number of founded error up to 10.
 
 ## Semantic analysis
 
@@ -70,7 +74,7 @@ Main algorithms (???) third party tools (???)
 ## Task Distribution
 
 - Carlos Freitas -
-- LuÃ­s Martins -
+- Luís Martins -
 - Rui Quaresma -
 - Tiago Carvalho -
 
