@@ -3,7 +3,7 @@ module aval2
 
 function c=f(a, b) {
     if(a == b) {
-		 c = 2;
+		 c = 1;
     }else{
         c = 0;
     }
@@ -12,14 +12,14 @@ function c=f(a, b) {
 function main()
 {
  c=f(2,12);
- io.println(c); // result = 2
+ io.println(c); // result = 0
 
- c=f(4,2);
- io.println(c); // result = 2
+ c=f(4,4);
+ io.println(c); // result = 1
 
  c=3;
  c=f(4,2);
- io.println(c); // result = 3
+ io.println(c); // result = 0
 }
 
 }

@@ -1,0 +1,152 @@
+
+Here is a brief list of the expected results of the compiled classes run on jvm:
+
+    -arrayInit.class
+
+
+    -array1.class
+        Print Result: a: 0a: 1a: 2a: 3a: 4a: 5a: 6a: 7a: 8a: 9
+        Function main calls function print_array with parameter 10. This function fill an array with size 10 with values from 0 to 9 and prints them
+    
+    -array2.class 
+        Print result: sum of array elements = 16
+        Class that fills an array of size 16 with values of 1, and sum each element 
+
+    -aval1.class
+        Print result : 6
+        Class that makes multiplication of 2 numbers (2*3)
+
+    -aval2.class
+        Print result: 0
+                      1
+                      0
+        Calls function that returns 1 if both arguments are equal, and 0 if not.
+
+    -aval3.class
+        Print result: 4
+                      2
+        Similar to aval2 but compares if a value is greater or equal than another
+    
+    -aval4.class
+        Print result: 4
+        Io.reads : 4
+                   5
+        Given 2 numbers function asks the user to give 2 numbes until the sum of the given numbers are greater or equal than the second number,prints the given second number that breaks the while
+    
+    -aval5.class
+        Print result: 9
+                      40
+        Calls function that receives 2 numbers if those numbers are equal return the operation c = a << 2 where a is 10 if not it just sums the 2 numbers
+    
+    -aval6.class
+        Print result: 4
+        Return the square root of 17
+    
+    -aval7.class
+        Print result: 2
+        
+    
+    -aval8.class
+        Given: 55
+               40
+        Print result: a55-8 where a55 is the first number given and -8 is the result of e=-2*4;
+
+    -callMain.class
+        Print result: Call main
+                      Call main
+        Prints "Call main" 2 times
+
+    -constantRanges.class
+
+        Print result: 5
+                    -1
+                    6
+                    128
+                    -129
+                    32768
+                    -32769
+        Just prints the numbers
+
+    -inputAsOutput.class
+        Print result: 1
+        Prints the value 1 of a function where the return value is the same as the given parameter (1)
+    
+    -library1.class
+        Just creates the functions that will be used in programa1.class for example
+
+    -max_array.class
+        Print return: max: 9
+        Creates an array of 10 elements from 0 to 9 and checks what is the max number
+    
+    -max.class
+        Print return: 4
+                      6
+        Returns the max number of [1,2,3,4,3] and of [1,6,3,4,5]
+
+    -max1.class
+        IO.reads : 5 10 8 20 1
+        Print result: max 20
+        Ask the user for five numbers and prints the with the highest value
+
+    -maxmin.class
+        IO.reads : 5
+        Print result : a0
+                        a=0
+        Just given a number the function just increments or decrements (accordingly) the number by 1 until it reaches 0
+    
+    -nestedBranch.class
+        Print result: -1
+                       0
+                       1
+    -programa1.class
+        Uses library1 functions max and min
+        Print return: max: 0 
+                      min: 0
+        Returns the max and min number of an array of 100 elements,since the array is not specifically filled per default is an array of 0s
+    
+    -programa2.class
+        Print return : first: 1
+                        last: 2
+                        first: 1
+                        last: 1
+        Creates 2 arrays and print the first and last value of each.
+
+    -programa3.class
+        Print return: first:1
+                        last: 2
+                        first: 1
+                        last: 1
+        Same as programa2 just done a small bit different
+
+    -quicksort.class
+        Print return: Size 10
+                        -8
+                        -5
+                        0
+                        1
+                        1
+                        2
+                        3
+                        4
+                        5
+                        9
+    Sorts using quicksort an array of size 10
+
+    -registerTest.class
+        Print return: 8
+
+
+    -sqrt.class
+        IO.read: 25
+        Print result:  vsqn: 25
+                       sqrt: 5   
+        Ask the user for a number and returns its square root
+    
+    -stackSize.class
+        Print result: Greater
+            
+
+
+
+
+

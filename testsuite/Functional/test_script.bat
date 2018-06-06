@@ -19,6 +19,12 @@ java -jar ../../jasmin.jar "Compiled Files"/array1.j
 java array1
 PAUSE
 
+REM Array2
+java -jar ../../yal2jvm.jar array2.yal
+java -jar ../../jasmin.jar "Compiled Files"/array2.j
+java array2
+PAUSE
+
 REM Aval1
 java -jar ../../yal2jvm.jar aval1.yal
 java -jar ../../jasmin.jar "Compiled Files"/aval1.j
