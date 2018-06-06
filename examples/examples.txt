@@ -6,7 +6,7 @@ The second error is about an invalid argument. This tool does not allow strings 
 The third error happens due to the 2 conditions inside an exprTest statement.
 The fourth error is about the presence of an arithmetic expression inside of a function call.
 
-command: java –jar yal2jvm.jar [-o] syntactic_test.yal
+command: java –jar ../yal2jvm.jar [-o] syntactic_test.yal
 
 GEN_CODE1:
 
@@ -17,7 +17,9 @@ optimizations section you may also notice the existence of an if statement with 
 In the cases where in an assign the left variable also appears on the right side, and the operation is either sum ou subtraction (and the variable is function local),
 the iinc instruction is used.
 
-command: java –jar yal2jvm.jar [-o] gen_code1.yal
+command: java –jar ../yal2jvm.jar [-o] gen_code1.yal
+	java -jar ../jasmin.jar "Compiled Files"/gen_code1.j
+	java gen_code1
 
 input: 1
 result:
@@ -48,7 +50,9 @@ In the lines 34 and 35 only constant propagation is used as the variable c may h
 Note also the lines 29 and 30 that beacuse they are in a cycle while no optimizations are made, neither constant propagation nor constant folding, 
 as these may be changed in the loop iterations.
 
-command: java –jar yal2jvm.jar [-o] gen_code2.yal
+command: java –jar ../yal2jvm.jar [-o] gen_code2.yal
+	java -jar ../jasmin.jar "Compiled Files"/gen_code2.j
+	java gen_code2
 
 result:
 
@@ -83,7 +87,7 @@ SEMANTIC_TEST1:
     We also check the return variable of a function, there is an error on line 54 because the return variable 'return' is never declared on the scope of the function
     In line 58 is detected an error because, the return type is declared but with the wrong type
 
-command: java –jar yal2jvm.jar [-o] semantic_test1.yal
+command: java –jar ../yal2jvm.jar [-o] semantic_test1.yal
 
 
 SEMANTIC_TEST2:
@@ -98,4 +102,4 @@ This module is more focused on the if and whiles statements
 
     To point out that there is no error in line 37 because scalar is defined in both of the if and else statement with the same type
 
-command: java –jar yal2jvm.jar [-o] semantic_test2.yal
+command: java –jar ../yal2jvm.jar [-o] semantic_test2.yal
