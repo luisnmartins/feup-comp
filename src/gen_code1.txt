@@ -1,6 +1,6 @@
-O ciclo while existente na linha 4 que corresponde ao codigo existente no ficheiro .j entre as linhas 10 e 39, 
-pode-se reparar no facto de este estar de acordo com um template eficiente, ou seja, otimizado. Assim tal como referido 
-na secção de otimizações pode-se verificar a existência de um if com a condição inversa cujo destino em caso de verdadeiro é o fim do loop (loop_end0).
+The while cycle in the line 4 which corresponds to the code existent in the .j file between lines 10 and 39.
+Notice the fact that it is according to the most efficient template, meaning it is optimized (using -o option). As refered in the
+optimizations section you may also notice the existence of an if statement with the reverse condition which destination in case of being true is the end of loop (loop_end0)
 
-Nos casos em que num assign a variavel do lado esquerdo tambem aparece no lado direito, e a operação é soma ou subtração,
-a instrucao iinc é usada.
+In the cases where in an assign the left variable also appears on the right side, and the operation is either sum ou subtraction (and the variable is function local),
+the iinc instruction is used.
