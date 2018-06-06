@@ -1,4 +1,4 @@
-package parser;
+package table;
 
 import java.util.Stack;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package parser;
+package table;
 import java.util.LinkedHashMap;
 import java.util.AbstractMap.SimpleEntry;
 

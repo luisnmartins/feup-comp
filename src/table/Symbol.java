@@ -1,4 +1,4 @@
-package parser;
+package table;
 
 public class Symbol implements Cloneable{
     

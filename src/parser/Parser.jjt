@@ -9,7 +9,6 @@ options {
 PARSER_BEGIN(Parser)
 	package parser;
 	import java.io.*;
-
 	
 
 	public class Parser{

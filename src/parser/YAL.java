@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Stack;
+import table.*;
 
 public class YAL{
 
@@ -50,6 +51,8 @@ public class YAL{
 
         if (args.length == 0) {
             System.out.println("Parser, reading the input...");
+            System.out.println("If you want to use a file you should stop and run as: ");
+            System.out.println("java -jar yal2jvm.jar [-o] <file_path.yal>");
             xparser = new Parser(System.in);
         } else if (args.length >= 1 && args.length < 3) {
             int file = 0;
