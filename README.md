@@ -138,9 +138,9 @@ End:
 
 ## Testsuite and test infrastructure
 
-There is a script that iterates through each file from testsuite folder and runs all the necessary commands to compile and execute each yal file. Some of the files in testsuite folder have errors so it output the error and for some of them an exception is thrown because .j file is not created.
+There are two scripts that iterates through each file from testsuite folders and runs all the necessary commands to compile and execute each yal file. Files from Errors folder have errors so it output the error message.
 
-PS: The script does not work with files which filename and module name are different since the filename of the generated class file is the same as the class name, and the script tries to run a .class with the same name as the original .yal file.
+To check if everything is working properly, there's a txt file in each folder with the correct output from each yal file.
 
 ## Task Distribution
 
