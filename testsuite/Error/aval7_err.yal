@@ -3,7 +3,7 @@ module aval7_err
 
 function cont=Count(word) {
     cont=else; // error 1
-    n = for; // error 2
+    n = for; 
     if(n+4 < 32) { // error 3
         teste = word &&& 1; // error 4
         if(1 == teste) { // error 5

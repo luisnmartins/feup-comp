@@ -1,9 +1,6 @@
 @ECHO OFF
 setlocal EnableDelayedExpansion
 
-if not exist "Compiled Files" mkdir "Compiled Files"
-
-
 REM array2_err
 java -jar ../../yal2jvm.jar array2_err.yal
 java -jar ../../jasmin.jar "Compiled Files"/array2_err.j

@@ -2,7 +2,7 @@
 Here is a brief list of the expected results of the compiled classes run on jvm:
 
     -arrayInit.class
-
+        Just a test of a module without functions an only a global array
 
     -array1.class
         Print Result: a: 0a: 1a: 2a: 3a: 4a: 5a: 6a: 7a: 8a: 9
@@ -144,7 +144,7 @@ Here is a brief list of the expected results of the compiled classes run on jvm:
     
     -stackSize.class
         Print result: Greater
-            
+
 
 
 

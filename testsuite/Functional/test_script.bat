@@ -8,7 +8,6 @@ if not exist "Compiled Files" mkdir "Compiled Files"
 REM Array Init
 java -jar ../../yal2jvm.jar array-init.yal
 java -jar ../../jasmin.jar "Compiled Files"/arrayInit.j
-java arrayInit
 PAUSE
 
 

@@ -1,0 +1,81 @@
+Here is a brief list of the expected errors:
+
+    -array2_err.class
+        Gramatical errors
+            At line 8: .length is not accepted by the grammatic rules
+            At line 21: << is not allowed to be part of exprtest
+
+    -array4_err.class
+        Gramatical errors 
+            At line 8 functions (unless from io class) cant receive strings as parameters
+            At line 14 there is a random 2
+            Rest of errors are ignored because of the error on line 14
+
+    -aval1_err.class
+        Gramatical errors: 
+            At line 3 declaration of function main with a constant value like 2 is not possible
+
+
+    -aval2_err.class
+        Gramatical errors:
+            At line 7 else statement needs to be in {}
+            At line 18 3.4 is not a valid operation or number
+
+
+    -aval3_err.class
+        Gramatical errors:
+            At line 6 operations can only be done between 2 values at a time a+b+c+d is not allowed only a+b for example
+            At line 7 arithmetic operation cannot be done inside of if exprtest
+            At line 14 declaration of variable outside of any function, global variables can only be declared before any function is created
+
+    -aval4_err.class
+        Gramatical errors:
+            At line 6, while1 is not considered a while statement
+            At line 8, there is an error because line 7 doenst end with ;
+            At line 15, there cannot be ; inside of a call
+
+
+    -aval5_err.class
+        Gramatical errors:
+            At line 16, common like ',' can only be used on calls and function declaration
+            At line 18, string are only allowed on the call of io functions
+
+    -aval6_err.class
+        Gramatical errors:
+            At line 4, any variable name cant start with a number
+            At line 5, again , strings are never allowed only io calls
+            At line 10, there is no booleans so while needs to have an exprtest
+            At line 13, compares operator can only be used inside of exprtest from whiles and ifs
+            At line 23, an else statement can only be used after an if
+            At line 26, similar to error on line 23;
+
+    -aval7_err.class
+        Gramatical errors:
+            At line 5, an else statement can only be used after an if, no variable can be called 'else' (is a secured word)
+            At line 7,arithmetic operation cannot be done inside of if exprtest
+            At line 8, operator &&& doesnt exist only &
+            At line 9, exprtest can only be a == 1 (or a == b of course) never 1 == a;
+
+
+
+    -err1.class
+        Gramatical errors:
+            At line 4, global scalar variables cant be instanciated with other variables 
+
+    -errorArrayCompare.class
+        Semantic errors:
+            At line 3, compares can only be done between scalar values, 'a' and 'b' are both arrays
+            At line 2, detects that return value cannot be initialized because of the error detected on line 3
+
+    -errorResizeArray.class
+        Semantic errors:
+            At line 3, array size cannot be changed like a.size = X;
+
+    -errorSharedScope.class
+        Semantic errors:
+            At line 3, variable 'a' is already being assumed as scalar so it cannot be turned to an array
+
+    -errorUninitializedOutput.class
+         Semantic errors:
+            At line 2, return variable 'y' of f() is never initialized inside of the function
+
