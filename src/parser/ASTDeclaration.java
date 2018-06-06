@@ -92,23 +92,11 @@ class ASTDeclaration extends SimpleNode {
       setDec = true;
     Symbol symbol = parent.getFromAll(elemName);
     String dec = "";
+    
 
     if (this.jjtGetNumChildren() > 1) {
       instructions = this.jjtGetChild(1).getJVMCode(parent, instructions, statics_array_sizes);
-      // if (symbol.isArray()) {
 
-      // } else {
-      // dec += " I ";
-      // instructions = this.jjtGetChild(1).getJVMCode(parent, instructions);
-      // if (this.jjtGetChild(1) instanceof ASTDeclarationValue) {
-      // ASTDeclarationValue declarationValue = (ASTDeclarationValue)
-      // rootChildren[i].jjtGetChild(1);
-      // String value = declarationValue.getValueSigned();
-      // if (value != "") {
-      // dec += "= " + value;
-      // }
-      // }
-      // }
     } else {
       dec = ".field static " + elemName;
       if (symbol.isArray())
