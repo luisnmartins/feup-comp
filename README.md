@@ -27,17 +27,30 @@ jasmin.jar and io.class and yal2jvm.jar should be placed on the folder where you
 
 ## How to run?
 
-Run the following commands on command line on src folder:
+1 - Run the following commands on command line on src folder:
 
 jjtree parser/Parser.jjt && javacc parser/Parser.jj && javac parser/\*.java table/\*.java
 
 And then gerate code for jasmin:
 
-java parser/YAL [-o] ../YalFiles/Working/aval1.yal
+java parser/YAL [-o] <yal_file_path> (eg: ../YalFiles/Working/aval1.yal )
 
-java -jar jasmin.jar "Compiled Files"/aval1.j
+java -jar jasmin.jar "Compiled Files"/<yal_module_name>.j (eg: "Compiled Files"/aval1.j)
 
-java aval1
+java <generated_class_file> (eg: aval1 )
+
+OR
+
+2 - Run the following commands on command line on src folder:
+
+java -jar yal2jvm.jar [-o] <yal_file_path> (eg: ../YalFiles/Working/aval1.yal )
+
+and then to generate code:
+
+java -jar jasmin.jar "Compiled Files"/<yal_module_name>.j (eg: "Compiled Files"/aval1.j)
+
+java <generated_class_file> (eg: aval1 )
+
 
 ## Dealing with syntactic errors
 
