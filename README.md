@@ -138,9 +138,9 @@ End:
 
 ## Testsuite and test infrastructure
 
-There is a script that iterates through each file from working folder and runs all the necessary commands to compile and execute each yal file. Some of the files in testsuite folder have errors so it output the error and for some of them an exception is throw because .j file is not created.
+There is a script that iterates through each file from testsuite folder and runs all the necessary commands to compile and execute each yal file. Some of the files in testsuite folder have errors so it output the error and for some of them an exception is thrown because .j file is not created.
 
-PS: It does not work with files which filename and module name are different because the generated class file filename is the same as the class name.
+PS: The script does not work with files which filename and module name are different since the filename of the generated class file is the same as the class name, and the script tries to run a .class with the same name as the original .yal file.
 
 ## Task Distribution
 
@@ -157,6 +157,3 @@ This tool is optimized to use the minimum resources possible, trying to use inst
 
 It can be optimized implementing other optimizations such as minimizing the number of allocated registeries with dataflow analysis and graph coloring.
 
-## Some notes
-
-a[] creates an array that isn't initialized
