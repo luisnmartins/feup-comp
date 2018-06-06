@@ -1,0 +1,39 @@
+module semanticAnalysis2 {
+
+    Function b = main(){ //error b is not initialized 
+        i = 3;
+        if(i == 3){
+            b = [20];
+        }
+
+        a = b; //error b is not defined 
+
+        while( i == 3){
+            val = 50;
+            i = i+1;
+            if(i == 4){
+                another = 20;
+            }
+            test = another; //error
+        }
+
+        c = val; //error val is not defined 
+        c = another; //error another is not defined
+
+        i = 4;
+        if(i > 4){
+            val1 = [20];
+        }else{
+            val1 = 2; //error val1 no type defined
+        }
+        c = val1;
+
+        if(i < 3){
+            scalar = 2;
+        }else{
+            scalar = 4;
+        }
+
+        value = scalar;
+    }
+}

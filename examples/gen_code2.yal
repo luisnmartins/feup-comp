@@ -1,0 +1,45 @@
+module gen_code2{
+	k = 8;
+	function i=func(i, a, b, c, d) {
+		if(i >= a){
+			i = b >>> c;
+			d = a & b;
+			i = d + i;
+		}else{
+			i = c;
+		}
+		
+	}
+	
+	function main() {
+		
+		b = k + -1;
+		io.println("b: ", b);
+		
+		t = 1;
+		
+		t = t * 2;
+		
+		a = 1 + 2;
+		c = a + 4;
+		io.println("a: ", a);
+		io.println("c: ", c);
+		
+		while(a<6) {
+			a = a + 1;
+			c = a + 2;
+			io.println("a: ", a);
+			io.println("c: ", c);
+		}
+		a = 10;
+		b = a+c;
+		io.println("a: ", a);
+		io.println("b: ", b);
+		
+		x = [4];
+		x[3] = 10;
+		
+		x[2] = x[3] + func(a,b,c,8, 9);
+		
+	}
+}
