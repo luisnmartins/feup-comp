@@ -1,8 +1,6 @@
 # README
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
-COMP Group56
+This README documents whatever steps are necessary to get the application up and running.
 
 ### Project Title: YAL
 
@@ -17,7 +15,11 @@ COMP Group56
 
 ## Summary
 
-This tool allows the user to pre-compile a yal file to .j file so that it can be after compiled to .class file using jasmin.
+This tool allows the user to pre-compile a yal file to .j file so that it can be after compiled to .class file using jasmin. 
+
+In order to only generate valid code, this tool starts by analysing the code as sintactic and semantic correction. 
+
+If the code is valid, a .j is generated converting the .yal code to basic instructions such as iload, istore, iconst, etc..
 
 ## Pre-requirements
 
@@ -138,7 +140,7 @@ End:
 
 There is a script that iterates through each file from working folder and runs all the necessary commands to compile and execute each yal file. 
 
-PS: It does not work with files which filename and module name are different because the generated class file has the module name as filename.
+PS: It does not work with files which filename and module name are different because the generated class file filename is the same as the class name.
 
 ## Task Distribution
 
@@ -149,11 +151,11 @@ PS: It does not work with files which filename and module name are different bec
 
 ## Pros
 
-Our tool is optimized to use the least resources possible in order for the program to run correctly.
+This tool is optimized to use the minimum resources possible, trying to use instructions with least cost such as iinc and iload_ and iconst_ in order to be as much efficient as possible.
 
 ## Cons
 
-It can be optimized implementing other otimizations such as minimizing the number of allocated registeries with dataflow analysis and graph coloring.
+It can be optimized implementing other optimizations such as minimizing the number of allocated registeries with dataflow analysis and graph coloring.
 
 ## Some notes
 
