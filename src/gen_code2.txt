@@ -1,9 +1,0 @@
-In the line 16 it is possible to notice the existence of the instruction iconst_m1, optimized for instructions where one of the elements is a constant equal to -1.
-
-In the lines 19 to 21, 23 to 24, you may observe that there is a case of constant propagation followed by constant folding, meaning that the variables t and a are replaced
-and then the operations are made with only one istore instruction for the final value.
-
-In the lines 34 and 35 only constant propagation is used as the variable c may have its value altered previously meaning it isn't possible to propagate its value.
-
-Note also the lines 29 and 30 that beacuse they are in a cycle while no optimizations are made, neither constant propagation nor constant folding, 
-as these may be changed in the loop iterations.

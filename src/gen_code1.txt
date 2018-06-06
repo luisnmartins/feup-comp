@@ -1,6 +1,0 @@
-The while cycle in the line 4 which corresponds to the code existent in the .j file between lines 10 and 39.
-Notice the fact that it is according to the most efficient template, meaning it is optimized (using -o option). As refered in the
-optimizations section you may also notice the existence of an if statement with the reverse condition which destination in case of being true is the end of loop (loop_end0)
-
-In the cases where in an assign the left variable also appears on the right side, and the operation is either sum ou subtraction (and the variable is function local),
-the iinc instruction is used.

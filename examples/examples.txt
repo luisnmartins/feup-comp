@@ -8,7 +8,6 @@ The fourth error is about the presence of an arithmetic expression inside of a f
 
 command: java –jar yal2jvm.jar [-o] syntactic_test.yal
 
-
 GEN_CODE1:
 
 The while cycle in the line 4 which corresponds to the code existent in the .j file between lines 10 and 39.
@@ -19,6 +18,22 @@ In the cases where in an assign the left variable also appears on the right side
 the iinc instruction is used.
 
 command: java –jar yal2jvm.jar [-o] gen_code1.yal
+
+input: 1
+result:
+
+h: 1
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+i: 10
 
 
 GEN_CODE2:
@@ -34,6 +49,20 @@ Note also the lines 29 and 30 that beacuse they are in a cycle while no optimiza
 as these may be changed in the loop iterations.
 
 command: java –jar yal2jvm.jar [-o] gen_code2.yal
+
+result:
+
+b: 7
+a: 3
+c: 7
+a: 4
+c: 6
+a: 5
+c: 7
+a: 6
+c: 8
+a: 10
+b: 18
 
 
 We can verify a lot of examples (the more relevant) of semantic error detected by our tool.
