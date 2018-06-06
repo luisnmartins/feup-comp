@@ -23,13 +23,13 @@ If the code is valid, a .j is generated converting the .yal code to basic instru
 
 ## Pre-requirements
 
-jasmin.jar and io.class to be placed on the src folder
+jasmin.jar and io.class and yal2jvm.jar should be placed on the folder where you will execute
 
 ## How to run?
 
-Run the following commands on command line:
+Run the following commands on command line on src folder:
 
-jjtree parser/Parser.jjt && javacc parser/Parser.jj && javac parser/\*.java
+jjtree parser/Parser.jjt && javacc parser/Parser.jj && javac parser/\*.java table/\*.java
 
 And then gerate code for jasmin:
 
